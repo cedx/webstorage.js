@@ -1,0 +1,17 @@
+/.*/
+!/.github/
+!/.vscode/
+
+/build/
+/doc/api/
+/lib/
+/node_modules/
+/var/
+/web/
+
+/*.code-workspace
+/*.iml
+/**/.DS_Store
+/npm-debug.log
+/package-lock.json
+/share/**/*.private.env.json
