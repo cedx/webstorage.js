@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 module.exports = config => config.set({
-  basePath: require('path').resolve(__dirname, '..'),
+  basePath: '..',
   browsers: ['ChromeHeadless'],
   files: [
     {pattern: 'src/**/*.ts'},
