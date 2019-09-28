@@ -1,5 +1,5 @@
 import * as chai from 'chai';
-import {SessionStorage} from '../src/index';
+import {SessionStorage, SimpleChange, WebStorage} from '../src/index';
 
 /** Tests the features of the [[WebStorage]] class. */
 describe('WebStorage', () => {
@@ -64,76 +64,98 @@ describe('WebStorage', () => {
 
   describe('#addEventListener("changes")', () => {
     it('should trigger an event when a value is added', done => {
-      const storage = new SessionStorage;
-      const subscription = storage.addEventListener('changes',  => {
-        expect(Object.keys(changes)).to.equal(['foo']);
-        expect(changes.foo.currentValue).to.equal('bar');
-        expect(changes.foo.previousValue).to.be.undefined;
-        done();
-      }, done);
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('foo');
 
+        const [record] = [...changes.values()];
+        expect(record.currentValue).to.equal('bar');
+        expect(record.previousValue).to.be.undefined;
+
+        done();
+      };
+
+      const storage = new SessionStorage;
+      storage.addEventListener(WebStorage.eventChanges, listener);
       storage.set('foo', 'bar');
-      subscription.unsubscribe();
+      storage.removeEventListener(WebStorage.eventChanges, listener);
     });
 
     it('should trigger an event when a value is updated', done => {
-      const storage = new SessionStorage;
       sessionStorage.setItem('foo', 'bar');
 
-      const subscription = storage.addEventListener('changes',  => {
-        expect(Object.keys(changes)).to.equal(['foo']);
-        expect(changes.foo.currentValue).to.equal('baz');
-        expect(changes.foo.previousValue).to.equal('bar');
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('foo');
+
+        const [record] = [...changes.values()];
+        expect(record.currentValue).to.equal('baz');
+        expect(record.previousValue).to.equal('bar');
+
         done();
-      }, done);
+      };
+
+      const storage = new SessionStorage;
+      storage.addEventListener(WebStorage.eventChanges, listener);
 
       storage.set('foo', 'baz');
-      subscription.unsubscribe();
+      storage.removeEventListener(WebStorage.eventChanges, listener);
     });
 
     it('should trigger an event when a value is removed', done => {
-      const storage = new SessionStorage;
       sessionStorage.setItem('foo', 'bar');
 
-      const subscription = storage.addEventListener('changes',  => {
-        expect(Object.keys(changes)).to.equal(['foo']);
-        expect(changes.foo.currentValue).to.be.undefined;
-        expect(changes.foo.previousValue).to.equal('bar');
-        done();
-      }, done);
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+        expect([...changes.entries()]).to.have.lengthOf(1);
+        expect([...changes.keys()][0]).to.equal('foo');
 
+        const [record] = [...changes.values()];
+        expect(record.currentValue).to.be.undefined;
+        expect(record.previousValue).to.equal('bar');
+
+        done();
+      };
+
+      const storage = new SessionStorage;
+      storage.addEventListener(WebStorage.eventChanges, listener);
       storage.remove('foo');
-      subscription.unsubscribe();
+      storage.removeEventListener(WebStorage.eventChanges, listener);
     });
 
     it('should trigger an event when the storage is cleared', done => {
-      const storage = new SessionStorage;
       sessionStorage.setItem('foo', 'bar');
       sessionStorage.setItem('bar', 'baz');
 
-      const subscription = storage.addEventListener('changes',  => {
-        const keys = Object.keys(changes);
-        expect(keys).to.have.lengthOf(2);
-        expect(keys).to.contain('foo');
-        expect(keys).to.contain('bar');
+      const listener = (event: Event): void => {
+        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+        expect([...changes.entries()]).to.have.lengthOf(2);
+        expect([...changes.keys()]).to.have.ordered.members(['foo', 'bar']);
 
-        expect(changes.foo.currentValue).to.be.undefined;
-        expect(changes.foo.previousValue).to.equal('bar');
-        expect(changes.bar.currentValue).to.be.undefined;
-        expect(changes.bar.previousValue).to.equal('baz');
+        const [record1, record2] = [...changes.values()];
+        expect(record1.currentValue).to.be.undefined;
+        expect(record1.previousValue).to.equal('bar');
+        expect(record2.currentValue).to.be.undefined;
+        expect(record2.previousValue).to.equal('baz');
+
         done();
-      }, done);
+      };
 
+      const storage = new SessionStorage;
+      storage.addEventListener(WebStorage.eventChanges, listener);
       storage.clear();
-      subscription.unsubscribe();
+      storage.removeEventListener(WebStorage.eventChanges, listener);
     });
   });
 
   describe('#clear()', () => {
     it('should remove all storage entries', () => {
-      const storage = new SessionStorage;
       sessionStorage.setItem('foo', 'bar');
       sessionStorage.setItem('bar', 'baz');
+
+      const storage = new SessionStorage;
       expect(storage).to.have.lengthOf(2);
 
       storage.clear();
