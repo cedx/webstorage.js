@@ -3,6 +3,6 @@ export default {
   output: {
     file: 'build/webstorage.js',
     format: 'iife',
-    name: 'webstorage'
+    name: 'webStorage'
   }
 };
