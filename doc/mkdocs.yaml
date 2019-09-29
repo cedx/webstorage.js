@@ -42,4 +42,4 @@ nav:
 theme:
   name: material
   favicon: img/favicon.ico
-  palette: {primary: blue, accent: red}
+  palette: {primary: yellow, accent: yellow}
