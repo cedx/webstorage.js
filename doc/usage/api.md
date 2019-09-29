@@ -68,11 +68,9 @@ function main(): void {
 ```
 
 ## **#destroy**(): void
-This method is only available with the `LocalStorage` class.
-When this service is instantiated, it automatically subscribes to
+When a service is instantiated, it automatically listens for
 the [storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event).
-
-When you have done using the `LocalStorage` instance, it's preferable to call the `destroy()` method to cancel the subscription to these storage events.
+When you have done using the service instance, it's preferable to call the `destroy()` method to cancel the subscription to these events.
 
 ```typescript
 import {LocalStorage} from '@cedx/webstorage';

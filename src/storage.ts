@@ -10,12 +10,23 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
    */
   static readonly eventChanges: string = 'changes';
 
+  /** The function that listens for storage events. */
+  private readonly _listener: (event: StorageEvent) => void;
+
   /**
    * Creates a new storage service.
    * @param _backend The underlying data store.
    */
   protected constructor(private _backend: Storage) {
     super();
+
+    this._listener = event => {
+      if (event.key == null || event.storageArea != _backend) return;
+      const change = new SimpleChange(event.oldValue != null ? event.oldValue : undefined, event.newValue != null ? event.newValue : undefined);
+      this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
+    };
+
+    addEventListener('storage', this._listener);
   }
 
   /** The keys of this storage. */
@@ -47,6 +58,11 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
     for (const [key, value] of this) changes.set(key, new SimpleChange(value));
     this._backend.clear();
     this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: changes}));
+  }
+
+  /** Cancels the subscription to the storage events. */
+  destroy(): void {
+    removeEventListener('storage', this._listener);
   }
 
   /**
@@ -141,25 +157,9 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 /** Provides access to the local storage. */
 export class LocalStorage extends WebStorage {
 
-  /** The function that listens for storage events. */
-  private readonly _listener: (event: StorageEvent) => void;
-
   /** Creates a new storage service. */
   constructor() {
     super(localStorage);
-
-    this._listener = event => {
-      if (event.key == null) return;
-      const change = new SimpleChange(event.oldValue != null ? event.oldValue : undefined, event.newValue != null ? event.newValue : undefined);
-      this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
-    };
-
-    addEventListener('storage', this._listener);
-  }
-
-  /** Cancels the subscription to the storage events. */
-  destroy(): void {
-    removeEventListener('storage', this._listener);
   }
 }
 
