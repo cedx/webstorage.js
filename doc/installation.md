@@ -38,3 +38,23 @@ import {LocalStorage, SessionStorage} from '@cedx/webstorage';
 
 ### 3. Use it
 See the [usage information](usage/api.md).
+
+## Installing from a content delivery network
+This library is also available as a ready-made bundle.
+To install it, add this code snippet to the `<head>` of your HTML document:
+
+```html
+<!-- jsDelivr -->
+<script src="https://cdn.jsdelivr.net/npm/@cedx/webstorage/build/webstorage.min.js"></script>
+
+<!-- UNPKG -->
+<script src="https://unpkg.com/@cedx/webstorage/build/webstorage.min.js"></script>
+```
+
+The classes of this library are exposed as `webStorage` property on the `window` global object:
+
+```html
+<script>
+  const {LocalStorage, SessionStorage} = window.webStorage;
+</script>
+```
