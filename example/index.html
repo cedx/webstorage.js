@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Web Storage for JS</title>
     <script src="https://cdn.jsdelivr.net/npm/@ungap/event-target/min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@cedx/webstorage/build/webstorage.min.js"></script>
+    <script src="../build/webstorage.min.js"></script>
   </head>
 
   <body>
@@ -49,6 +49,9 @@
       console.log(storage.has('baz')); // false
       console.log(storage.length); // 0
       console.log(storage.keys); // []
+
+      // Release the event listeners.
+      storage.destroy();
     </script>
   </body>
 </html>
