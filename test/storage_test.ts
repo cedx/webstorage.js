@@ -175,6 +175,10 @@ describe('WebStorage', () => {
       sessionStorage.setItem('foo', '123');
       expect(storage.get('foo')).to.equal('123');
     });
+
+    it('should return the given default value if the key is not found', () => {
+      expect(new SessionStorage().get('bar', '123')).to.equal('123');
+    });
   });
 
   describe('#getObject()', () => {
