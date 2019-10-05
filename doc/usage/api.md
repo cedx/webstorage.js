@@ -10,11 +10,11 @@ import {LocalStorage} from '@cedx/webstorage';
 function main(): void {
   const storage = new LocalStorage;
 
-  storage.get('foo');
-  storage.getObject('bar');
-
   storage.set('foo', 'bar');
-  storage.setObject('foo', {bar: 'baz'});
+  console.log(storage.get('foo')); // "bar"
+
+  storage.setObject('foo', {baz: 'qux'});
+  console.log(storage.getObject('foo')); // {baz: "qux"}
 }
 ```
 
