@@ -22,7 +22,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 
     this._listener = event => {
       if (event.key == null || event.storageArea != _backend) return;
-      const change = new SimpleChange(event.oldValue != null ? event.oldValue : undefined, event.newValue != null ? event.newValue : undefined);
+      const change = new SimpleChange(event.oldValue ?? undefined, event.newValue ?? undefined);
       this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
     };
 
@@ -72,8 +72,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
    * @return The value of the storage item, or the default value if the item is not found.
    */
   get(key: string, defaultValue?: string): string|undefined {
-    const value = this._backend.getItem(key);
-    return value != null ? value : defaultValue;
+    return this._backend.getItem(key) ?? defaultValue;
   }
 
   /**

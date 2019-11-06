@@ -28,8 +28,8 @@ export class SimpleChange {
    */
   toJSON(): JsonObject {
     return {
-      currentValue: this.currentValue != undefined ? this.currentValue : null,
-      previousValue: this.previousValue != undefined ? this.previousValue : null
+      currentValue: this.currentValue ?? null,
+      previousValue: this.previousValue ?? null
     };
   }
 }
