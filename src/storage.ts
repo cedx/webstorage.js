@@ -1,4 +1,4 @@
-import {JsonObject} from './json_object';
+import {JsonObject} from './json';
 import {SimpleChange} from './simple_change';
 
 /** Provides access to the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage). */
@@ -148,7 +148,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
    */
   toJSON(): JsonObject {
     const map: JsonObject = {};
-    for (const [key, value] of this) map[key] = value;
+    for (const [key, value] of this) map[key] = value!;
     return map;
   }
 }

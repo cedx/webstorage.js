@@ -1,4 +1,4 @@
-import {JsonObject} from './json_object';
+import {JsonObject} from './json';
 
 /** Represents the event parameter used for a change event. */
 export class SimpleChange {
