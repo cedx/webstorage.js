@@ -2,6 +2,7 @@
 
 ## Development
 - [API reference](https://dev.belin.io/webstorage.js/api)
+- [GitHub package](https://github.com/cedx/webstorage.js/packages)
 - [npm package](https://www.npmjs.com/package/@cedx/webstorage)
 - [Submit an issue](https://github.com/cedx/webstorage.js/issues)
 

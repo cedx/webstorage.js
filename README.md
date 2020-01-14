@@ -11,6 +11,7 @@ Services for interacting with the [Web Storage](https://developer.mozilla.org/en
 
 ## Development
 - [Git repository](https://github.com/cedx/webstorage.js)
+- [GitHub package](https://github.com/cedx/webstorage.js/packages)
 - [npm package](https://www.npmjs.com/package/@cedx/webstorage)
 - [Submit an issue](https://github.com/cedx/webstorage.js/issues)
 
