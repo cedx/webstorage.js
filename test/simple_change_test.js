@@ -1,7 +1,6 @@
-import * as chai from 'chai';
-import {SimpleChange} from '../src/index';
+import {SimpleChange} from '../lib/index.js';
 
-/** Tests the features of the [[SimpleChange]] class. */
+/** Tests the features of the {@link SimpleChange} class. */
 describe('SimpleChange', () => {
   const {expect} = chai;
 

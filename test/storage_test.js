@@ -1,7 +1,6 @@
-import * as chai from 'chai';
-import {SessionStorage, SimpleChange, WebStorage} from '../src/index';
+import {SessionStorage, SimpleChange, WebStorage} from '../lib/index.js';
 
-/** Tests the features of the [[WebStorage]] class. */
+/** Tests the features of the {@link WebStorage} class. */
 describe('WebStorage', () => {
   const {expect} = chai;
   beforeEach(() => sessionStorage.clear());
@@ -64,8 +63,8 @@ describe('WebStorage', () => {
 
   describe('#addEventListener("changes")', () => {
     it('should trigger an event when a value is added', done => {
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('foo');
 
@@ -85,8 +84,8 @@ describe('WebStorage', () => {
     it('should trigger an event when a value is updated', done => {
       sessionStorage.setItem('foo', 'bar');
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('foo');
 
@@ -107,8 +106,8 @@ describe('WebStorage', () => {
     it('should trigger an event when a value is removed', done => {
       sessionStorage.setItem('foo', 'bar');
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(1);
         expect([...changes.keys()][0]).to.equal('foo');
 
@@ -129,8 +128,8 @@ describe('WebStorage', () => {
       sessionStorage.setItem('foo', 'bar');
       sessionStorage.setItem('bar', 'baz');
 
-      const listener = (event: Event): void => {
-        const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+      const listener = event => {
+        const changes = event.detail;
         expect([...changes.entries()]).to.have.lengthOf(2);
         expect([...changes.keys()]).to.have.ordered.members(['foo', 'bar']);
 

@@ -1,20 +1,21 @@
 module.exports = configuration => configuration.set({
   basePath: '..',
   browsers: ['ChromeHeadless'],
+  coverageIstanbulInstrumenter: {
+    esModules: true
+  },
+  coverageIstanbulReporter: {
+    dir: 'var',
+    reports: ['lcovonly']
+  },
   files: [
-    {pattern: 'src/**/*.ts'},
-    {pattern: 'test/**/*.ts'}
+    {pattern: 'lib/**/*.js', type: 'module'},
+    {pattern: 'test/**/*.js', type: 'module'}
   ],
-  frameworks: ['mocha', 'karma-typescript'],
-  karmaTypescriptConfig: {
-    coverageOptions: {exclude: /_test\.ts$/i},
-    reports: {lcovonly: {directory: '.', filename: 'lcov.info', subdirectory: 'var'}},
-    tsconfig: 'test/tsconfig.json'
-  },
+  frameworks: ['mocha', 'chai'],
   preprocessors: {
-    'src/**/*.ts': 'karma-typescript',
-    'test/**/*.ts': 'karma-typescript'
+    'lib/**/*.js': 'karma-coverage-istanbul-instrumenter'
   },
-  reporters: ['progress', 'karma-typescript'],
+  reporters: ['progress', 'coverage-istanbul'],
   singleRun: true
 });
