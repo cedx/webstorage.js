@@ -9,13 +9,13 @@ The [`WebStorage`](api.md) class is an [`EventTarget`](https://developer.mozilla
 
 You can subscribe to these `changes` events using the `addEventListener()` method:
 
-```typescript
-import {LocalStorage, SimpleChange, WebStorage} from '@cedx/webstorage';
+```js
+import {LocalStorage, WebStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
-  storage.addEventListener(WebStorage.eventChanges, (event: Event): void => {
-    const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+  storage.addEventListener(WebStorage.eventChanges, event => {
+    const changes = event.detail;
     for (const [key, value] of changes.entries()) console.log(`${key}: ${value}`);
   });
 }
@@ -24,13 +24,13 @@ function main(): void {
 The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
 of [`SimpleChange`](https://github.com/cedx/webstorage.js/blob/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
-```typescript
-import {LocalStorage, SimpleChange, WebStorage} from '@cedx/webstorage';
+```js
+import {LocalStorage, WebStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
-  storage.addEventListener(WebStorage.eventChanges, (event: Event): void => {
-    const changes = (event as CustomEvent<Map<string, SimpleChange>>).detail;
+  storage.addEventListener(WebStorage.eventChanges, event => {
+    const changes = event.detail;
     for (const [key, change] of changes.entries()) console.log({
       key,
       current: change.currentValue,
@@ -51,7 +51,7 @@ function main(): void {
 
 The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw storage values. If you use the `WebStorage#setObject()` method to store a value, you will get the serialized string value, not the original value passed to the method:
 
-```typescript
+```js
 storage.setObject('foo', {bar: 'baz'});
 // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
 ```

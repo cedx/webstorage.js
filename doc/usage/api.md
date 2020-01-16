@@ -4,10 +4,10 @@ source: src/storage.ts
 # Programming interface
 This package provides two services dedicated to the Web Storage: the `LocalStorage` and `SessionStorage` classes.
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
 
   storage.set('foo', 'bar');
@@ -23,10 +23,10 @@ Each class extends from the `WebStorage` abstract class that has the following A
 ## **#keys**: string[]
 Returns the keys of the the associated storage:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.keys); // []
     
@@ -38,10 +38,10 @@ function main(): void {
 ## **#length**: number
 Returns the number of entries in the associated storage:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.length); // 0
     
@@ -53,10 +53,10 @@ function main(): void {
 ## **#clear**(): void
 Removes all entries from the associated storage:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
 
   storage.set('foo', 'bar');
@@ -72,10 +72,10 @@ When a service is instantiated, it automatically listens for
 the [storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event).
 When you have done using the service instance, it's preferable to call the `destroy()` method to cancel the subscription to these events.
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   // Work with the service...
   const storage = new LocalStorage;
 
@@ -87,10 +87,10 @@ function main(): void {
 ## **#get**(key: string, defaultValue?: string): string|undefined
 Returns the value associated to the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.get('foo')); // undefined
   console.log(storage.get('foo', 'qux')); // "qux"
@@ -105,10 +105,10 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#getObject**(key: string, defaultValue?: any): any
 Deserializes and returns the value associated to the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.getObject('foo')); // undefined
   console.log(storage.getObject('foo', 'qux')); // "qux"
@@ -126,10 +126,10 @@ Returns `undefined` or the given default value if the key is not found.
 ## **#has**(key: string): boolean
 Returns a boolean value indicating whether the associated storage contains the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.has('foo')); // false
     
@@ -141,10 +141,10 @@ function main(): void {
 ## **#remove**(key: string): string|undefined
 Removes the value associated to the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
 
   storage.set('foo', 'bar');
@@ -160,10 +160,10 @@ Returns the value associated with the specified key before it was removed.
 ## **#set**(key: string, value: string): this
 Associates a given value to the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
 
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.get('foo')); // undefined
     
@@ -175,10 +175,10 @@ function main(): void {
 ## **#setObject**(key: string, value: any): this
 Serializes and associates a given value to the specified key:
 
-```typescript
+```js
 import {LocalStorage} from '@cedx/webstorage';
   
-function main(): void {
+function main() {
   const storage = new LocalStorage;
   console.log(storage.getObject('foo')); // undefined
     
