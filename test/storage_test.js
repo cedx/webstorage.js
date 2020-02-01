@@ -1,4 +1,4 @@
-import {SessionStorage, SimpleChange, WebStorage} from '../lib/index.js';
+import {SessionStorage, WebStorage} from '../lib/index.js';
 
 /** Tests the features of the {@link WebStorage} class. */
 describe('WebStorage', () => {
@@ -212,6 +212,38 @@ describe('WebStorage', () => {
       sessionStorage.setItem('foo', 'bar');
       expect(storage.has('foo')).to.be.true;
       expect(storage.has('bar')).to.be.false;
+    });
+  });
+
+  describe('#putIfAbsent()', () => {
+    it('should add a new entry if it does not exist', () => {
+      const storage = new SessionStorage;
+      expect(sessionStorage.getItem('foo')).to.be.null;
+      expect(storage.putIfAbsent('foo', () => 'bar')).to.equal('bar');
+      expect(sessionStorage.getItem('foo')).to.equal('bar');
+    });
+
+    it('should not add a new entry if it already exists', () => {
+      const storage = new SessionStorage;
+      sessionStorage.setItem('foo', 'bar');
+      expect(storage.putIfAbsent('foo', () => 'qux')).to.equal('bar');
+      expect(sessionStorage.getItem('foo')).to.equal('bar');
+    });
+  });
+
+  describe('#putObjectIfAbsent()', () => {
+    it('should add a new entry if it does not exist', () => {
+      const storage = new SessionStorage;
+      expect(sessionStorage.getItem('foo')).to.be.null;
+      expect(storage.putObjectIfAbsent('foo', () => 123)).to.equal(123);
+      expect(sessionStorage.getItem('foo')).to.equal('123');
+    });
+
+    it('should not add a new entry if it already exists', () => {
+      const storage = new SessionStorage;
+      sessionStorage.setItem('foo', '123');
+      expect(storage.putObjectIfAbsent('foo', () => 456)).to.equal(123);
+      expect(sessionStorage.getItem('foo')).to.equal('123');
     });
   });
 
