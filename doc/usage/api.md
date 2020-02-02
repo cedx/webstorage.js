@@ -138,6 +138,51 @@ function main() {
 }
 ```
 
+## **#putIfAbsent**(key: string, ifAbsent: () => string): string
+Looks up the value of the specified key, or add a new value if it isn't there.
+
+Returns the value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, associates the key to that value, and then returns the new value:
+
+```js
+import {LocalStorage} from '@cedx/webstorage';
+
+function main() {
+  const storage = new LocalStorage;
+  console.log(storage.has('foo')); // false
+
+  let value = storage.putIfAbsent('foo', () => 'bar');
+  console.log(storage.has('foo')); // true
+  console.log(value); // "bar"
+
+  value = storage.putIfAbsent('foo', () => 'qux');
+  console.log(value); // "bar"
+}
+```
+
+## **#putObjectIfAbsent**(key: string, ifAbsent: () => any): any
+Looks up the value of the specified key, or add a new value if it isn't there.
+
+Returns the deserialized value associated to the key, if there is one. Otherwise calls `ifAbsent` to get a new value, serializes and associates the key to that value, and then returns the new value:
+
+```js
+import {LocalStorage} from '@cedx/webstorage';
+
+function main() {
+  const storage = new LocalStorage;
+  console.log(storage.has('foo')); // false
+
+  let value = storage.putObjectIfAbsent('foo', () => 123);
+  console.log(storage.has('foo')); // true
+  console.log(value); // 123
+
+  value = storage.putObjectIfAbsent('foo', () => 456);
+  console.log(value); // 123
+}
+```
+
+!!! info
+    The value is serialized using the [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) method, and deserialized using the [`JSON.parse`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) method.
+
 ## **#remove**(key: string): string|undefined
 Removes the value associated to the specified key:
 
