@@ -124,7 +124,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
    *
    * @param key The key to seek for.
    * @param ifAbsent The function called to get a new value.
-   * @return The value associated with the specified key.
+   * @return The deserialized value associated with the specified key.
    */
   putObjectIfAbsent(key: string, ifAbsent: () => any): any {
     if (!this.has(key)) this.setObject(key, ifAbsent());
