@@ -3,7 +3,7 @@ site_description: Services for interacting with the Web Storage, in JavaScript.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://dev.belin.io/webstorage.js
 
-docs_dir: ../doc
+docs_dir: .
 site_dir: ../web
 
 repo_name: GitHub
