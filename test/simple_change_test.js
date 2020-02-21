@@ -18,7 +18,7 @@ describe('SimpleChange', () => {
     });
   });
 
-  describe('#toJSON()', () => {
+  describe('.toJSON()', () => {
     it('should return a map with default values for a newly created instance', () => {
       expect(new SimpleChange().toJSON()).to.be.an('object').that.deep.equal({
         currentValue: null,
