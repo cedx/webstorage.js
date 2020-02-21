@@ -1,14 +1,13 @@
 import { JsonObject } from './json';
 /** Provides access to the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage). */
 export declare abstract class WebStorage extends EventTarget implements Iterable<[string, string | undefined]> {
+    #private;
     private _backend;
     /**
      * An event that is triggered when a storage value is changed (added, modified, or removed).
      * @event changes
      */
     static readonly eventChanges: string;
-    /** The function that listens for storage events. */
-    private readonly _listener;
     /**
      * Creates a new storage service.
      * @param _backend The underlying data store.
@@ -48,23 +47,25 @@ export declare abstract class WebStorage extends EventTarget implements Iterable
      */
     has(key: string): boolean;
     /**
-     * Looks up the value of the specified [key], or add a new value if it isn't there.
+     * Looks up the value of the specified key, or add a new value if it isn't there.
      *
-     * Returns the value associated to [key], if there is one. Otherwise calls [ifAbsent] to get a new value,
-     * associates [key] to that value, and then returns the new value.
+     * Returns the value associated to `key`, if there is one. Otherwise calls `ifAbsent` to get a new value,
+     * associates `key` to that value, and then returns the new value.
      *
      * @param key The key to seek for.
      * @param ifAbsent The function called to get a new value.
+     * @return The value associated with the specified key.
      */
     putIfAbsent(key: string, ifAbsent: () => string): string;
     /**
-     * Looks up the value of the specified [key], or add a new value if it isn't there.
+     * Looks up the value of the specified key, or add a new value if it isn't there.
      *
-     * Returns the deserialized value associated to [key], if there is one. Otherwise calls [ifAbsent] to get a new value,
-     * serializes and associates [key] to that value, and then returns the new value.
+     * Returns the deserialized value associated to `key`, if there is one. Otherwise calls `ifAbsent` to get a new value,
+     * serializes and associates `key` to that value, and then returns the new value.
      *
      * @param key The key to seek for.
      * @param ifAbsent The function called to get a new value.
+     * @return The deserialized value associated with the specified key.
      */
     putObjectIfAbsent(key: string, ifAbsent: () => any): any;
     /**

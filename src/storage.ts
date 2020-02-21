@@ -11,7 +11,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
   static readonly eventChanges: string = 'changes';
 
   /** The function that listens for storage events. */
-  private readonly _listener: (event: StorageEvent) => void;
+  readonly #listener: (event: StorageEvent) => void;
 
   /**
    * Creates a new storage service.
@@ -20,13 +20,13 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
   protected constructor(private _backend: Storage) {
     super();
 
-    this._listener = event => {
+    this.#listener = event => {
       if (event.key == null || event.storageArea != _backend) return;
       const change = new SimpleChange(event.oldValue ?? undefined, event.newValue ?? undefined);
       this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
     };
 
-    addEventListener('storage', this._listener);
+    addEventListener('storage', this.#listener);
   }
 
   /** The keys of this storage. */
@@ -62,7 +62,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 
   /** Cancels the subscription to the storage events. */
   destroy(): void {
-    removeEventListener('storage', this._listener);
+    removeEventListener('storage', this.#listener);
   }
 
   /**
