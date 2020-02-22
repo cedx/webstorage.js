@@ -49,7 +49,7 @@ function main() {
 }
 ```
 
-The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw storage values. If you use the `WebStorage#setObject()` method to store a value, you will get the serialized string value, not the original value passed to the method:
+The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw storage values. If you use the `WebStorage.setObject()` method to store a value, you will get the serialized string value, not the original value passed to the method:
 
 ```js
 storage.setObject('foo', {bar: 'baz'});
@@ -57,4 +57,4 @@ storage.setObject('foo', {bar: 'baz'});
 ```
 
 !!! info
-    [Storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event) are partially supported: except when the [`Storage#clear()`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear) method is called, whenever the Web storage is changed in the context of another document, a `changes` event is triggered.
+    [Storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event) are partially supported: except when the [`Storage.clear()`](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear) method is called, whenever the Web storage is changed in the context of another document, a `changes` event is triggered.
