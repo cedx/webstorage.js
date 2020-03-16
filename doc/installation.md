@@ -36,9 +36,6 @@ Now in your [TypeScript](https://www.typescriptlang.org) code, you can use:
 import {LocalStorage, SessionStorage} from '@cedx/webstorage';
 ```
 
-### 3. Use it
-See the [usage information](usage/api.md).
-
 ## Installing from a content delivery network
 This library is also available as a ready-made bundle.
 To install it, add this code snippet to the `<head>` of your HTML document:
