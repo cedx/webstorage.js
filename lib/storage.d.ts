@@ -2,7 +2,6 @@ import { JsonObject } from './json';
 /** Provides access to the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage). */
 export declare abstract class WebStorage extends EventTarget implements Iterable<[string, string | undefined]> {
     #private;
-    private _backend;
     /**
      * An event that is triggered when a storage value is changed (added, modified, or removed).
      * @event changes
@@ -10,9 +9,9 @@ export declare abstract class WebStorage extends EventTarget implements Iterable
     static readonly eventChanges: string;
     /**
      * Creates a new storage service.
-     * @param _backend The underlying data store.
+     * @param backend The underlying data store.
      */
-    protected constructor(_backend: Storage);
+    protected constructor(backend: Storage);
     /** The keys of this storage. */
     get keys(): string[];
     /** The number of entries in this storage. */
