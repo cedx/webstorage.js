@@ -2,7 +2,6 @@ import {SessionStorage, WebStorage} from '../lib/index.js';
 
 /** Tests the features of the {@link WebStorage} class. */
 describe('WebStorage', () => {
-  const {expect} = chai;
   beforeEach(() => sessionStorage.clear());
 
   describe('.keys', () => {

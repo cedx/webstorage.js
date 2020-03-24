@@ -2,8 +2,6 @@ import {SimpleChange} from '../lib/index.js';
 
 /** Tests the features of the {@link SimpleChange} class. */
 describe('SimpleChange', () => {
-  const {expect} = chai;
-
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
       const change = SimpleChange.fromJson({});
