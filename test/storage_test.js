@@ -1,4 +1,4 @@
-import {SessionStorage, WebStorage} from '../lib/index.js';
+import {SessionStorage} from '../lib/index.js';
 
 /** Tests the features of the {@link WebStorage} class. */
 describe('WebStorage', () => {
@@ -75,9 +75,9 @@ describe('WebStorage', () => {
       };
 
       const storage = new SessionStorage;
-      storage.addEventListener(WebStorage.eventChanges, listener);
+      storage.addEventListener(SessionStorage.eventChanges, listener);
       storage.set('foo', 'bar');
-      storage.removeEventListener(WebStorage.eventChanges, listener);
+      storage.removeEventListener(SessionStorage.eventChanges, listener);
     });
 
     it('should trigger an event when a value is updated', done => {
@@ -96,10 +96,10 @@ describe('WebStorage', () => {
       };
 
       const storage = new SessionStorage;
-      storage.addEventListener(WebStorage.eventChanges, listener);
+      storage.addEventListener(SessionStorage.eventChanges, listener);
 
       storage.set('foo', 'baz');
-      storage.removeEventListener(WebStorage.eventChanges, listener);
+      storage.removeEventListener(SessionStorage.eventChanges, listener);
     });
 
     it('should trigger an event when a value is removed', done => {
@@ -118,9 +118,9 @@ describe('WebStorage', () => {
       };
 
       const storage = new SessionStorage;
-      storage.addEventListener(WebStorage.eventChanges, listener);
+      storage.addEventListener(SessionStorage.eventChanges, listener);
       storage.remove('foo');
-      storage.removeEventListener(WebStorage.eventChanges, listener);
+      storage.removeEventListener(SessionStorage.eventChanges, listener);
     });
 
     it('should trigger an event when the storage is cleared', done => {
@@ -142,9 +142,9 @@ describe('WebStorage', () => {
       };
 
       const storage = new SessionStorage;
-      storage.addEventListener(WebStorage.eventChanges, listener);
+      storage.addEventListener(SessionStorage.eventChanges, listener);
       storage.clear();
-      storage.removeEventListener(WebStorage.eventChanges, listener);
+      storage.removeEventListener(SessionStorage.eventChanges, listener);
     });
   });
 
