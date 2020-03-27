@@ -68,21 +68,22 @@ function main() {
 ```
 
 ## **destroy**(): void
-When a service is instantiated, it automatically listens for
-the [storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event).
-When you have done using the service instance, it's preferable to call the `destroy()` method to cancel the subscription to these events.
+When a service is instantiated, it can listen to the global [storage events](https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event).
+When you have done using the service instance, you should call the `destroy()` method to cancel the subscription to these events.
 
 ```js
 import {LocalStorage} from '@cedx/webstorage';
 
 function main() {
   // Work with the service...
-  const storage = new LocalStorage;
+  const storage = new LocalStorage({listenToStorageEvents: true});
 
   // Later, cancel the subscription to the storage events.
   storage.destroy();
 }
 ```
+
+See the [events](events.md) section for more information.
 
 ## **get**(key: string, defaultValue?: string): string|undefined
 Returns the value associated to the specified key:

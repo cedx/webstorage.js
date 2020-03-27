@@ -30,7 +30,7 @@ npm install @cedx/webstorage
 ```
 
 ### 2. Import it
-Now in your [TypeScript](https://www.typescriptlang.org) code, you can use:
+Now in your [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) or [TypeScript](https://www.typescriptlang.org) code, you can use:
 
 ```js
 import {LocalStorage, SessionStorage} from '@cedx/webstorage';
