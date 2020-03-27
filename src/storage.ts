@@ -14,23 +14,26 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
   readonly #backend: Storage;
 
   /** The function that listens for storage events. */
-  readonly #listener: (event: StorageEvent) => void;
+  readonly #listener?: (event: StorageEvent) => void;
 
   /**
    * Creates a new storage service.
    * @param backend The underlying data store.
+   * @param options An object specifying values used to initialize this instance.
    */
-  protected constructor(backend: Storage) {
+  protected constructor(backend: Storage, options: Partial<WebStorageOptions> = {}) {
     super();
-
     this.#backend = backend;
-    this.#listener = event => {
-      if (event.key == null || event.storageArea != this.#backend) return;
-      const change = new SimpleChange(event.oldValue ?? undefined, event.newValue ?? undefined);
-      this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
-    };
 
-    addEventListener('storage', this.#listener);
+    if (options.listenToStorageEvents) {
+      this.#listener = event => {
+        if (event.key == null || event.storageArea != this.#backend) return;
+        const change = new SimpleChange(event.oldValue ?? undefined, event.newValue ?? undefined);
+        this.dispatchEvent(new CustomEvent(WebStorage.eventChanges, {detail: new Map<string, SimpleChange>([[event.key, change]])}));
+      };
+
+      addEventListener('storage', this.#listener);
+    }
   }
 
   /** The keys of this storage. */
@@ -66,7 +69,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 
   /** Cancels the subscription to the storage events. */
   destroy(): void {
-    removeEventListener('storage', this.#listener);
+    if (this.#listener) removeEventListener('storage', this.#listener);
   }
 
   /**
@@ -187,20 +190,33 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
   }
 }
 
+/** Defines the options of a [[WebStorage]] instance. */
+interface WebStorageOptions {
+
+  /** Value indicating whether to listen to the global storage events. */
+  listenToStorageEvents: boolean;
+}
+
 /** Provides access to the local storage. */
 export class LocalStorage extends WebStorage {
 
-  /** Creates a new storage service. */
-  constructor() {
-    super(localStorage);
+  /**
+   * Creates a new local storage service.
+   * @param options An object specifying values used to initialize this instance.
+   */
+  constructor(options: Partial<WebStorageOptions> = {}) {
+    super(localStorage, options);
   }
 }
 
 /** Provides access to the session storage. */
 export class SessionStorage extends WebStorage {
 
-  /** Creates a new storage service. */
-  constructor() {
-    super(sessionStorage);
+  /**
+   * Creates a new session storage service.
+   * @param options An object specifying values used to initialize this instance.
+   */
+  constructor(options: Partial<WebStorageOptions> = {}) {
+    super(sessionStorage, options);
   }
 }

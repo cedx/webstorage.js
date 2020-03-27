@@ -10,8 +10,9 @@ export declare abstract class WebStorage extends EventTarget implements Iterable
     /**
      * Creates a new storage service.
      * @param backend The underlying data store.
+     * @param options An object specifying values used to initialize this instance.
      */
-    protected constructor(backend: Storage);
+    protected constructor(backend: Storage, options?: Partial<WebStorageOptions>);
     /** The keys of this storage. */
     get keys(): string[];
     /** The number of entries in this storage. */
@@ -93,13 +94,25 @@ export declare abstract class WebStorage extends EventTarget implements Iterable
      */
     toJSON(): JsonObject;
 }
+/** Defines the options of a [[WebStorage]] instance. */
+interface WebStorageOptions {
+    /** Value indicating whether to listen to the global storage events. */
+    listenToStorageEvents: boolean;
+}
 /** Provides access to the local storage. */
 export declare class LocalStorage extends WebStorage {
-    /** Creates a new storage service. */
-    constructor();
+    /**
+     * Creates a new local storage service.
+     * @param options An object specifying values used to initialize this instance.
+     */
+    constructor(options?: Partial<WebStorageOptions>);
 }
 /** Provides access to the session storage. */
 export declare class SessionStorage extends WebStorage {
-    /** Creates a new storage service. */
-    constructor();
+    /**
+     * Creates a new session storage service.
+     * @param options An object specifying values used to initialize this instance.
+     */
+    constructor(options?: Partial<WebStorageOptions>);
 }
+export {};
