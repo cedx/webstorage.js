@@ -63,11 +63,11 @@ describe('WebStorage', () => {
   describe('.addEventListener("changes")', () => {
     it('should trigger an event when a value is added', done => {
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('foo');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('foo');
         expect(record.currentValue).to.equal('bar');
         expect(record.previousValue).to.be.undefined;
 
@@ -84,11 +84,11 @@ describe('WebStorage', () => {
       sessionStorage.setItem('foo', 'bar');
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('foo');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('foo');
         expect(record.currentValue).to.equal('baz');
         expect(record.previousValue).to.equal('bar');
 
@@ -97,7 +97,6 @@ describe('WebStorage', () => {
 
       const storage = new SessionStorage;
       storage.addEventListener(SessionStorage.eventChanges, listener);
-
       storage.set('foo', 'baz');
       storage.removeEventListener(SessionStorage.eventChanges, listener);
     });
@@ -106,11 +105,11 @@ describe('WebStorage', () => {
       sessionStorage.setItem('foo', 'bar');
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(1);
-        expect([...changes.keys()][0]).to.equal('foo');
+        const entries = [...event.detail.entries()];
+        expect(entries).to.have.lengthOf(1);
 
-        const [record] = [...changes.values()];
+        const [key, record] = entries[0];
+        expect(key).to.equal('foo');
         expect(record.currentValue).to.be.undefined;
         expect(record.previousValue).to.equal('bar');
 
@@ -128,11 +127,9 @@ describe('WebStorage', () => {
       sessionStorage.setItem('bar', 'baz');
 
       const listener = event => {
-        const changes = event.detail;
-        expect([...changes.entries()]).to.have.lengthOf(2);
-        expect([...changes.keys()]).to.have.ordered.members(['foo', 'bar']);
+        expect([...event.detail.keys()]).to.have.ordered.members(['foo', 'bar']);
 
-        const [record1, record2] = [...changes.values()];
+        const [record1, record2] = [...event.detail.values()];
         expect(record1.currentValue).to.be.undefined;
         expect(record1.previousValue).to.equal('bar');
         expect(record2.currentValue).to.be.undefined;
