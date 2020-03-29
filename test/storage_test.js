@@ -12,10 +12,7 @@ describe('WebStorage', () => {
     it('should return the list of keys for a non-empty storage', () => {
       sessionStorage.setItem('foo', 'bar');
       sessionStorage.setItem('bar', 'baz');
-
-      const {keys} = new SessionStorage;
-      expect(keys).to.have.lengthOf(2);
-      expect(keys).to.have.ordered.members(['foo', 'bar']);
+      expect(new SessionStorage().keys).to.have.ordered.members(['foo', 'bar']);
     });
   });
 
@@ -152,7 +149,6 @@ describe('WebStorage', () => {
 
       const storage = new SessionStorage;
       expect(storage).to.have.lengthOf(2);
-
       storage.clear();
       expect(storage).to.be.empty;
     });
