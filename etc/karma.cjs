@@ -1,6 +1,6 @@
 module.exports = config => config.set({
   basePath: '..',
-  browsers: ['ChromeHeadless'],
+  browsers: ['FirefoxHeadless'],
   coverageIstanbulInstrumenter: {
     esModules: true
   },
