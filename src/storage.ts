@@ -94,7 +94,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
       return value != undefined ? JSON.parse(value) : defaultValue;
     }
 
-    catch (err) {
+    catch {
       return defaultValue;
     }
   }
