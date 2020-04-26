@@ -1,6 +1,6 @@
 {
   "bugs": "https://git.belin.io/cedx/webstorage.js/issues",
-  "description": "Services for interacting with the Web Storage. A simple and event-based API for handling storage changes.",
+  "description": "Services for interacting with the Web Storage. An event-based API to manage storage changes.",
   "homepage": "https://docs.belin.io/webstorage.js",
   "license": "MIT",
   "main": "lib/index.js",

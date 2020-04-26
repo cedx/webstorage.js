@@ -1,5 +1,5 @@
 site_name: Web Storage for JS
-site_description: Services for interacting with the Web Storage, in JavaScript.
+site_description: Services for interacting with the Web Storage, in JavaScript. An event-based API to manage storage changes.
 site_author: Cédric Belin - cedric@belin.io
 site_url: https://docs.belin.io/webstorage.js
 
