@@ -1,11 +1,10 @@
 {
-  "bugs": "https://github.com/cedx/webstorage.js/issues",
+  "bugs": "https://git.belin.io/cedx/webstorage.js/issues",
   "description": "Services for interacting with the Web Storage. A simple and event-based API for handling storage changes.",
-  "homepage": "https://dev.belin.io/webstorage.js",
+  "homepage": "https://docs.belin.io/webstorage.js",
   "license": "MIT",
   "main": "lib/index.js",
   "name": "@cedx/webstorage",
-  "repository": "github:cedx/webstorage.js",
   "type": "module",
   "types": "lib/index.d.ts",
   "version": "1.5.0",
@@ -16,7 +15,7 @@
   },
   "devDependencies": {
     "@cedx/coveralls": "^9.4.0",
-    "@types/node": "^13.13.1",
+    "@types/node": "^13.13.2",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "chai": "^4.2.0",
@@ -30,9 +29,9 @@
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-firefox-launcher": "^1.3.0",
     "karma-mocha": "^2.0.0",
-    "mocha": "^7.1.1",
-    "rollup": "^2.7.0",
-    "terser": "^4.6.11",
+    "mocha": "^7.1.2",
+    "rollup": "^2.7.2",
+    "terser": "^4.6.12",
     "typedoc": "^0.17.4",
     "typescript": "^3.8.3"
   },
@@ -58,6 +57,10 @@
     "session",
     "storage"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://git.belin.io/cedx/webstorage.js.git"
+  },
   "scripts": {
     "coverage": "gulp coverage",
     "prepack": "gulp",
