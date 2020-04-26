@@ -1,5 +1,5 @@
-import {JsonObject} from './json';
-import {SimpleChange} from './simple_change';
+import {JsonObject} from './json.js';
+import {SimpleChange} from './simple_change.js';
 
 /** Provides access to the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage). */
 export abstract class WebStorage extends EventTarget implements Iterable<[string, string|undefined]> {

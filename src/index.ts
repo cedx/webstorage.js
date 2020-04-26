@@ -1,3 +1,3 @@
-export * from './json';
-export * from './simple_change';
-export * from './storage';
+export * from './json.js';
+export * from './simple_change.js';
+export * from './storage.js';

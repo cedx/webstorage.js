@@ -1,4 +1,4 @@
-import { JsonObject } from './json';
+import { JsonObject } from './json.js';
 /** Provides access to the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage). */
 export declare abstract class WebStorage extends EventTarget implements Iterable<[string, string | undefined]> {
     #private;

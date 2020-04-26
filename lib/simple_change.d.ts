@@ -1,4 +1,4 @@
-import { JsonObject } from './json';
+import { JsonObject } from './json.js';
 /** Represents the event parameter used for a change event. */
 export declare class SimpleChange {
     readonly previousValue?: string | undefined;
