@@ -6,14 +6,13 @@ Services for interacting with the [Web Storage](https://developer.mozilla.org/en
 > This library is packaged as [ECMAScript modules](https://nodejs.org/api/esm.html).
 
 ## Documentation
-- [User guide](https://dev.belin.io/webstorage.js)
-- [API reference](https://dev.belin.io/webstorage.js/api)
+- [User guide](https://docs.belin.io/webstorage.js)
+- [API reference](https://api.belin.io/webstorage.js)
 
 ## Development
-- [Git repository](https://github.com/cedx/webstorage.js)
-- [GitHub package](https://github.com/cedx/webstorage.js/packages)
+- [Git repository](https://git.belin.io/cedx/webstorage.js)
 - [npm package](https://www.npmjs.com/package/@cedx/webstorage)
-- [Submit an issue](https://github.com/cedx/webstorage.js/issues)
+- [Submit an issue](https://git.belin.io/cedx/webstorage.js/issues)
 
 ## License
-[Web Storage for JS](https://dev.belin.io/webstorage.js) is distributed under the MIT License.
+[Web Storage for JS](https://docs.belin.io/webstorage.js) is distributed under the MIT License.

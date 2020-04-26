@@ -1,5 +1,7 @@
-path: blob/master
+---
+path: src/branch/master
 source: src/simple_change.ts
+---
 
 # Events
 The [`WebStorage`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a [`CustomEvent`](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent) is triggered.
@@ -22,7 +24,7 @@ function main() {
 ```
 
 The changes are expressed as a [`Map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-of [`SimpleChange`](https://github.com/cedx/webstorage.js/blob/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
+of [`SimpleChange`](https://git.belin.io/cedx/webstorage.js/src/branch/master/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
 ```js
 import {LocalStorage} from '@cedx/webstorage';
