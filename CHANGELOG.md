@@ -2,7 +2,7 @@
 
 ## Version [1.5.0](https://git.belin.io/cedx/webstorage.js/compare/v1.4.0...v1.5.0)
 - Dropped support for [GitHub Packages](https://github.com/features/packages).
-- Raised the required [Node.js](https://nodejs.org) constraint.
+- Raised the [Node.js](https://nodejs.org) constraint.
 - Updated the documentation.
 - Updated the package dependencies.
 
