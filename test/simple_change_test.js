@@ -1,6 +1,6 @@
 import {SimpleChange} from '../lib/index.js';
 
-/** Tests the features of the {@link SimpleChange} class. */
+/** Tests the features of the `SimpleChange` class. */
 describe('SimpleChange', () => {
   describe('.fromJson()', () => {
     it('should return an empty instance with an empty map', () => {
