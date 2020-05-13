@@ -1,5 +1,5 @@
 # Web Storage <small>for JS</small>
-![Runtime](https://img.shields.io/node/v/@cedx/webstorage.svg) ![Release](https://img.shields.io/npm/v/@cedx/webstorage.svg) ![License](https://img.shields.io/npm/l/@cedx/webstorage.svg) ![Downloads](https://img.shields.io/npm/dt/@cedx/webstorage.svg) ![Dependencies](https://david-dm.org/cedx/webstorage.js.svg) ![Coverage](https://coveralls.io/repos/github/cedx/webstorage.js/badge.svg) ![Build](https://github.com/cedx/webstorage.js/workflows/build/badge.svg)
+![Runtime](https://badgen.net/npm/node/@cedx/webstorage) ![Release](https://badgen.net/npm/v/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage) ![Dependencies](https://badgen.net/david/dep/cedx/webstorage.js) ![Coverage](https://badgen.net/coveralls/c/github/cedx/webstorage.js) ![Build](https://badgen.net/github/checks/cedx/webstorage.js)
 
 Services for interacting with the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
