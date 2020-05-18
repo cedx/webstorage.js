@@ -3,17 +3,17 @@ The [`LocalStorage`](api.md) and [`SessionStorage`](api.md) classes are iterable
 Each entry is an array with two elements (i.e. the key and the value):
 
 ```js
-import {LocalStorage} from '@cedx/webstorage';
+import {LocalStorage} from "@cedx/webstorage";
 
 function main() {
-  const storage = new LocalStorage;
-  storage.set('foo', 'bar');
-  storage.set('anotherKey', 'anotherValue');
+	const storage = new LocalStorage;
+	storage.set("foo", "bar");
+	storage.set("anotherKey", "anotherValue");
 
-  for (const entry of storage) {
-    console.log(entry);
-    // Round 1: ["foo", "bar"]
-    // Round 2: ["anotherKey", "anotherValue"]
-  }
+	for (const entry of storage) {
+		console.log(entry);
+		// Round 1: ["foo", "bar"]
+		// Round 2: ["anotherKey", "anotherValue"]
+	}
 }
 ```

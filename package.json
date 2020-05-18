@@ -1,66 +1,66 @@
 {
-  "bugs": "https://git.belin.io/cedx/webstorage.js/issues",
-  "description": "Services for interacting with the Web Storage. An event-based API to manage storage changes.",
-  "homepage": "https://docs.belin.io/webstorage.js",
-  "license": "MIT",
-  "main": "lib/index.js",
-  "name": "@cedx/webstorage",
-  "type": "module",
-  "types": "lib/index.d.ts",
-  "version": "1.5.0",
-  "author": {
-    "email": "cedric@belin.io",
-    "name": "Cédric Belin",
-    "url": "https://belin.io"
-  },
-  "devDependencies": {
-    "@cedx/coveralls": "^10.0.0",
-    "@types/node": "^14.0.1",
-    "@typescript-eslint/eslint-plugin": "^2.33.0",
-    "@typescript-eslint/parser": "^2.33.0",
-    "chai": "^4.2.0",
-    "eslint": "^7.0.0",
-    "karma": "^5.0.5",
-    "karma-chai": "^0.1.0",
-    "karma-coverage-istanbul-instrumenter": "^1.0.2",
-    "karma-coverage-istanbul-reporter": "^3.0.2",
-    "karma-firefox-launcher": "^1.3.0",
-    "karma-mocha": "^2.0.1",
-    "mocha": "^7.1.2",
-    "rollup": "^2.10.0",
-    "terser": "^4.6.13",
-    "typedoc": "^0.17.6",
-    "typescript": "^3.9.2"
-  },
-  "engines": {
-    "node": ">=14.2.0"
-  },
-  "files": [
-    "build/",
-    "lib/"
-  ],
-  "funding": {
-    "type": "patreon",
-    "url": "https://www.patreon.com/cedx"
-  },
-  "keywords": [
-    "browser",
-    "dom",
-    "esm",
-    "events",
-    "html",
-    "local",
-    "service",
-    "session",
-    "storage"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://git.belin.io/cedx/webstorage.js.git"
-  },
-  "scripts": {
-    "coverage": "coveralls var/lcov.info",
-    "prepack": "pwsh tool/dist.ps1",
-    "test": "karma start etc/karma.cjs"
-  }
+	"bugs": "https://git.belin.io/cedx/webstorage.js/issues",
+	"description": "Services for interacting with the Web Storage. An event-based API to manage storage changes.",
+	"homepage": "https://docs.belin.io/webstorage.js",
+	"license": "MIT",
+	"main": "lib/index.js",
+	"name": "@cedx/webstorage",
+	"type": "module",
+	"types": "lib/index.d.ts",
+	"version": "1.5.0",
+	"author": {
+		"email": "cedric@belin.io",
+		"name": "Cédric Belin",
+		"url": "https://belin.io"
+	},
+	"devDependencies": {
+		"@cedx/coveralls": "^10.0.0",
+		"@types/node": "^14.0.1",
+		"@typescript-eslint/eslint-plugin": "^2.33.0",
+		"@typescript-eslint/parser": "^2.33.0",
+		"chai": "^4.2.0",
+		"eslint": "^7.0.0",
+		"karma": "^5.0.5",
+		"karma-chai": "^0.1.0",
+		"karma-coverage-istanbul-instrumenter": "^1.0.2",
+		"karma-coverage-istanbul-reporter": "^3.0.2",
+		"karma-firefox-launcher": "^1.3.0",
+		"karma-mocha": "^2.0.1",
+		"mocha": "^7.1.2",
+		"rollup": "^2.10.0",
+		"terser": "^4.6.13",
+		"typedoc": "^0.17.6",
+		"typescript": "^3.9.2"
+	},
+	"engines": {
+		"node": ">=14.2.0"
+	},
+	"files": [
+		"build/",
+		"lib/"
+	],
+	"funding": {
+		"type": "patreon",
+		"url": "https://www.patreon.com/cedx"
+	},
+	"keywords": [
+		"browser",
+		"dom",
+		"esm",
+		"events",
+		"html",
+		"local",
+		"service",
+		"session",
+		"storage"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://git.belin.io/cedx/webstorage.js.git"
+	},
+	"scripts": {
+		"coverage": "coveralls var/lcov.info",
+		"prepack": "pwsh tool/dist.ps1",
+		"test": "karma start etc/karma.cjs"
+	}
 }
