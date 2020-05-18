@@ -7,7 +7,7 @@
 	"name": "@cedx/webstorage",
 	"type": "module",
 	"types": "lib/index.d.ts",
-	"version": "1.5.0",
+	"version": "1.6.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
@@ -45,13 +45,9 @@
 	},
 	"keywords": [
 		"browser",
-		"dom",
-		"esm",
 		"events",
 		"html",
-		"local",
 		"service",
-		"session",
 		"storage"
 	],
 	"repository": {
