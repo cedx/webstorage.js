@@ -4,7 +4,7 @@
 Services for interacting with the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
 > WARNING:  
-> This package has been renamed to `@cedx/webstorage.hx`, and its version number resetted.  
+> This package has been renamed to `@cedx/webstorage.hx`, and its version number resetted.
 > Please update your `package.json` file.
 
 ## Documentation
