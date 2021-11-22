@@ -1,20 +1,18 @@
 # Web Storage for JS
-![Runtime](https://badgen.net/npm/node/@cedx/webstorage) ![Release](https://badgen.net/npm/v/@cedx/webstorage) ![Types](https://badgen.net/npm/types/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage) ![Dependencies](https://badgen.net/david/dep/cedx/webstorage.js) ![Coverage](https://badgen.net/coveralls/c/github/cedx/webstorage.js) ![Build](https://badgen.net/github/checks/cedx/webstorage.js)
+![Runtime](https://flat.badgen.net/npm/node/@cedx/webstorage) ![Release](https://flat.badgen.net/npm/v/@cedx/webstorage) ![License](https://flat.badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://flat.badgen.net/npm/dt/@cedx/webstorage) ![Coverage](https://flat.badgen.net/coveralls/c/bitbucket/cedx/webstorage.js)
 
-Services for interacting with the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage) in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+Services for interacting with the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)
+in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
 
-> WARNING:  
-> This package has been renamed to `@cedx/webstorage.hx`, and its version number resetted.
-> Please update your `package.json` file.
+> WARNING: this package is **abandoned** and no longer maintained.
 
 ## Documentation
-- [User guide](https://docs.belin.io/webstorage.hx)
-- [API reference](https://api.belin.io/webstorage.hx)
+- [User guide](https://bitbucket.org/cedx/webstorage.js/wiki)
 
 ## Development
-- [Git repository](https://git.belin.io/cedx/webstorage.hx)
-- [npm package](https://www.npmjs.com/package/@cedx/webstorage.hx)
-- [Submit an issue](https://git.belin.io/cedx/webstorage.hx/issues)
+- [Git repository](https://bitbucket.org/cedx/webstorage.js)
+- [npm package](https://www.npmjs.com/package/@cedx/webstorage)
+- [Submit an issue](https://bitbucket.org/cedx/webstorage.js/issues)
 
 ## License
-[Web Storage for JS](https://docs.belin.io/webstorage.hx) is distributed under the MIT License.
+[Web Storage for JS](https://bitbucket.org/cedx/webstorage.js) is distributed under the MIT License.

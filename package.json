@@ -1,10 +1,11 @@
 {
-	"bugs": "https://git.belin.io/cedx/webstorage.js/issues",
+	"bugs": "https://bitbucket.org/cedx/webstorage.js/issues",
 	"description": "Services for interacting with the Web Storage. An event-based API to manage storage changes.",
-	"homepage": "https://docs.belin.io/webstorage.js",
+	"homepage": "https://bitbucket.org/cedx/webstorage.js",
 	"license": "MIT",
 	"main": "lib/index.js",
 	"name": "@cedx/webstorage",
+	"repository": "bitbucket:cedx/webstorage.js",
 	"type": "module",
 	"types": "lib/index.d.ts",
 	"version": "1.6.0",
