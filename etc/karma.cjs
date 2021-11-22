@@ -1,6 +1,9 @@
+const {chromium} = require("playwright");
+process.env.CHROME_BIN = chromium.executablePath();
+
 module.exports = config => config.set({
 	basePath: "..",
-	browsers: ["FirefoxHeadless"],
+	browsers: ["ChromeHeadless"],
 	coverageIstanbulInstrumenter: {
 		esModules: true
 	},
