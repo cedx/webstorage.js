@@ -3,13 +3,19 @@ process.env.CHROME_BIN = chromium.executablePath();
 
 module.exports = config => config.set({
 	basePath: "..",
-	browsers: ["ChromeHeadless"],
+	browsers: ["ChromeHeadlessNoSandbox"],
 	coverageIstanbulInstrumenter: {
 		esModules: true
 	},
 	coverageIstanbulReporter: {
 		dir: "var",
 		reports: ["lcovonly"]
+	},
+	customLaunchers: {
+		ChromeHeadlessNoSandbox: {
+			base: "ChromeHeadless",
+			flags: ["--no-sandbox"]
+		}
 	},
 	files: [
 		{pattern: "lib/**/*.js", type: "module"},
