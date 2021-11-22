@@ -39,7 +39,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 	/** The keys of this storage. */
 	get keys(): string[] {
 		const keys = [];
-		for (let i = 0; ; i++) { // eslint-disable-line no-constant-condition
+		for (let i = 0; ; i++) {
 			const key = this.#backend.key(i);
 			if (key == null) return keys;
 			keys.push(key);
@@ -191,7 +191,7 @@ export abstract class WebStorage extends EventTarget implements Iterable<[string
 }
 
 /** Defines the options of a [[WebStorage]] instance. */
-interface WebStorageOptions {
+export interface WebStorageOptions {
 
 	/** Value indicating whether to listen to the global storage events. */
 	listenToStorageEvents: boolean;
