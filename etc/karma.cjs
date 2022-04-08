@@ -1,5 +1,5 @@
-const {chromium} = require("playwright");
-process.env.CHROME_BIN = chromium.executablePath();
+const puppeteer = require("puppeteer");
+process.env.CHROME_BIN = puppeteer.executablePath();
 
 module.exports = config => config.set({
 	basePath: "..",
