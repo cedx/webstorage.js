@@ -1,10 +1,8 @@
 # Web Storage for JS
-![Runtime](https://badgen.net/npm/node/@cedx/webstorage) ![Release](https://badgen.net/npm/v/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage) ![Coverage](https://badgen.net/coveralls/c/github/cedx/webstorage.js)
+![Runtime](https://badgen.net/npm/node/@cedx/webstorage) ![Release](https://badgen.net/npm/v/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage) ![Coverage](https://badgen.net/codecov/c/github/cedx/webstorage.js)
 
 Services for interacting with the [Web Storage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)
 in [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
-
-> WARNING: this package is **abandoned** and no longer maintained.
 
 ## Documentation
 - [User guide](https://github.com/cedx/webstorage.js/wiki)
