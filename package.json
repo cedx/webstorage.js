@@ -1,38 +1,44 @@
 {
 	"bugs": "https://github.com/cedx/webstorage.js/issues",
-	"description": "Services for interacting with the Web Storage. An event-based API to manage storage changes.",
+	"description": "Services for interacting with the Web Storage.",
+	"exports": "./lib/index.js",
 	"homepage": "https://github.com/cedx/webstorage.js",
 	"license": "MIT",
-	"main": "lib/index.js",
 	"name": "@cedx/webstorage",
 	"repository": "github:cedx/webstorage.js",
 	"type": "module",
 	"types": "lib/index.d.ts",
-	"version": "1.6.0",
+	"version": "2.0.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
-		"@types/node": "^17.0.23",
+		"@types/gulp": "^4.0.9",
+		"@types/mocha": "^9.1.1",
+		"@types/node": "^17.0.40",
 		"chai": "^4.3.6",
-		"karma": "^6.3.17",
+		"del": "^6.1.1",
+		"eslint": "^8.17.0",
+		"execa": "^6.1.0",
+		"gulp": "^4.0.2",
+		"karma": "^6.3.20",
 		"karma-chai": "^0.1.0",
 		"karma-chrome-launcher": "^3.1.1",
 		"karma-coverage-istanbul-instrumenter": "^1.0.4",
 		"karma-coverage-istanbul-reporter": "^3.0.3",
 		"karma-mocha": "^2.0.1",
-		"mocha": "^9.2.2",
-		"typedoc": "^0.22.14",
-		"typescript": "^4.6.3"
+		"mocha": "^10.0.0",
+		"typedoc": "^0.22.17",
+		"typescript": "^4.7.3"
 	},
 	"engines": {
-		"node": ">=16.0.0"
+		"node": ">=18.0.0"
 	},
 	"files": [
-		"build/",
-		"lib/"
+		"lib/",
+		"share/"
 	],
 	"funding": {
 		"type": "github",
@@ -46,9 +52,7 @@
 		"storage"
 	],
 	"scripts": {
-		"build": "tsc --project src/tsconfig.json",
-		"doc": "typedoc --options etc/typedoc.json && pwsh tool/doc.ps1",
-		"prepack": "pwsh tool/dist.ps1",
-		"test": "npm run build && karma start etc/karma.cjs"
+		"prepack": "gulp",
+		"test": "c8 --all --include=lib/**/*.js --report-dir=var --reporter=lcovonly node_modules/.bin/mocha --recursive"
 	}
 }
