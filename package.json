@@ -53,6 +53,6 @@
 	],
 	"scripts": {
 		"prepack": "gulp",
-		"test": "c8 --all --include=lib/**/*.js --report-dir=var --reporter=lcovonly node_modules/.bin/mocha --recursive"
+		"test": "karma start etc/karma.cjs"
 	}
 }
