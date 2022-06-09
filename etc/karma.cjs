@@ -1,18 +1,12 @@
 module.exports = config => config.set({
 	basePath: "..",
-	browsers: ["ChromeHeadlessNoSandbox"],
+	browsers: ["ChromeHeadless"],
 	coverageIstanbulInstrumenter: {
 		esModules: true
 	},
 	coverageIstanbulReporter: {
 		dir: "var",
 		reports: ["lcovonly"]
-	},
-	customLaunchers: {
-		ChromeHeadlessNoSandbox: {
-			base: "ChromeHeadless",
-			flags: ["--no-sandbox"]
-		}
 	},
 	files: [
 		{pattern: "lib/**/*.js", type: "module"},
