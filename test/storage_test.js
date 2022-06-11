@@ -1,294 +1,401 @@
-import {SessionStorage} from "../lib/index.js";
+/* eslint-disable max-lines-per-function, no-unused-expressions */
+import {Storage, StorageEvent} from "../lib/index.js";
 
-/** Tests the features of the {@link WebStorage} class. */
-describe("WebStorage", () => {
+/**
+ * Tests the features of the {@link Storage} class.
+ */
+describe("Storage", () => {
 	beforeEach(() => sessionStorage.clear());
 
 	describe(".keys", () => {
 		it("should return an empty array for an empty storage", () => {
-			expect(new SessionStorage().keys).to.be.empty;
+			expect(Storage.session().keys).to.be.empty;
 		});
 
 		it("should return the list of keys for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
-			expect(new SessionStorage().keys).to.have.ordered.members(["foo", "bar"]);
+			sessionStorage.setItem("prefix:baz", "qux");
+			expect(Storage.session().keys).to.have.ordered.members(["foo", "prefix:baz"]);
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+			expect(Storage.session({keyPrefix: "prefix:"}).keys).to.have.members(["baz"]);
 		});
 	});
 
 	describe(".length", () => {
 		it("should return zero for an empty storage", () => {
-			expect(new SessionStorage).to.have.lengthOf(0);
+			expect(Storage.session()).to.have.lengthOf(0);
 		});
 
 		it("should return the number of entries for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
-			expect(new SessionStorage).to.have.lengthOf(2);
+			sessionStorage.setItem("prefix:baz", "qux");
+			expect(Storage.session()).to.have.lengthOf(2);
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+			expect(Storage.session({keyPrefix: "prefix:"})).to.have.lengthOf(1);
 		});
 	});
 
 	describe(".[Symbol.iterator]()", () => {
-		it("should return a done iterator if storage is empty", () => {
-			const storage = new SessionStorage;
-			const iterator = storage[Symbol.iterator]();
+		it("should end iteration immediately if the storage is empty", () => {
+			const iterator = Storage.session()[Symbol.iterator]();
 			expect(iterator.next().done).to.be.true;
 		});
 
-		it("should return a value iterator if storage is not empty", () => {
-			const storage = new SessionStorage;
+		it("should iterate over the values if the storage is not empty", () => {
+			const iterator = Storage.session()[Symbol.iterator]();
 			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
-
-			const iterator = storage[Symbol.iterator]();
-			const values = [];
+			sessionStorage.setItem("prefix:baz", "qux");
 
 			let next = iterator.next();
 			expect(next.done).to.be.false;
-			values.push(next.value);
+			expect(next.value).to.have.ordered.members(["foo", "bar"]);
 			next = iterator.next();
 			expect(next.done).to.be.false;
-			values.push(next.value);
+			expect(next.value).to.have.ordered.members(["prefix:baz", "qux"]);
 			expect(iterator.next().done).to.be.true;
-
-			expect(values).to.have.lengthOf(2);
-			expect(values[0]).to.have.ordered.members(["foo", "bar"]);
-			expect(values[1]).to.have.ordered.members(["bar", "baz"]);
-		});
-	});
-
-	describe(".addEventListener('changes')", () => {
-		it("should trigger an event when a value is added", done => {
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("foo");
-				expect(record.currentValue).to.equal("bar");
-				expect(record.previousValue).to.be.undefined;
-
-				done();
-			};
-
-			const storage = new SessionStorage;
-			storage.addEventListener(SessionStorage.eventChanges, listener);
-			storage.set("foo", "bar");
-			storage.removeEventListener(SessionStorage.eventChanges, listener);
 		});
 
-		it("should trigger an event when a value is updated", done => {
+		it("should handle the key prefix", () => {
+			const iterator = Storage.session({keyPrefix: "prefix:"})[Symbol.iterator]();
 			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
 
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("foo");
-				expect(record.currentValue).to.equal("baz");
-				expect(record.previousValue).to.equal("bar");
-
-				done();
-			};
-
-			const storage = new SessionStorage;
-			storage.addEventListener(SessionStorage.eventChanges, listener);
-			storage.set("foo", "baz");
-			storage.removeEventListener(SessionStorage.eventChanges, listener);
-		});
-
-		it("should trigger an event when a value is removed", done => {
-			sessionStorage.setItem("foo", "bar");
-
-			const listener = event => {
-				const entries = [...event.detail.entries()];
-				expect(entries).to.have.lengthOf(1);
-
-				const [key, record] = entries[0];
-				expect(key).to.equal("foo");
-				expect(record.currentValue).to.be.undefined;
-				expect(record.previousValue).to.equal("bar");
-
-				done();
-			};
-
-			const storage = new SessionStorage;
-			storage.addEventListener(SessionStorage.eventChanges, listener);
-			storage.remove("foo");
-			storage.removeEventListener(SessionStorage.eventChanges, listener);
-		});
-
-		it("should trigger an event when the storage is cleared", done => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
-
-			const listener = event => {
-				expect([...event.detail.keys()]).to.have.ordered.members(["foo", "bar"]);
-
-				const [record1, record2] = [...event.detail.values()];
-				expect(record1.currentValue).to.be.undefined;
-				expect(record1.previousValue).to.equal("bar");
-				expect(record2.currentValue).to.be.undefined;
-				expect(record2.previousValue).to.equal("baz");
-
-				done();
-			};
-
-			const storage = new SessionStorage;
-			storage.addEventListener(SessionStorage.eventChanges, listener);
-			storage.clear();
-			storage.removeEventListener(SessionStorage.eventChanges, listener);
+			const next = iterator.next();
+			expect(next.done).to.be.false;
+			expect(next.value).to.have.ordered.members(["baz", "qux"]);
+			expect(iterator.next().done).to.be.true;
 		});
 	});
 
 	describe(".clear()", () => {
 		it("should remove all storage entries", () => {
 			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
+			sessionStorage.setItem("prefix:baz", "qux");
 
-			const storage = new SessionStorage;
-			expect(storage).to.have.lengthOf(2);
-			storage.clear();
-			expect(storage).to.have.lengthOf(0);
+			Storage.session().clear();
+			expect(sessionStorage).to.have.lengthOf(0);
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			Storage.session({keyPrefix: "prefix:"}).clear();
+			expect(sessionStorage).to.have.lengthOf(1);
 		});
 	});
 
 	describe(".get()", () => {
 		it("should properly get the storage entries", () => {
-			const storage = new SessionStorage;
-			expect(storage.get("foo")).to.be.undefined;
-			expect(storage.get("foo", "123")).to.equal("123");
+			const service = Storage.session();
+			expect(service.get("foo")).to.be.null;
 
 			sessionStorage.setItem("foo", "bar");
-			expect(storage.get("foo")).to.equal("bar");
+			expect(service.get("foo")).to.equal("bar");
 
 			sessionStorage.setItem("foo", "123");
-			expect(storage.get("foo")).to.equal("123");
+			expect(service.get("foo")).to.equal("123");
+
+			sessionStorage.removeItem("foo");
+			expect(service.get("foo")).to.be.null;
 		});
 
-		it("should return the given default value if the key is not found", () => {
-			expect(new SessionStorage().get("bar", "123")).to.equal("123");
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(service.get("baz")).to.be.null;
+
+			sessionStorage.setItem("prefix:baz", "qux");
+			expect(service.get("baz")).to.equal("qux");
+
+			sessionStorage.setItem("prefix:baz", "456");
+			expect(service.get("baz")).to.equal("456");
+
+			sessionStorage.removeItem("prefix:baz");
+			expect(service.get("baz")).to.be.null;
 		});
 	});
 
 	describe(".getObject()", () => {
 		it("should properly get the deserialized storage entries", () => {
-			const storage = new SessionStorage;
-			expect(storage.getObject("foo")).to.be.undefined;
-			expect(storage.getObject("foo", {key: "value"})).to.be.an("object").that.deep.equal({key: "value"});
-
-			sessionStorage.setItem("foo", "123");
-			expect(storage.getObject("foo")).to.equal(123);
+			const service = Storage.session();
+			expect(service.getObject("foo")).to.be.null;
 
 			sessionStorage.setItem("foo", '"bar"');
-			expect(storage.getObject("foo")).to.equal("bar");
+			expect(service.getObject("foo")).to.equal("bar");
+
+			sessionStorage.setItem("foo", "123");
+			expect(service.getObject("foo")).to.equal(123);
 
 			sessionStorage.setItem("foo", '{"key": "value"}');
-			expect(storage.getObject("foo")).to.be.an("object").that.deep.equal({key: "value"});
+			expect(service.getObject("foo")).to.deep.equal({key: "value"});
+
+			sessionStorage.setItem("foo", "{bar[123]}");
+			expect(service.getObject("foo")).to.be.null;
+
+			sessionStorage.removeItem("foo");
+			expect(service.getObject("foo")).to.be.null;
 		});
 
-		it("should return the default value if the value can't be deserialized", () => {
-			sessionStorage.setItem("foo", "bar");
-			expect(new SessionStorage().getObject("foo", "defaultValue")).to.equal("defaultValue");
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(service.getObject("baz")).to.be.null;
+
+			sessionStorage.setItem("prefix:baz", '"qux"');
+			expect(service.getObject("baz")).to.equal("qux");
+
+			sessionStorage.setItem("prefix:baz", "456");
+			expect(service.getObject("baz")).to.equal(456);
+
+			sessionStorage.setItem("prefix:baz", '{"key": "value"}');
+			expect(service.getObject("baz")).to.deep.equal({key: "value"});
+
+			sessionStorage.setItem("prefix:baz", "{qux[456]}");
+			expect(service.getObject("baz")).to.be.null;
+
+			sessionStorage.removeItem("prefix:baz");
+			expect(service.getObject("baz")).to.be.null;
 		});
 	});
 
 	describe(".has()", () => {
 		it("should return `false` if the specified key is not contained", () => {
-			expect(new SessionStorage().has("foo")).to.be.false;
+			expect(Storage.session().has("foo")).to.be.false;
 		});
 
 		it("should return `true` if the specified key is contained", () => {
-			const storage = new SessionStorage;
 			sessionStorage.setItem("foo", "bar");
-			expect(storage.has("foo")).to.be.true;
-			expect(storage.has("bar")).to.be.false;
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			const service = Storage.session();
+			expect(service.has("foo:bar")).to.be.false;
+			expect(service.has("foo")).to.be.true;
+			expect(service.has("prefix:baz")).to.be.true;
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(service.has("foo")).to.be.false;
+			expect(service.has("baz")).to.be.true;
+		});
+	});
+
+	describe(".onChange()", () => {
+		it("should trigger an event when a cookie is added", done => {
+			const listener = (/** @type {StorageEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("bar");
+			};
+
+			const service = Storage.session();
+			service.onChange(listener);
+			service.set("foo", "bar").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			done();
+		});
+
+		it("should trigger an event when a cookie is updated", done => {
+			sessionStorage.setItem("foo", "bar");
+			const listener = (/** @type {StorageEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.equal("baz");
+			};
+
+			const service = Storage.session();
+			service.onChange(listener);
+			service.set("foo", "baz").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			done();
+		});
+
+		it("should trigger an event when a cookie is removed", done => {
+			sessionStorage.setItem("foo", "bar");
+			const listener = (/** @type {StorageEvent} */ event) => {
+				expect(event.key).to.equal("foo");
+				expect(event.oldValue).to.equal("bar");
+				expect(event.newValue).to.be.null;
+			};
+
+			const service = Storage.session();
+			service.onChange(listener);
+			service.remove("foo");
+			service.removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			done();
+		});
+
+		it("should handle the key prefix", done => {
+			const listener = (/** @type {StorageEvent} */ event) => {
+				expect(event.key).to.equal("baz");
+				expect(event.oldValue).to.be.null;
+				expect(event.newValue).to.equal("qux");
+			};
+
+			const service = Storage.local({keyPrefix: "prefix:"});
+			service.onChange(listener);
+			service.set("baz", "qux").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			done();
 		});
 	});
 
 	describe(".putIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
-			const storage = new SessionStorage;
+			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
-			expect(storage.putIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(service.putIfAbsent("foo", () => "bar")).to.equal("bar");
 			expect(sessionStorage.getItem("foo")).to.equal("bar");
 		});
 
 		it("should not add a new entry if it already exists", () => {
-			const storage = new SessionStorage;
-			sessionStorage.setItem("foo", "bar");
-			expect(storage.putIfAbsent("foo", () => "qux")).to.equal("bar");
-			expect(sessionStorage.getItem("foo")).to.equal("bar");
+			const service = Storage.session();
+			sessionStorage.setItem("foo", "123");
+			expect(service.putIfAbsent("foo", () => "XYZ")).to.equal("123");
+			expect(sessionStorage.getItem("foo")).to.equal("123");
+		});
+
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+			expect(service.putIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("qux");
+
+			sessionStorage.setItem("prefix:baz", "456");
+			expect(service.putIfAbsent("baz", () => "XYZ")).to.equal("456");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
-			const storage = new SessionStorage;
+			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
-			expect(storage.putObjectIfAbsent("foo", () => 123)).to.equal(123);
-			expect(sessionStorage.getItem("foo")).to.equal("123");
+			expect(service.putObjectIfAbsent("foo", () => "bar")).to.equal("bar");
+			expect(sessionStorage.getItem("foo")).to.equal('"bar"');
 		});
 
 		it("should not add a new entry if it already exists", () => {
-			const storage = new SessionStorage;
+			const service = Storage.session();
 			sessionStorage.setItem("foo", "123");
-			expect(storage.putObjectIfAbsent("foo", () => 456)).to.equal(123);
+			expect(service.putObjectIfAbsent("foo", () => 999)).to.equal(123);
 			expect(sessionStorage.getItem("foo")).to.equal("123");
+		});
+
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+			expect(service.putObjectIfAbsent("baz", () => "qux")).to.equal("qux");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal('"qux"');
+
+			sessionStorage.setItem("prefix:baz", "456");
+			expect(service.putObjectIfAbsent("baz", () => 999)).to.equal(456);
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".remove()", () => {
 		it("should properly remove the storage entries", () => {
-			const storage = new SessionStorage;
 			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("bar", "baz");
-			expect(sessionStorage.getItem("foo")).to.equal("bar");
+			sessionStorage.setItem("prefix:baz", "qux");
 
-			storage.remove("foo");
+			Storage.session().remove("foo");
+			expect(sessionStorage).to.have.lengthOf(1);
 			expect(sessionStorage.getItem("foo")).to.be.null;
-			expect(sessionStorage.getItem("bar")).to.equal("baz");
+		});
 
-			storage.remove("bar");
-			expect(sessionStorage.getItem("bar")).to.be.null;
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			Storage.session({keyPrefix: "prefix:"}).remove("baz");
+			expect(sessionStorage).to.have.lengthOf(1);
+			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
 		});
 	});
 
 	describe(".set()", () => {
 		it("should properly set the storage entries", () => {
-			const storage = new SessionStorage;
+			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
-			storage.set("foo", "bar");
+
+			service.set("foo", "bar");
 			expect(sessionStorage.getItem("foo")).to.equal("bar");
-			storage.set("foo", "123");
+
+			service.set("foo", "123");
 			expect(sessionStorage.getItem("foo")).to.equal("123");
+		});
+
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+
+			service.set("baz", "qux");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("qux");
+
+			service.set("baz", "456");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
 		});
 	});
 
 	describe(".setObject()", () => {
 		it("should properly serialize and set the storage entries", () => {
-			const storage = new SessionStorage;
+			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
-			storage.setObject("foo", 123);
-			expect(sessionStorage.getItem("foo")).to.equal("123");
-			storage.setObject("foo", "bar");
+
+			service.setObject("foo", "bar");
 			expect(sessionStorage.getItem("foo")).to.equal('"bar"');
-			storage.setObject("foo", {key: "value"});
+
+			service.setObject("foo", 123);
+			expect(sessionStorage.getItem("foo")).to.equal("123");
+
+			service.setObject("foo", {key: "value"});
 			expect(sessionStorage.getItem("foo")).to.equal('{"key":"value"}');
+		});
+
+		it("should handle the key prefix", () => {
+			const service = Storage.session({keyPrefix: "prefix:"});
+			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+
+			service.setObject("baz", "qux");
+			expect(sessionStorage.getItem("prefix:baz")).to.equal('"qux"');
+
+			service.setObject("baz", 456);
+			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
+
+			service.setObject("baz", {key: "value"});
+			expect(sessionStorage.getItem("prefix:baz")).to.equal('{"key":"value"}');
 		});
 	});
 
 	describe(".toJSON()", () => {
-		it("should return an empty map for an empty storage", () => {
-			const storage = new SessionStorage;
-			expect(storage.toJSON()).to.be.an("object").that.is.empty;
+		it("should return an empty array for an empty storage", () => {
+			expect(JSON.stringify(Storage.session())).to.equal("[]");
 		});
 
-		it("should return a non-empty map for a non-empty storage", () => {
-			const storage = new SessionStorage;
-			storage.set("foo", "bar").set("baz", "qux");
-			expect(storage.toJSON()).to.deep.equal({baz: "qux", foo: "bar"});
+		it("should return a non-empty array for a non-empty storage", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			const json = JSON.stringify(Storage.session());
+			expect(json).to.contain('["foo","bar"]');
+			expect(json).to.contain('["prefix:baz","qux"]');
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			const json = JSON.stringify(Storage.session({keyPrefix: "prefix:"}));
+			expect(json).to.not.contain('["foo","bar"]');
+			expect(json).to.contain('["baz","qux"]');
 		});
 	});
 });
