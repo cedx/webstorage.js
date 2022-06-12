@@ -14,17 +14,15 @@ for (const [key, value] of localStorage) {
 	// Round 3: "baz => qux"
 }
 
-localStorage.clear();
-
 // Loop over entries of the storage that use the same key prefix.
-localStorage
+Storage.session()
 	.set("foo", "bar")
 	.set("prefix:bar", "baz");
 
-const prefixedLocalStorage = Storage.local({keyPrefix: "prefix:"})
+const prefixedStorage = Storage.session({keyPrefix: "prefix:"})
 	.set("baz", "qux");
 
-for (const [key, value] of prefixedLocalStorage) {
+for (const [key, value] of prefixedStorage) {
 	console.log(`${key} => ${value}`);
 	// Round 1: "bar => baz"
 	// Round 2: "baz => qux"
