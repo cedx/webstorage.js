@@ -1,5 +1,15 @@
 # Changelog
 
+## Version [2.0.0](https://github.com/cedx/webstorage.js/compare/v1.6.0...v2.0.0)
+- Breaking change: removed the `defaultValue` parameter from the getter methods.
+- Breaking change: renamed the `WebStorage` class to `Storage`.
+- Breaking change: replaced the `SimpleChange` class by the `StorageEvent` one.
+- Added support for key prefix.
+- Added the `local()` and `session()` static methods to the `Storage` class.
+- Added the `Storage.onChange()` instance method.
+- Ported the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Restored support for [GitHub Packages](https://github.com/features/packages).
+
 ## Version [1.6.0](https://github.com/cedx/webstorage.js/compare/v1.5.0...v1.6.0)
 - Replaced the build system based on [Gulp](https://gulpjs.com) by [PowerShell](https://docs.microsoft.com/en-us/powershell) scripts.
 - Updated the package dependencies.
