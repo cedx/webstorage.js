@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [2.0.1](https://github.com/cedx/webstorage.js/compare/v2.0.0...v2.0.1)
+- Fixed a packaging issue.
+
 ## Version [2.0.0](https://github.com/cedx/webstorage.js/compare/v1.6.0...v2.0.0)
 - Breaking change: removed the `defaultValue` parameter from the getter methods.
 - Breaking change: renamed the `WebStorage` class to `Storage`.
