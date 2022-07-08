@@ -35,7 +35,7 @@ export async function publish() {
 
 /** Runs the test suite. */
 export function test() {
-	return exec("karma", ["start", "etc/karma.cjs"]);
+	return exec("web-test-runner", ["--config=etc/test_runner.js"]);
 }
 
 /** Watches for file changes. */

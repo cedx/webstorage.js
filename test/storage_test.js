@@ -1,4 +1,5 @@
 /* eslint-disable max-lines-per-function, no-unused-expressions */
+import {expect} from "@esm-bundle/chai";
 import {Storage, StorageEvent} from "../lib/index.js";
 
 /**
