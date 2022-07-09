@@ -1,7 +1,7 @@
 {
 	"bugs": "https://github.com/cedx/webstorage.js/issues",
 	"description": "Services for interacting with the Web Storage.",
-	"exports": "./lib/index.js",
+	"exports": "./src/index.js",
 	"homepage": "https://github.com/cedx/webstorage.js",
 	"license": "MIT",
 	"name": "@cedx/webstorage",
@@ -34,7 +34,7 @@
 	},
 	"files": [
 		"lib/",
-		"share/"
+		"src/"
 	],
 	"funding": {
 		"type": "github",

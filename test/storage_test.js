@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function, no-unused-expressions */
 import {expect} from "@esm-bundle/chai";
-import {Storage, StorageEvent} from "../lib/index.js";
+import {Storage, StorageEvent} from "../src/index.js";
 
 /**
  * Tests the features of the {@link Storage} class.
