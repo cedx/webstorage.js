@@ -1,7 +1,7 @@
 /** @type {import("@web/test-runner").TestRunnerConfig} */
 export default {
 	coverage: true,
-	coverageConfig: {include: ["src/**/*.js"], reportDir: "var"},
+	coverageConfig: {reportDir: "var"},
 	files: "test/**/*.js",
 	nodeResolve: true
 };
