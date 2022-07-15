@@ -38,11 +38,6 @@ export function test() {
 	return exec("web-test-runner", ["--config=etc/test_runner.js"]);
 }
 
-/** Watches for file changes. */
-export function watch() {
-	return exec("tsc", ["--project", "jsconfig.json", "--watch"]);
-}
-
 /** Runs the default task. */
 export default gulp.series(
 	clean,
