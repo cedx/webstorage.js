@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [2.0.2](https://github.com/cedx/webstorage.js/compare/v2.0.1...v2.0.2)
+- Fixed the [TypeScript](https://www.typescriptlang.org) typings.
+
 ## Version [2.0.1](https://github.com/cedx/webstorage.js/compare/v2.0.0...v2.0.1)
 - Fixed a packaging issue.
 
