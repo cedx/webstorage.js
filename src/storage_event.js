@@ -1,5 +1,5 @@
 /**
- * An event triggered when the storage has been changed.
+ * An event dispatched when the storage has been changed.
  */
 export class StorageEvent extends Event {
 
