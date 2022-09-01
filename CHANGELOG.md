@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [3.0.0](https://github.com/cedx/webstorage.js/compare/v2.0.2...v3.0.0)
+- Breaking change: removed the `LocalStorage` and `SessionStorage` classes.
+- Added the `localStorage` and `sessionStorage` symbols.
+
 ## Version [2.0.2](https://github.com/cedx/webstorage.js/compare/v2.0.1...v2.0.2)
 - Fixed the [TypeScript](https://www.typescriptlang.org) typings.
 
