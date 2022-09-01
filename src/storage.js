@@ -49,19 +49,19 @@ export class Storage extends EventTarget {
 	/**
 	 * Creates a new local storage service.
 	 * @param {StorageOptions} [options] An object providing values to initialize the service.
-	 * @returns {LocalStorage} The newly created service.
+	 * @returns {Storage} The newly created service.
 	 */
 	static local(options = {}) {
-		return new LocalStorage(options);
+		return new this(localStorage, options);
 	}
 
 	/**
 	 * Creates a new session storage service.
 	 * @param {StorageOptions} [options] An object providing values to initialize the service.
-	 * @returns {SessionStorage} The newly created service.
+	 * @returns {Storage} The newly created service.
 	 */
 	static session(options = {}) {
-		return new SessionStorage(options);
+		return new this(sessionStorage, options);
 	}
 
 	/**
@@ -226,31 +226,3 @@ export class Storage extends EventTarget {
  * @property {string} [keyPrefix] A string prefixed to every key so that it is unique globally in the whole storage.
  * @property {boolean} [listenToGlobalEvents] Value indicating whether to listen to the global storage events.
  */
-
-/**
- * Provides access to the local storage.
- */
-export class LocalStorage extends Storage {
-
-	/**
-	 * Creates a new local storage service.
-	 * @param {StorageOptions} [options] An object providing values to initialize this instance.
-	 */
-	constructor(options = {}) {
-		super(localStorage, options);
-	}
-}
-
-/**
- * Provides access to the session storage.
- */
-export class SessionStorage extends Storage {
-
-	/**
-	 * Creates a new session storage service.
-	 * @param {StorageOptions} [options] An object providing values to initialize this instance.
-	 */
-	constructor(options = {}) {
-		super(sessionStorage, options);
-	}
-}
