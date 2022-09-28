@@ -17,7 +17,7 @@
 - Added support for key prefix.
 - Added the `local()` and `session()` static methods to the `Storage` class.
 - Added the `Storage.onChange()` instance method.
-- Ported the source code to [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).
+- Ported the source code to [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 - Restored support for [GitHub Packages](https://github.com/features/packages).
 
 ## Version [1.6.0](https://github.com/cedx/webstorage.js/compare/v1.5.0...v1.6.0)
