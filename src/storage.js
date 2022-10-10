@@ -69,7 +69,7 @@ export class Storage extends EventTarget {
 	 * @type {string[]}
 	 */
 	get keys() {
-		const keys = /** @type {string[]} */ (Array(this.#backend.length).fill(null).map((_, index) => this.#backend.key(index)));
+		const keys = /** @type {string[]} */ (Array.from(Array(this.#backend.length), (_, index) => this.#backend.key(index)));
 		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
 	}
 
