@@ -6,7 +6,6 @@
 		"node": true
 	},
 	"extends": "eslint:recommended",
-	"globals": {"expect": "readonly"},
 	"parser": "@babel/eslint-parser",
 	"parserOptions": {
 		"babelOptions": {"plugins": ["@babel/plugin-syntax-import-assertions"]},
@@ -117,7 +116,7 @@
 		"no-undefined": "error",
 		"no-underscore-dangle": "error",
 		"no-unneeded-ternary": "error",
-		"no-unused-expressions": "error",
+		"no-unused-expressions": "off",
 		"no-useless-call": "error",
 		"no-useless-computed-key": "error",
 		"no-useless-concat": "error",
