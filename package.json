@@ -18,7 +18,7 @@
 		"@esm-bundle/chai": "^4.3.4",
 		"@types/gulp": "^4.0.10",
 		"@types/mocha": "^10.0.1",
-		"@types/node": "^18.11.11",
+		"@types/node": "^18.11.12",
 		"@web/test-runner": "^0.15.0",
 		"@web/test-runner-playwright": "^0.9.0",
 		"del": "^7.0.0",
