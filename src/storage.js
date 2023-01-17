@@ -130,7 +130,7 @@ export class Storage extends EventTarget {
 	/**
 	 * Gets a value indicating whether this storage contains the specified key.
 	 * @param {string} key The storage key.
-	 * @returns {boolean} `true` of this storage contains the specified key, otherwise `false`.
+	 * @returns {boolean} `true` if this storage contains the specified key, otherwise `false`.
 	 */
 	has(key) {
 		return this.get(key) != null;
