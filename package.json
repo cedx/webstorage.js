@@ -39,6 +39,12 @@
 		"lib/",
 		"src/"
 	],
+	"imports": {
+		"#webstorage": {
+			"types": "./lib/index.d.ts",
+			"import": "./src/index.js"
+		}
+	},
 	"keywords": [
 		"browser",
 		"document",
