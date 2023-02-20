@@ -2,7 +2,6 @@ import {StorageEvent} from "./storage_event.js";
 
 /**
  * Provides access to the [Web Storage](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).
- * @abstract
  */
 export class Storage extends EventTarget {
 
