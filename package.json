@@ -6,7 +6,7 @@
 	"name": "@cedx/webstorage",
 	"repository": "github:cedx/webstorage.js",
 	"type": "module",
-	"version": "3.0.0",
+	"version": "4.0.0",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
