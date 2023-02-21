@@ -13,8 +13,6 @@
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.19.1",
-		"@babel/plugin-syntax-import-assertions": "^7.20.0",
 		"@esm-bundle/chai": "^4.3.4",
 		"@types/mocha": "^10.0.1",
 		"@web/test-runner": "^0.15.0",
