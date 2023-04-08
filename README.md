@@ -6,7 +6,7 @@ in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
 - [User guide](https://github.com/cedx/webstorage.js/wiki)
-- [API reference](https://cedx.github.io/webstorage.js)
+- [API reference](https://docs.belin.io/webstorage.js)
 
 ## Development
 - [Git repository](https://github.com/cedx/webstorage.js)
