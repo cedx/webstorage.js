@@ -1,7 +1,7 @@
 {
 	"bugs": "https://github.com/cedx/webstorage.js/issues",
 	"description": "Services for interacting with the Web Storage.",
-	"homepage": "https://github.com/cedx/webstorage.js",
+	"homepage": "https://docs.belin.io/webstorage.js",
 	"license": "MIT",
 	"name": "@cedx/webstorage",
 	"repository": "github:cedx/webstorage.js",
