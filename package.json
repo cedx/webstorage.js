@@ -15,7 +15,7 @@
 	"devDependencies": {
 		"@esm-bundle/chai": "^4.3.4",
 		"@types/mocha": "^10.0.1",
-		"@web/test-runner": "^0.16.1",
+		"@web/test-runner": "^0.17.0",
 		"@web/test-runner-playwright": "^0.10.1",
 		"eslint": "^8.44.0",
 		"typedoc": "^0.24.8",
