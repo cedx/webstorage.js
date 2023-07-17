@@ -8,7 +8,7 @@ import {Storage, StorageEvent} from "#webstorage";
 describe("Storage", () => {
 	beforeEach(() => sessionStorage.clear());
 
-	describe(".keys", () => {
+	describe("keys", () => {
 		it("should return an empty array for an empty storage", () => {
 			expect(Storage.session().keys).to.be.empty;
 		});
@@ -26,7 +26,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".length", () => {
+	describe("length", () => {
 		it("should return zero for an empty storage", () => {
 			expect(Storage.session()).to.have.lengthOf(0);
 		});
@@ -44,7 +44,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".[Symbol.iterator]()", () => {
+	describe("[Symbol.iterator]()", () => {
 		it("should end iteration immediately if the storage is empty", () => {
 			const iterator = Storage.session()[Symbol.iterator]();
 			expect(iterator.next().done).to.be.true;
@@ -76,7 +76,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".clear()", () => {
+	describe("clear()", () => {
 		it("should remove all storage entries", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
@@ -94,7 +94,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".get()", () => {
+	describe("get()", () => {
 		it("should properly get the storage entries", () => {
 			const service = Storage.session();
 			expect(service.get("foo")).to.be.null;
@@ -124,7 +124,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".getObject()", () => {
+	describe("getObject()", () => {
 		it("should properly get the deserialized storage entries", () => {
 			const service = Storage.session();
 			expect(service.getObject("foo")).to.be.null;
@@ -166,7 +166,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".has()", () => {
+	describe("has()", () => {
 		it("should return `false` if the specified key is not contained", () => {
 			expect(Storage.session().has("foo")).to.be.false;
 		});
@@ -191,7 +191,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".onChange()", () => {
+	describe("onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
 			const listener = (/** @type {StorageEvent} */ event) => {
 				expect(event.key).to.equal("foo");
@@ -248,7 +248,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".putIfAbsent()", () => {
+	describe("putIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
 			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
@@ -275,7 +275,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".putObjectIfAbsent()", () => {
+	describe("putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
 			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
@@ -302,7 +302,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".remove()", () => {
+	describe("remove()", () => {
 		it("should properly remove the storage entries", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
@@ -322,7 +322,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".set()", () => {
+	describe("set()", () => {
 		it("should properly set the storage entries", () => {
 			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
@@ -346,7 +346,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".setObject()", () => {
+	describe("setObject()", () => {
 		it("should properly serialize and set the storage entries", () => {
 			const service = Storage.session();
 			expect(sessionStorage.getItem("foo")).to.be.null;
@@ -376,7 +376,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe(".toJSON()", () => {
+	describe("toJSON()", () => {
 		it("should return an empty array for an empty storage", () => {
 			expect(JSON.stringify(Storage.session())).to.equal("[]");
 		});
