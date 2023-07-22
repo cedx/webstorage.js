@@ -48,7 +48,13 @@
 		"storage"
 	],
 	"scripts": {
-		"prepack": "lix Dist",
+		"build": "tsc --project src/jsconfig.json",
+		"clean": "node scripts/clean.js",
+		"doc": "typedoc --options etc/typedoc.json && node scripts/doc.js",
+		"dist": "npm run clean && npm run build",
+		"lint": "tsc --project jsconfig.json && eslint --config=etc/eslint.json etc example scripts src test",
+		"postpublish": "node scripts/publish.js",
+		"prepack": "npm run dist",
 		"test": "web-test-runner --config=etc/test_runner.js"
 	}
 }
