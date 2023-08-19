@@ -1,7 +1,7 @@
 /* eslint-disable curly, lines-around-comment */
 import {Storage} from "@cedx/webstorage";
 
-// Loop over all entries of the storage.
+// Loop over all entries of the local storage.
 const localStorage = Storage.local()
 	.set("foo", "bar")
 	.set("bar", "baz")
@@ -14,7 +14,7 @@ for (const [key, value] of localStorage) {
 	// Round 3: "baz => qux"
 }
 
-// Loop over entries of the storage that use the same key prefix.
+// Loop over entries of the session storage that use the same key prefix.
 Storage.session()
 	.set("foo", "bar")
 	.set("prefix:bar", "baz");
