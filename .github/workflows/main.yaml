@@ -12,7 +12,7 @@ jobs:
           cache: npm
           node-version: 18
       - name: Set up Playwright
-        run: npx playwright install-deps
+        run: npx playwright install --with-deps
       - name: Install dependencies
         run: npm ci
       - name: Run tests
