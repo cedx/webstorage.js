@@ -4,7 +4,7 @@
 	"homepage": "https://docs.belin.io/webstorage.js",
 	"license": "MIT",
 	"name": "@cedx/webstorage",
-	"repository": "github:cedx/webstorage.js",
+	"repository": "cedx/webstorage.js",
 	"type": "module",
 	"version": "4.1.0",
 	"author": {
