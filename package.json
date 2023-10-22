@@ -16,8 +16,8 @@
 		"@esm-bundle/chai": "^4.3.4-fix.0",
 		"@types/mocha": "^10.0.3",
 		"@web/test-runner": "^0.17.2",
-		"@web/test-runner-playwright": "^0.10.1",
-		"eslint": "^8.51.0",
+		"@web/test-runner-playwright": "^0.10.2",
+		"eslint": "^8.52.0",
 		"typedoc": "^0.25.2",
 		"typescript": "^5.2.2"
 	},
