@@ -117,9 +117,9 @@ export class Storage extends EventTarget {
 
 	/**
 	 * Gets the deserialized value associated with the specified key.
-	 * @template T
+	 * @template Type
 	 * @param {string} key The storage key.
-	 * @returns {T|null} The storage value, or `null` if the key does not exist or the value cannot be deserialized.
+	 * @returns {Type|null} The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
 	getObject(key) {
 		try { return JSON.parse(this.get(key) ?? ""); }
@@ -156,14 +156,14 @@ export class Storage extends EventTarget {
 
 	/**
 	 * Looks up the deserialized value of the specified key, or add a new serialized value if it isn't there.
-	 * @template T
+	 * @template Type
 	 * @param {string} key The storage key.
-	 * @param {() => T} ifAbsent A function producing the new cookie value.
-	 * @returns {T} The deserialized value associated with the key.
+	 * @param {() => Type} ifAbsent A function producing the new cookie value.
+	 * @returns {Type} The deserialized value associated with the key.
 	 */
 	putObjectIfAbsent(key, ifAbsent) {
 		if (!this.has(key)) this.setObject(key, ifAbsent());
-		return /** @type {T} */ (this.getObject(key));
+		return /** @type {Type} */ (this.getObject(key));
 	}
 
 	/**
@@ -193,9 +193,9 @@ export class Storage extends EventTarget {
 
 	/**
 	 * Serializes and associates a given `value` with the specified `key`.
-	 * @template T
+	 * @template Type
 	 * @param {string} key The storage key.
-	 * @param {T} value The storage value.
+	 * @param {Type} value The storage value.
 	 * @returns {this} This instance.
 	 */
 	setObject(key, value) {
