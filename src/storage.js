@@ -207,7 +207,7 @@ export class Storage extends EventTarget {
 	 * @returns {Array<[string, string]>} The JSON representation of this object.
 	 */
 	toJSON() {
-		return [...this];
+		return Array.from(this);
 	}
 
 	/**
