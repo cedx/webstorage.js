@@ -1,15 +1,11 @@
-import {playwrightLauncher} from "@web/test-runner-playwright";
+import {puppeteerLauncher} from "@web/test-runner-puppeteer";
 
 /**
  * The test runner configuration.
  * @type {import("@web/test-runner").TestRunnerConfig}
  */
 export default {
-	browsers: [
-		playwrightLauncher({product: "chromium"}),
-		playwrightLauncher({product: "firefox"}),
-		playwrightLauncher({product: "webkit"})
-	],
+	browsers: [puppeteerLauncher()],
 	coverage: true,
 	coverageConfig: {reportDir: "var"},
 	files: "test/**/*.js",
