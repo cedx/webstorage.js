@@ -14,4 +14,4 @@ in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 - [Submit an issue](https://github.com/cedx/webstorage.js/issues)
 
 ## License
-[Web Storage for JS](https://cedx.github.io/webstorage.js) is distributed under the MIT License.
+[Web Storage for JS](https://github.com/cedx/webstorage.js) is distributed under the MIT License.
