@@ -1,15 +1,11 @@
-import {playwrightLauncher} from "@web/test-runner-playwright";
+import {chromeLauncher} from "@web/test-runner";
 
 /**
  * The test runner configuration.
  * @type {import("@web/test-runner").TestRunnerConfig}
  */
 export default {
-	browsers: [
-		playwrightLauncher({product: "chromium"}),
-		playwrightLauncher({product: "firefox"}),
-		playwrightLauncher({product: "webkit"})
-	],
+	browsers: [chromeLauncher()],
 	coverage: true,
 	coverageConfig: {reportDir: "var"},
 	files: "test/**/*.js",
