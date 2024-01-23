@@ -48,11 +48,11 @@
 	],
 	"scripts": {
 		"build": "tsc --project src/tsconfig.json",
-		"clean": "node scripts/clean.js",
-		"doc": "typedoc --options etc/typedoc.json && node scripts/doc.js",
+		"clean": "node tool/clean.js",
+		"doc": "typedoc --options etc/typedoc.json && node tool/doc.js",
 		"dist": "npm run clean && npm run build",
-		"lint": "tsc --project tsconfig.json && eslint --config=etc/eslint.json etc example scripts src test",
-		"postpublish": "node scripts/publish.js",
+		"lint": "tsc --project tsconfig.json && eslint --config=etc/eslint.json etc example src test tool",
+		"postpublish": "node tool/publish.js",
 		"prepack": "npm run dist",
 		"test": "web-test-runner --config=etc/test_runner.js"
 	}
