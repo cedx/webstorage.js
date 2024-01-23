@@ -1,5 +1,5 @@
 # Web Storage for JS
-![Node.js](https://badgen.net/npm/node/@cedx/webstorage) ![npm](https://badgen.net/npm/v/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage) ![Coverage](https://badgen.net/codecov/c/github/cedx/webstorage.js)
+![Node.js](https://badgen.net/npm/node/@cedx/webstorage) ![npm](https://badgen.net/npm/v/@cedx/webstorage) ![License](https://badgen.net/npm/license/@cedx/webstorage) ![Downloads](https://badgen.net/npm/dt/@cedx/webstorage)
 
 Services for interacting with the [Web Storage](https://developer.mozilla.org/docs/Web/API/Storage)
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).

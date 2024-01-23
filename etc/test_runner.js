@@ -6,8 +6,6 @@ import {chromeLauncher} from "@web/test-runner";
  */
 export default {
 	browsers: [chromeLauncher()],
-	coverage: true,
-	coverageConfig: {reportDir: "var"},
 	files: "test/**/*.js",
 	nodeResolve: true
 };
