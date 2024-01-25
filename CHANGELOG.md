@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [4.2.0](https://github.com/cedx/webstorage.js/compare/v4.1.0...v4.2.0)
+- Ported the source code to [TypeScript](https://www.typescriptlang.org).
+
 ## Version [4.1.0](https://github.com/cedx/webstorage.js/compare/v4.0.0...v4.1.0)
 - Use generics for the signature of the `getObject()`, `putObjectIfAbsent()` and `setObject()` methods of the `Storage` class.
 
