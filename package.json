@@ -13,11 +13,12 @@
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
-		"@esm-bundle/chai": "^4.3.4-fix.0",
+		"@types/chai": "^4.3.11",
 		"@types/mocha": "^10.0.6",
 		"@typescript-eslint/eslint-plugin": "^6.19.1",
 		"@typescript-eslint/parser": "^6.19.1",
 		"@web/test-runner": "^0.18.0",
+		"chai": "^5.0.3",
 		"eslint": "^8.56.0",
 		"typedoc": "^0.25.7",
 		"typescript": "^5.3.3"
@@ -53,9 +54,9 @@
 		"clean": "node tool/clean.js",
 		"doc": "typedoc --options etc/typedoc.js && node tool/doc.js",
 		"dist": "npm run clean && npm run build",
-		"lint": "tsc --project tsconfig.json && eslint --config=etc/eslint.cjs etc example src test tool",
+		"lint": "tsc --project tsconfig.json && eslint --config=etc/eslint.cjs example src test tool",
 		"postpublish": "node tool/publish.js",
 		"prepack": "npm run dist",
-		"test": "web-test-runner --config=etc/test_runner.js"
+		"test": "npm run build && web-test-runner --config=etc/test_runner.js"
 	}
 }
