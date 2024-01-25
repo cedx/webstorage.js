@@ -3,6 +3,7 @@ module.exports = {
 	env: {
 		browser: true,
 		es2024: true,
+		mocha: true,
 		node: true
 	},
 	extends: [
@@ -10,14 +11,18 @@ module.exports = {
 		"plugin:@typescript-eslint/recommended"
 	],
 	overrides: [
-    {
-      files: ["*.cts", "*.mts", "*.ts", "*.tsx"],
-      rules: {
-				"@typescript-eslint/explicit-function-return-type": "error",
-				"@typescript-eslint/explicit-module-boundary-types": "error"
+		{
+			files: ["*.cjs", "*.js", "*.mjs"],
+			rules: {
+				"@typescript-eslint/explicit-function-return-type": "off",
+				"@typescript-eslint/explicit-module-boundary-types": "off"
 			}
-    }
-  ],
+		},
+		{
+			files: ["*_test.js"],
+			rules: {"@typescript-eslint/no-unused-expressions": "off"}
+		}
+	],
 	parser: "@typescript-eslint/parser",
 	parserOptions: {
 		ecmaVersion: "latest",
@@ -128,7 +133,7 @@ module.exports = {
 		"no-undefined": "error",
 		"no-underscore-dangle": "error",
 		"no-unneeded-ternary": "error",
-		"no-unused-expressions": "error",
+		"no-unused-expressions": "off",
 		"no-useless-call": "error",
 		"no-useless-computed-key": "error",
 		"no-useless-concat": "error",
@@ -181,9 +186,9 @@ module.exports = {
 		"@typescript-eslint/consistent-type-imports": "error",
 		"@typescript-eslint/default-param-last": "error",
 		"@typescript-eslint/dot-notation": "error",
-		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/explicit-function-return-type": "error",
 		"@typescript-eslint/explicit-member-accessibility": ["error", {accessibility: "no-public"}],
-		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "error",
 		"@typescript-eslint/init-declarations": "error",
 		"@typescript-eslint/max-params": "error",
 		"@typescript-eslint/member-ordering": "error",
@@ -207,7 +212,7 @@ module.exports = {
 		"@typescript-eslint/no-meaningless-void-operator": "error",
 		"@typescript-eslint/no-mixed-enums": "error",
 		"@typescript-eslint/no-non-null-asserted-nullish-coalescing": "error",
-		"@typescript-eslint/no-non-null-assertion": "error",
+		"@typescript-eslint/no-non-null-assertion": "off",
 		"@typescript-eslint/no-redeclare": "error",
 		"@typescript-eslint/no-require-imports": "error",
 		"@typescript-eslint/no-restricted-imports": "error",
