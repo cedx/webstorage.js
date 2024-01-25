@@ -1,4 +1,4 @@
-/* eslint-disable curly, lines-around-comment */
+/* eslint-disable curly */
 import {Storage} from "@cedx/webstorage";
 
 // Loop over all entries of the local storage.

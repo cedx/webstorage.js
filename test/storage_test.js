@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {expect} from "@esm-bundle/chai";
+import {expect} from "chai";
 import {Storage, StorageEvent} from "#webstorage";
 
 /**
@@ -9,9 +9,8 @@ describe("Storage", () => {
 	beforeEach(() => sessionStorage.clear());
 
 	describe("keys", () => {
-		it("should return an empty array for an empty storage", () => {
-			expect(Storage.session().keys).to.be.empty;
-		});
+		it("should return an empty array for an empty storage", () =>
+			expect(Storage.session().keys).to.be.empty);
 
 		it("should return the list of keys for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
@@ -27,9 +26,8 @@ describe("Storage", () => {
 	});
 
 	describe("length", () => {
-		it("should return zero for an empty storage", () => {
-			expect(Storage.session()).to.have.lengthOf(0);
-		});
+		it("should return zero for an empty storage", () =>
+			expect(Storage.session()).to.have.lengthOf(0));
 
 		it("should return the number of entries for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
@@ -167,9 +165,8 @@ describe("Storage", () => {
 	});
 
 	describe("has()", () => {
-		it("should return `false` if the specified key is not contained", () => {
-			expect(Storage.session().has("foo")).to.be.false;
-		});
+		it("should return `false` if the specified key is not contained", () =>
+			expect(Storage.session().has("foo")).to.be.false);
 
 		it("should return `true` if the specified key is contained", () => {
 			sessionStorage.setItem("foo", "bar");
