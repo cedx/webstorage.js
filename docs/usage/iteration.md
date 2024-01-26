@@ -2,7 +2,7 @@
 The [`Storage`](usage/api.md) class is iterable: it implements the [`Symbol.iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) function.
 You can go through all key/value pairs contained using a `for...of` loop:
 
-```javascript
+```js
 import {Storage} from "@cedx/webstorage";
 
 const localStorage = Storage.local()
@@ -22,7 +22,7 @@ for (const [key, value] of localStorage) {
 
 If you have configured the instance to use a [key prefix](usage/key_prefix.md), the iteration will only loop over the values that have that same key prefix:
 
-```javascript
+```js
 import {Storage} from "@cedx/webstorage";
 
 Storage.session()
