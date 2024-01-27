@@ -85,7 +85,8 @@ export class Storage extends EventTarget {
 	 * Removes all entries from this storage.
 	 */
 	clear(): void {
-		if (this.#keyPrefix) this.keys.forEach(key => this.remove(key));
+		if (this.#keyPrefix)
+			for (const key of this.keys) this.remove(key);
 		else {
 			this.#backend.clear();
 			this.dispatchEvent(new StorageEvent(null));
