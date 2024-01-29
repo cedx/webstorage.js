@@ -115,7 +115,7 @@ export class Storage extends EventTarget {
 	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
 	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? ""); }
+		try { return JSON.parse(this.get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
