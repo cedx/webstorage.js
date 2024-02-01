@@ -114,8 +114,8 @@ export class Storage extends EventTarget {
 	 * @param key The storage key.
 	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? "") as T; }
+	getObject(key: string): any {
+		try { return JSON.parse(this.get(key) ?? ""); }
 		catch { return null; }
 	}
 
@@ -154,7 +154,7 @@ export class Storage extends EventTarget {
 	 * @param ifAbsent A function producing the new cookie value.
 	 * @returns The deserialized value associated with the key.
 	 */
-	putObjectIfAbsent<T>(key: string, ifAbsent: () => T): T {
+	putObjectIfAbsent(key: string, ifAbsent: () => any): any {
 		if (!this.has(key)) this.setObject(key, ifAbsent());
 		return this.getObject(key)!;
 	}
@@ -190,7 +190,7 @@ export class Storage extends EventTarget {
 	 * @param value The storage value.
 	 * @returns This instance.
 	 */
-	setObject<T>(key: string, value: T): this {
+	setObject(key: string, value: unknown): this {
 		return this.set(key, JSON.stringify(value));
 	}
 
