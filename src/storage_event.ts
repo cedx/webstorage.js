@@ -6,7 +6,7 @@ export class StorageEvent extends Event {
 	/**
 	 * The event type.
 	 */
-	static readonly type = "change";
+	static readonly type = "storage:change";
 
 	/**
 	 * The changed key.
