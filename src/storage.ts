@@ -131,10 +131,12 @@ export class Storage extends EventTarget {
 	/**
 	 * Registers a function that will be invoked whenever the `change` event is triggered.
 	 * @param listener The event handler to register.
+	 * @returns This instance.
 	 * @event
 	 */
-	onChange(listener: (event: StorageEvent) => void): void {
+	onChange(listener: (event: StorageEvent) => void): this {
 		this.addEventListener(StorageEvent.type, listener as EventListener, {passive: true});
+		return this;
 	}
 
 	/**
