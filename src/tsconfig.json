@@ -4,8 +4,6 @@
 	"compilerOptions": {
 		"declaration": true,
 		"declarationMap": true,
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
 		"noEmit": false,
 		"outDir": "../lib"
 	}
