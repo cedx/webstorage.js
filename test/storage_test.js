@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {expect} from "chai";
+import {assert} from "chai";
 import {Storage, StorageEvent} from "#webstorage";
 
 /**
@@ -10,42 +10,42 @@ describe("Storage", () => {
 
 	describe("keys", () => {
 		it("should return an empty array for an empty storage", () =>
-			expect(Storage.session().keys).to.be.empty);
+			assert.isEmpty(Storage.session().keys));
 
 		it("should return the list of keys for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			expect(Storage.session().keys).to.have.ordered.members(["foo", "prefix:baz"]);
+			assert.sameOrderedMembers(Storage.session().keys, ["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			expect(Storage.session({keyPrefix: "prefix:"}).keys).to.have.members(["baz"]);
+			assert.sameMembers(Storage.session({keyPrefix: "prefix:"}).keys, ["baz"]);
 		});
 	});
 
 	describe("length", () => {
 		it("should return zero for an empty storage", () =>
-			expect(Storage.session()).to.have.lengthOf(0));
+			assert.lengthOf(Storage.session(), 0));
 
 		it("should return the number of entries for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			expect(Storage.session()).to.have.lengthOf(2);
+			assert.lengthOf(Storage.session(), 2);
 		});
 
 		it("should handle the key prefix", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			expect(Storage.session({keyPrefix: "prefix:"})).to.have.lengthOf(1);
+			assert.lengthOf(Storage.session({keyPrefix: "prefix:"}), 1);
 		});
 	});
 
 	describe("[Symbol.iterator]()", () => {
 		it("should end iteration immediately if the storage is empty", () => {
 			const iterator = Storage.session()[Symbol.iterator]();
-			expect(iterator.next().done).to.be.true;
+			assert.isTrue(iterator.next().done);
 		});
 
 		it("should iterate over the values if the storage is not empty", () => {
@@ -53,13 +53,14 @@ describe("Storage", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
 
+			/** @type {IteratorResult<[string, string], [string, string]>} */
 			let next = iterator.next();
-			expect(next.done).to.be.false;
-			expect(next.value).to.have.ordered.members(["foo", "bar"]);
+			assert.isFalse(next.done);
+			assert.sameOrderedMembers(next.value, ["foo", "bar"]);
 			next = iterator.next();
-			expect(next.done).to.be.false;
-			expect(next.value).to.have.ordered.members(["prefix:baz", "qux"]);
-			expect(iterator.next().done).to.be.true;
+			assert.isFalse(next.done);
+			assert.sameOrderedMembers(next.value, ["prefix:baz", "qux"]);
+			assert.isTrue(iterator.next().done);
 		});
 
 		it("should handle the key prefix", () => {
@@ -67,10 +68,11 @@ describe("Storage", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
 
+			/** @type {IteratorResult<[string, string], [string, string]>} */
 			const next = iterator.next();
-			expect(next.done).to.be.false;
-			expect(next.value).to.have.ordered.members(["baz", "qux"]);
-			expect(iterator.next().done).to.be.true;
+			assert.isFalse(next.done);
+			assert.sameOrderedMembers(next.value, ["baz", "qux"]);
+			assert.isTrue(iterator.next().done);
 		});
 	});
 
@@ -80,7 +82,7 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			Storage.session().clear();
-			expect(sessionStorage).to.have.lengthOf(0);
+			assert.lengthOf(sessionStorage, 0);
 		});
 
 		it("should handle the key prefix", () => {
@@ -88,94 +90,94 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			Storage.session({keyPrefix: "prefix:"}).clear();
-			expect(sessionStorage).to.have.lengthOf(1);
+			assert.lengthOf(sessionStorage, 1);
 		});
 	});
 
 	describe("get()", () => {
 		it("should properly get the storage entries", () => {
 			const service = Storage.session();
-			expect(service.get("foo")).to.be.null;
+			assert.isNull(service.get("foo"));
 
 			sessionStorage.setItem("foo", "bar");
-			expect(service.get("foo")).to.equal("bar");
+			assert.equal(service.get("foo"), "bar");
 
 			sessionStorage.setItem("foo", "123");
-			expect(service.get("foo")).to.equal("123");
+			assert.equal(service.get("foo"), "123");
 
 			sessionStorage.removeItem("foo");
-			expect(service.get("foo")).to.be.null;
+			assert.isNull(service.get("foo"));
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(service.get("baz")).to.be.null;
+			assert.isNull(service.get("baz"));
 
 			sessionStorage.setItem("prefix:baz", "qux");
-			expect(service.get("baz")).to.equal("qux");
+			assert.equal(service.get("baz"), "qux");
 
 			sessionStorage.setItem("prefix:baz", "456");
-			expect(service.get("baz")).to.equal("456");
+			assert.equal(service.get("baz"), "456");
 
 			sessionStorage.removeItem("prefix:baz");
-			expect(service.get("baz")).to.be.null;
+			assert.isNull(service.get("baz"));
 		});
 	});
 
 	describe("getObject()", () => {
 		it("should properly get the deserialized storage entries", () => {
 			const service = Storage.session();
-			expect(service.getObject("foo")).to.be.null;
+			assert.isNull(service.getObject("foo"));
 
 			sessionStorage.setItem("foo", '"bar"');
-			expect(service.getObject("foo")).to.equal("bar");
+			assert.equal(service.getObject("foo"), "bar");
 
 			sessionStorage.setItem("foo", "123");
-			expect(service.getObject("foo")).to.equal(123);
+			assert.equal(service.getObject("foo"), 123);
 
 			sessionStorage.setItem("foo", '{"key": "value"}');
-			expect(service.getObject("foo")).to.deep.equal({key: "value"});
+			assert.deepEqual(service.getObject("foo"), {key: "value"});
 
 			sessionStorage.setItem("foo", "{bar[123]}");
-			expect(service.getObject("foo")).to.be.null;
+			assert.isNull(service.getObject("foo"));
 
 			sessionStorage.removeItem("foo");
-			expect(service.getObject("foo")).to.be.null;
+			assert.isNull(service.getObject("foo"));
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(service.getObject("baz")).to.be.null;
+			assert.isNull(service.getObject("baz"));
 
 			sessionStorage.setItem("prefix:baz", '"qux"');
-			expect(service.getObject("baz")).to.equal("qux");
+			assert.equal(service.getObject("baz"), "qux");
 
 			sessionStorage.setItem("prefix:baz", "456");
-			expect(service.getObject("baz")).to.equal(456);
+			assert.equal(service.getObject("baz"), 456);
 
 			sessionStorage.setItem("prefix:baz", '{"key": "value"}');
-			expect(service.getObject("baz")).to.deep.equal({key: "value"});
+			assert.deepEqual(service.getObject("baz"), {key: "value"});
 
 			sessionStorage.setItem("prefix:baz", "{qux[456]}");
-			expect(service.getObject("baz")).to.be.null;
+			assert.isNull(service.getObject("baz"));
 
 			sessionStorage.removeItem("prefix:baz");
-			expect(service.getObject("baz")).to.be.null;
+			assert.isNull(service.getObject("baz"));
 		});
 	});
 
 	describe("has()", () => {
 		it("should return `false` if the specified key is not contained", () =>
-			expect(Storage.session().has("foo")).to.be.false);
+			assert.isFalse(Storage.session().has("foo")));
 
 		it("should return `true` if the specified key is contained", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			const service = Storage.session();
-			expect(service.has("foo:bar")).to.be.false;
-			expect(service.has("foo")).to.be.true;
-			expect(service.has("prefix:baz")).to.be.true;
+			assert.isFalse(service.has("foo:bar"));
+			assert.isTrue(service.has("foo"));
+			assert.isTrue(service.has("prefix:baz"));
 		});
 
 		it("should handle the key prefix", () => {
@@ -183,17 +185,17 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(service.has("foo")).to.be.false;
-			expect(service.has("baz")).to.be.true;
+			assert.isFalse(service.has("foo"));
+			assert.isTrue(service.has("baz"));
 		});
 	});
 
 	describe("onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
 			const listener = (/** @type {StorageEvent} */ event) => {
-				expect(event.key).to.equal("foo");
-				expect(event.oldValue).to.be.null;
-				expect(event.newValue).to.equal("bar");
+				assert.equal(event.key, "foo");
+				assert.isNull(event.oldValue);
+				assert.equal(event.newValue, "bar");
 			};
 
 			const service = Storage.session();
@@ -205,9 +207,9 @@ describe("Storage", () => {
 		it("should trigger an event when a cookie is updated", done => {
 			sessionStorage.setItem("foo", "bar");
 			const listener = (/** @type {StorageEvent} */ event) => {
-				expect(event.key).to.equal("foo");
-				expect(event.oldValue).to.equal("bar");
-				expect(event.newValue).to.equal("baz");
+				assert.equal(event.key, "foo");
+				assert.equal(event.oldValue, "bar");
+				assert.equal(event.newValue, "baz");
 			};
 
 			const service = Storage.session();
@@ -219,9 +221,9 @@ describe("Storage", () => {
 		it("should trigger an event when a cookie is removed", done => {
 			sessionStorage.setItem("foo", "bar");
 			const listener = (/** @type {StorageEvent} */ event) => {
-				expect(event.key).to.equal("foo");
-				expect(event.oldValue).to.equal("bar");
-				expect(event.newValue).to.be.null;
+				assert.equal(event.key, "foo");
+				assert.equal(event.oldValue, "bar");
+				assert.isNull(event.newValue);
 			};
 
 			const service = Storage.session();
@@ -233,9 +235,9 @@ describe("Storage", () => {
 
 		it("should handle the key prefix", done => {
 			const listener = (/** @type {StorageEvent} */ event) => {
-				expect(event.key).to.equal("baz");
-				expect(event.oldValue).to.be.null;
-				expect(event.newValue).to.equal("qux");
+				assert.equal(event.key, "baz");
+				assert.isNull(event.oldValue);
+				assert.equal(event.newValue, "qux");
 			};
 
 			const service = Storage.local({keyPrefix: "prefix:"});
@@ -248,54 +250,54 @@ describe("Storage", () => {
 	describe("putIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
 			const service = Storage.session();
-			expect(sessionStorage.getItem("foo")).to.be.null;
-			expect(service.putIfAbsent("foo", () => "bar")).to.equal("bar");
-			expect(sessionStorage.getItem("foo")).to.equal("bar");
+			assert.isNull(sessionStorage.getItem("foo"));
+			assert.equal(service.putIfAbsent("foo", () => "bar"), "bar");
+			assert.equal(sessionStorage.getItem("foo"), "bar");
 		});
 
 		it("should not add a new entry if it already exists", () => {
 			const service = Storage.session();
 			sessionStorage.setItem("foo", "123");
-			expect(service.putIfAbsent("foo", () => "XYZ")).to.equal("123");
-			expect(sessionStorage.getItem("foo")).to.equal("123");
+			assert.equal(service.putIfAbsent("foo", () => "XYZ"), "123");
+			assert.equal(sessionStorage.getItem("foo"), "123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
-			expect(service.putIfAbsent("baz", () => "qux")).to.equal("qux");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("qux");
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
+			assert.equal(service.putIfAbsent("baz", () => "qux"), "qux");
+			assert.equal(sessionStorage.getItem("prefix:baz"), "qux");
 
 			sessionStorage.setItem("prefix:baz", "456");
-			expect(service.putIfAbsent("baz", () => "XYZ")).to.equal("456");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
+			assert.equal(service.putIfAbsent("baz", () => "XYZ"), "456");
+			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
 		});
 	});
 
 	describe("putObjectIfAbsent()", () => {
 		it("should add a new entry if it does not exist", () => {
 			const service = Storage.session();
-			expect(sessionStorage.getItem("foo")).to.be.null;
-			expect(service.putObjectIfAbsent("foo", () => "bar")).to.equal("bar");
-			expect(sessionStorage.getItem("foo")).to.equal('"bar"');
+			assert.isNull(sessionStorage.getItem("foo"));
+			assert.equal(service.putObjectIfAbsent("foo", () => "bar"), "bar");
+			assert.equal(sessionStorage.getItem("foo"), '"bar"');
 		});
 
 		it("should not add a new entry if it already exists", () => {
 			const service = Storage.session();
 			sessionStorage.setItem("foo", "123");
-			expect(service.putObjectIfAbsent("foo", () => 999)).to.equal(123);
-			expect(sessionStorage.getItem("foo")).to.equal("123");
+			assert.equal(service.putObjectIfAbsent("foo", () => 999), 123);
+			assert.equal(sessionStorage.getItem("foo"), "123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
-			expect(service.putObjectIfAbsent("baz", () => "qux")).to.equal("qux");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal('"qux"');
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
+			assert.equal(service.putObjectIfAbsent("baz", () => "qux"), "qux");
+			assert.equal(sessionStorage.getItem("prefix:baz"), '"qux"');
 
 			sessionStorage.setItem("prefix:baz", "456");
-			expect(service.putObjectIfAbsent("baz", () => 999)).to.equal(456);
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
+			assert.equal(service.putObjectIfAbsent("baz", () => 999), 456);
+			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
 		});
 	});
 
@@ -305,8 +307,8 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			Storage.session().remove("foo");
-			expect(sessionStorage).to.have.lengthOf(1);
-			expect(sessionStorage.getItem("foo")).to.be.null;
+			assert.lengthOf(sessionStorage, 1);
+			assert.isNull(sessionStorage.getItem("foo"));
 		});
 
 		it("should handle the key prefix", () => {
@@ -314,68 +316,68 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			Storage.session({keyPrefix: "prefix:"}).remove("baz");
-			expect(sessionStorage).to.have.lengthOf(1);
-			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+			assert.lengthOf(sessionStorage, 1);
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
 		});
 	});
 
 	describe("set()", () => {
 		it("should properly set the storage entries", () => {
 			const service = Storage.session();
-			expect(sessionStorage.getItem("foo")).to.be.null;
+			assert.isNull(sessionStorage.getItem("foo"));
 
 			service.set("foo", "bar");
-			expect(sessionStorage.getItem("foo")).to.equal("bar");
+			assert.equal(sessionStorage.getItem("foo"), "bar");
 
 			service.set("foo", "123");
-			expect(sessionStorage.getItem("foo")).to.equal("123");
+			assert.equal(sessionStorage.getItem("foo"), "123");
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
 
 			service.set("baz", "qux");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("qux");
+			assert.equal(sessionStorage.getItem("prefix:baz"), "qux");
 
 			service.set("baz", "456");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
+			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
 		});
 	});
 
 	describe("setObject()", () => {
 		it("should properly serialize and set the storage entries", () => {
 			const service = Storage.session();
-			expect(sessionStorage.getItem("foo")).to.be.null;
+			assert.isNull(sessionStorage.getItem("foo"));
 
 			service.setObject("foo", "bar");
-			expect(sessionStorage.getItem("foo")).to.equal('"bar"');
+			assert.equal(sessionStorage.getItem("foo"), '"bar"');
 
 			service.setObject("foo", 123);
-			expect(sessionStorage.getItem("foo")).to.equal("123");
+			assert.equal(sessionStorage.getItem("foo"), "123");
 
 			service.setObject("foo", {key: "value"});
-			expect(sessionStorage.getItem("foo")).to.equal('{"key":"value"}');
+			assert.equal(sessionStorage.getItem("foo"), '{"key":"value"}');
 		});
 
 		it("should handle the key prefix", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
-			expect(sessionStorage.getItem("prefix:baz")).to.be.null;
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
 
 			service.setObject("baz", "qux");
-			expect(sessionStorage.getItem("prefix:baz")).to.equal('"qux"');
+			assert.equal(sessionStorage.getItem("prefix:baz"), '"qux"');
 
 			service.setObject("baz", 456);
-			expect(sessionStorage.getItem("prefix:baz")).to.equal("456");
+			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
 
 			service.setObject("baz", {key: "value"});
-			expect(sessionStorage.getItem("prefix:baz")).to.equal('{"key":"value"}');
+			assert.equal(sessionStorage.getItem("prefix:baz"), '{"key":"value"}');
 		});
 	});
 
 	describe("toJSON()", () => {
 		it("should return an empty array for an empty storage", () => {
-			expect(JSON.stringify(Storage.session())).to.equal("[]");
+			assert.equal(JSON.stringify(Storage.session()), "[]");
 		});
 
 		it("should return a non-empty array for a non-empty storage", () => {
@@ -383,8 +385,8 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			const json = JSON.stringify(Storage.session());
-			expect(json).to.include('["foo","bar"]');
-			expect(json).to.include('["prefix:baz","qux"]');
+			assert.include(json, '["foo","bar"]');
+			assert.include(json, '["prefix:baz","qux"]');
 		});
 
 		it("should handle the key prefix", () => {
@@ -392,8 +394,8 @@ describe("Storage", () => {
 			sessionStorage.setItem("prefix:baz", "qux");
 
 			const json = JSON.stringify(Storage.session({keyPrefix: "prefix:"}));
-			expect(json).to.not.include('["foo","bar"]');
-			expect(json).to.include('["baz","qux"]');
+			assert.notInclude(json, '["foo","bar"]');
+			assert.include(json, '["baz","qux"]');
 		});
 	});
 });
