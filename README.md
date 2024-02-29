@@ -5,8 +5,8 @@ Services for interacting with the [Web Storage](https://developer.mozilla.org/do
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://cedx.github.io/webstorage.js)
-- [API reference](https://cedx.github.io/webstorage.js/api)
+- [User guide](https://docs.belin.io/webstorage.js)
+- [API reference](https://docs.belin.io/webstorage.js/api)
 
 ## Development
 - [Git repository](https://github.com/cedx/webstorage.js)
