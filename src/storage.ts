@@ -152,40 +152,6 @@ export class Storage extends EventTarget {
 	}
 
 	/**
-	 * Looks up the value of the specified key, or add a new value if it isn't there.
-	 * @param key The storage key.
-	 * @param ifAbsent A function producing the new cookie value.
-	 * @returns The value associated with the key.
-	 */
-	putIfAbsent(key: string, ifAbsent: () => string): string {
-		if (!this.has(key)) this.set(key, ifAbsent());
-		return this.get(key)!;
-	}
-
-	/**
-	 * Looks up the deserialized value of the specified key, or add a new serialized value if it isn't there.
-	 * @param key The storage key.
-	 * @param ifAbsent A function producing the new cookie value.
-	 * @returns The deserialized value associated with the key.
-	 */
-	putObjectIfAbsent<T>(key: string, ifAbsent: () => T): T {
-		if (!this.has(key)) this.setObject(key, ifAbsent());
-		return this.getObject(key)!;
-	}
-
-	/**
-	 * Removes the value associated with the specified key.
-	 * @param key The storage key.
-	 * @returns The value associated with the key before it was removed.
-	 */
-	remove(key: string): string|null {
-		const oldValue = this.get(key);
-		this.#backend.removeItem(this.#buildKey(key));
-		this.dispatchEvent(new StorageEvent(key, oldValue));
-		return oldValue;
-	}
-
-	/**
 	 * Associates a given value with the specified key.
 	 * @param key The storage key.
 	 * @param value The storage value.
