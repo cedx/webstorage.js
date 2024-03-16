@@ -86,11 +86,23 @@ export class Storage extends EventTarget {
 	 */
 	clear(): void {
 		if (this.#keyPrefix)
-			for (const key of this.keys) this.remove(key);
+			for (const key of this.keys) this.delete(key);
 		else {
 			this.#backend.clear();
 			this.dispatchEvent(new StorageEvent(null));
 		}
+	}
+
+	/**
+	 * Removes the value associated with the specified key.
+	 * @param key The storage key.
+	 * @returns The value associated with the key before it was removed.
+	 */
+	delete(key: string): string|null {
+		const oldValue = this.get(key);
+		this.#backend.removeItem(this.#buildKey(key));
+		this.dispatchEvent(new StorageEvent(key, oldValue));
+		return oldValue;
 	}
 
 	/**

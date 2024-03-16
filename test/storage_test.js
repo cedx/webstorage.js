@@ -94,6 +94,26 @@ describe("Storage", () => {
 		});
 	});
 
+	describe("delete()", () => {
+		it("should properly remove the storage entries", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			Storage.session().delete("foo");
+			assert.lengthOf(sessionStorage, 1);
+			assert.isNull(sessionStorage.getItem("foo"));
+		});
+
+		it("should handle the key prefix", () => {
+			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("prefix:baz", "qux");
+
+			Storage.session({keyPrefix: "prefix:"}).delete("baz");
+			assert.lengthOf(sessionStorage, 1);
+			assert.isNull(sessionStorage.getItem("prefix:baz"));
+		});
+	});
+
 	describe("get()", () => {
 		it("should properly get the storage entries", () => {
 			const service = Storage.session();
@@ -228,7 +248,7 @@ describe("Storage", () => {
 
 			const service = Storage.session();
 			service.onChange(listener);
-			service.remove("foo");
+			service.delete("foo");
 			service.removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
 			done();
 		});

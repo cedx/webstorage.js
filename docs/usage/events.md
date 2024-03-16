@@ -38,7 +38,7 @@ function main() {
   storage.set("foo", "baz");
   // Prints: {key: "foo", current: "baz", previous: "bar"}
 
-  storage.remove("foo");
+  storage.delete("foo");
   // Prints: {key: "foo", current: undefined, previous: "baz"}
 }
 ```
