@@ -1,5 +1,5 @@
 # Web Storage for JS
-Services for interacting with the [Web Storage](https://developer.mozilla.org/docs/Web/API/Storage)
+Service for interacting with the [Web Storage](https://developer.mozilla.org/docs/Web/API/Storage)
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 	
 ## Quick start
