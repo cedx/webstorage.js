@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@types/chai": "^4.3.14",
 		"@types/eslint__js": "^8.42.3",
+		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.6",
 		"@types/node": "^20.11.30",
 		"@web/test-runner": "^0.18.1",
@@ -23,6 +24,7 @@
 		"del": "^7.1.0",
 		"eslint": "^8.57.0",
 		"execa": "^8.0.1",
+		"gulp": "^5.0.0",
 		"typedoc": "^0.25.12",
 		"typescript": "^5.4.3",
 		"typescript-eslint": "^7.4.0"
@@ -48,13 +50,7 @@
 		"storage"
 	],
 	"scripts": {
-		"build": "tsc --project src",
-		"clean": "node tool/clean.js",
-		"dist": "npm run clean && npm run build",
-		"doc": "typedoc --options etc/typedoc.js && node tool/doc.js",
-		"lint": "npm run build && tsc --project . && eslint --config=etc/eslint.config.js etc example src test tool",
-		"prepack": "npm run dist",
-		"release": "node tool/publish.js",
-		"test": "npm run build && web-test-runner --config=etc/test_runner.js"
+		"prepack": "gulp",
+		"test": "gulp build && web-test-runner --config=etc/test_runner.js"
 	}
 }
