@@ -3,7 +3,7 @@ The [`Storage`](usage/api.md) class is an [`EventTarget`](https://developer.mozi
 
 You can subscribe to these `change` events using the `onChange()` method:
 
-``` js
+```js
 import {Storage} from "@cedx/webstorage";
 
 function main() {
@@ -18,7 +18,7 @@ function main() {
 The changes are expressed as a [`Map`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Map)
 of [`SimpleChange`](https://github.com/cedx/webstorage.js/blob/main/src/simple_change.ts) instances, where an `undefined` property indicates an absence of value:
 
-``` js
+```js
 import {Storage} from "@cedx/webstorage";
 
 function main() {
@@ -45,7 +45,7 @@ function main() {
 
 The values contained in the `currentValue` and `previousValue` properties of the `SimpleChange` instances are the raw storage values. If you use the `Storage.setObject()` method to store a value, you will get the serialized string value, not the original value passed to the method:
 
-``` js
+```js
 storage.setObject("foo", {bar: "baz"});
 // Prints: {key: "foo", current: "{\"bar\": \"baz\"}", previous: undefined}
 ```
@@ -57,7 +57,7 @@ When a change is made to the storage area within the context of another document
 
 The class constructors have an optional `listenToGlobalEvents` parameter that allows to enable the subscription to the global storage events:
 
-``` js
+```js
 import {Storage} from "@cedx/webstorage";
 
 function main() {
