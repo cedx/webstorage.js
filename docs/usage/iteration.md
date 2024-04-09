@@ -1,5 +1,5 @@
 # Iteration
-The [`Storage`](usage/api.md) class is iterable: it implements the [`Symbol.iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) function.
+The [`Storage`](api.md) class is iterable: it implements the [`Symbol.iterator`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Iteration_protocols) function.
 You can go through all key/value pairs contained using a `for...of` loop:
 
 ```js
@@ -18,9 +18,10 @@ for (const [key, value] of localStorage) {
 }
 ```
 
-> The order of keys is user-agent defined, so you should not rely on it.
+!!! warning
+    The order of keys is user-agent defined, so you should not rely on it.
 
-If you have configured the instance to use a [key prefix](usage/key_prefix.md), the iteration will only loop over the values that have that same key prefix:
+If you have configured the instance to use a [key prefix](key_prefix.md), the iteration will only loop over the values that have that same key prefix:
 
 ```js
 import {Storage} from "@cedx/webstorage";
@@ -39,4 +40,5 @@ for (const [key, value] of prefixedStorage) {
 }
 ```
 
-> The prefix is stripped from the keys returned by the iteration.
+!!! info
+    The prefix is stripped from the keys returned by the iteration.

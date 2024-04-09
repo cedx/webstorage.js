@@ -1,5 +1,5 @@
 # Events
-The [`Storage`](usage/api.md) class is an [`EventTarget`](https://developer.mozilla.org/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a [`StorageEvent`](https://github.com/cedx/webstorage.js/blob/main/src/storage_event.js) is triggered.
+The [`Storage`](api.md) class is an [`EventTarget`](https://developer.mozilla.org/docs/Web/API/EventTarget): every time one or several values are changed (added, removed or updated) through this class, a [`StorageEvent`](https://github.com/cedx/webstorage.js/blob/main/src/storage_event.js) is triggered.
 
 You can subscribe to these `change` events using the `onChange()` method:
 
@@ -73,4 +73,6 @@ function main() {
 }
 ```
 
-> When you enable the subscription to the global [storage events](https://developer.mozilla.org/docs/Web/API/Window/storage_event), you must take care to call the `destroy()` method when you have finished with the service in order to avoid a memory leak.
+!!! warning
+    When you enable the subscription to the global [storage events](https://developer.mozilla.org/docs/Web/API/Window/storage_event),
+    you must take care to call the `destroy()` method when you have finished with the service in order to avoid a memory leak.

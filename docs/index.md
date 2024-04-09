@@ -16,7 +16,3 @@ For detailed instructions, see the [installation guide](installation.md).
 - [Key prefix](usage/key_prefix.md)
 - [Iteration](usage/iteration.md)
 - [Events](usage/events.md)
-
-## See also
-- [API reference](api/)
-- [npm package](https://www.npmjs.com/package/@cedx/webstorage)
