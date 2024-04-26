@@ -7,25 +7,32 @@ export class Storage extends EventTarget {
 
 	/**
 	 * The underlying data store.
+	 * @type {globalThis.Storage}
+	 * @readonly
 	 */
-	readonly #backend: globalThis.Storage;
+	#backend;
 
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole storage.
+	 * @type {string}
+	 * @readonly
 	 */
-	readonly #keyPrefix: string;
+	#keyPrefix;
 
 	/**
 	 * The function that listens for the global storage events.
+	 * @type {((event: globalThis.StorageEvent) => void)|null}
+	 * @readonly
 	 */
-	readonly #listener: ((event: globalThis.StorageEvent) => void)|null = null;
+	#listener = null;
 
 	/**
 	 * Creates a new storage service.
-	 * @param backend The underlying data store.
-	 * @param options An object providing values to initialize this instance.
+	 * @param {globalThis.Storage} backend The underlying data store.
+	 * @param {Partial<StorageOptions>} options An object providing values to initialize this instance.
+	 * @private
 	 */
-	private constructor(backend: globalThis.Storage, options: Partial<StorageOptions> = {}) {
+	constructor(backend, options = {}) {
 		super();
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
@@ -42,49 +49,51 @@ export class Storage extends EventTarget {
 
 	/**
 	 * The keys of this storage.
+	 * @type {string[]}
 	 */
-	get keys(): string[] {
-		const keys = Array.from(Array(this.#backend.length), (_, index) => this.#backend.key(index)!);
+	get keys() {
+		const keys = Array.from(Array(this.#backend.length), (_, index) => /** @type {string} */ (this.#backend.key(index)));
 		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
 	}
 
 	/**
 	 * The number of entries in this storage.
+	 * @type {number}
 	 */
-	get length(): number {
+	get length() {
 		return this.#keyPrefix ? this.keys.length : this.#backend.length;
 	}
 
 	/**
 	 * Creates a new local storage service.
-	 * @param options An object providing values to initialize the service.
-	 * @returns The newly created service.
+	 * @param {Partial<StorageOptions>} options An object providing values to initialize the service.
+	 * @returns {Storage} The newly created service.
 	 */
-	static local(options: Partial<StorageOptions> = {}): Storage {
+	static local(options = {}) {
 		return new this(localStorage, options);
 	}
 
 	/**
 	 * Creates a new session storage service.
-	 * @param options An object providing values to initialize the service.
-	 * @returns The newly created service.
+	 * @param {Partial<StorageOptions>} options An object providing values to initialize the service.
+	 * @returns {Storage} The newly created service.
 	 */
-	static session(options: Partial<StorageOptions> = {}): Storage {
+	static session(options = {}) {
 		return new this(sessionStorage, options);
 	}
 
 	/**
 	 * Returns a new iterator that allows iterating the entries of this storage.
-	 * @returns An iterator for the entries of this storage.
+	 * @returns {IterableIterator<[string, string]>} An iterator for the entries of this storage.
 	 */
-	*[Symbol.iterator](): IterableIterator<[string, string]> {
-		for (const key of this.keys) yield [key, this.get(key)!];
+	*[Symbol.iterator]() {
+		for (const key of this.keys) yield [key, /** @type {string} */ (this.get(key))];
 	}
 
 	/**
 	 * Removes all entries from this storage.
 	 */
-	clear(): void {
+	clear() {
 		if (this.#keyPrefix)
 			for (const key of this.keys) this.delete(key);
 		else {
@@ -95,10 +104,10 @@ export class Storage extends EventTarget {
 
 	/**
 	 * Removes the value associated with the specified key.
-	 * @param key The storage key.
-	 * @returns The value associated with the key before it was removed.
+	 * @param {string} key The storage key.
+	 * @returns {string|null} The value associated with the key before it was removed.
 	 */
-	delete(key: string): string|null {
+	delete(key) {
 		const oldValue = this.get(key);
 		this.#backend.removeItem(this.#buildKey(key));
 		this.dispatchEvent(new StorageEvent(key, oldValue));
@@ -108,56 +117,57 @@ export class Storage extends EventTarget {
 	/**
 	 * Cancels the subscription to the global storage events.
 	 */
-	destroy(): void {
+	destroy() {
 		if (this.#listener) removeEventListener("storage", this.#listener);
 	}
 
 	/**
 	 * Gets the value associated to the specified key.
-	 * @param key The storage key.
-	 * @returns The storage value, or `null` if the key does not exist.
+	 * @param {string} key The storage key.
+	 * @returns {string|null} The storage value, or `null` if the key does not exist.
 	 */
-	get(key: string): string|null {
+	get(key) {
 		return this.#backend.getItem(this.#buildKey(key));
 	}
 
 	/**
 	 * Gets the deserialized value associated with the specified key.
-	 * @param key The storage key.
-	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
+	 * @template T
+	 * @param {string} key The storage key.
+	 * @returns {T|null} The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? "") as T; }
+	getObject(key) {
+		try { return JSON.parse(this.get(key) ?? ""); }
 		catch { return null; }
 	}
 
 	/**
 	 * Gets a value indicating whether this storage contains the specified key.
-	 * @param key The storage key.
-	 * @returns `true` if this storage contains the specified key, otherwise `false`.
+	 * @param {string} key The storage key.
+	 * @returns {boolean} `true` if this storage contains the specified key, otherwise `false`.
 	 */
-	has(key: string): boolean {
+	has(key) {
 		return this.get(key) != null;
 	}
 
 	/**
 	 * Registers a function that will be invoked whenever the `change` event is triggered.
-	 * @param listener The event handler to register.
-	 * @returns This instance.
+	 * @param {(event: StorageEvent) => void} listener The event handler to register.
+	 * @returns {this} This instance.
 	 * @event
 	 */
-	onChange(listener: (event: StorageEvent) => void): this {
-		this.addEventListener(StorageEvent.type, listener as EventListener, {passive: true});
+	onChange(listener) {
+		this.addEventListener(StorageEvent.type, /** @type {EventListener} */ (listener), {passive: true});
 		return this;
 	}
 
 	/**
 	 * Associates a given value with the specified key.
-	 * @param key The storage key.
-	 * @param value The storage value.
-	 * @returns This instance.
+	 * @param {string} key The storage key.
+	 * @param {string} value The storage value.
+	 * @returns {this} This instance.
 	 */
-	set(key: string, value: string): this {
+	set(key, value) {
 		const oldValue = this.get(key);
 		this.#backend.setItem(this.#buildKey(key), value);
 		this.dispatchEvent(new StorageEvent(key, oldValue, value));
@@ -166,44 +176,36 @@ export class Storage extends EventTarget {
 
 	/**
 	 * Serializes and associates a given `value` with the specified `key`.
-	 * @param key The storage key.
-	 * @param value The storage value.
-	 * @returns This instance.
+	 * @template T
+	 * @param {string} key The storage key.
+	 * @param {T} value The storage value.
+	 * @returns {this} This instance.
 	 */
-	setObject<T>(key: string, value: T): this {
+	setObject(key, value) {
 		return this.set(key, JSON.stringify(value));
 	}
 
 	/**
 	 * Returns a JSON representation of this object.
-	 * @returns The JSON representation of this object.
+	 * @returns {[string, string][]} The JSON representation of this object.
 	 */
-	toJSON(): [string, string][] {
+	toJSON() {
 		return Array.from(this);
 	}
 
 	/**
 	 * Builds a normalized storage key from the given key.
-	 * @param key The original key.
-	 * @returns The normalized storage key.
+	 * @param {string} key The original key.
+	 * @returns {string} The normalized storage key.
 	 */
-	#buildKey(key: string): string {
+	#buildKey(key) {
 		return `${this.#keyPrefix}${key}`;
 	}
 }
 
 /**
  * Defines the options of a {@link Storage} instance.
+ * @typedef {object} StorageOptions
+ * @property {string} keyPrefix A string prefixed to every key so that it is unique globally in the whole storage.
+ * @property {boolean} listenToGlobalEvents Value indicating whether to listen to the global storage events.
  */
-export interface StorageOptions {
-
-	/**
-	 * A string prefixed to every key so that it is unique globally in the whole storage.
-	 */
-	keyPrefix: string;
-
-	/**
-	 * Value indicating whether to listen to the global storage events.
-	 */
-	listenToGlobalEvents: boolean;
-}
