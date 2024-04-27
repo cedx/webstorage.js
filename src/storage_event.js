@@ -5,6 +5,7 @@ export class StorageEvent extends Event {
 
 	/**
 	 * The event type.
+	 * @type {string}
 	 * @readonly
 	 */
 	static type = "storage:change";
