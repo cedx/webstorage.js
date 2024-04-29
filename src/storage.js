@@ -37,14 +37,10 @@ export class Storage extends EventTarget {
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
 
-		if (options.listenToGlobalEvents) {
-			this.#listener = event => {
-				if (event.storageArea == this.#backend && (event.key == null || event.key.startsWith(this.#keyPrefix)))
-					this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
-			};
-
-			addEventListener("storage", this.#listener);
-		}
+		if (options.listenToGlobalEvents) addEventListener("storage", this.#listener = event => {
+			if (event.storageArea == this.#backend && (event.key == null || event.key.startsWith(this.#keyPrefix)))
+				this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
+		});
 	}
 
 	/**
