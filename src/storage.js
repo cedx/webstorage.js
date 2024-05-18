@@ -20,13 +20,6 @@ export class Storage extends EventTarget {
 	#keyPrefix;
 
 	/**
-	 * The function that listens for the global storage events.
-	 * @type {((event: globalThis.StorageEvent) => void)|null}
-	 * @readonly
-	 */
-	#listener = null;
-
-	/**
 	 * Creates a new storage service.
 	 * @param {globalThis.Storage} backend The underlying data store.
 	 * @param {Partial<StorageOptions>} options An object providing values to initialize this instance.
@@ -36,11 +29,7 @@ export class Storage extends EventTarget {
 		super();
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
-
-		if (options.listenToGlobalEvents) addEventListener("storage", this.#listener = event => {
-			if (event.storageArea == this.#backend && (event.key == null || event.key.startsWith(this.#keyPrefix)))
-				this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
-		});
+		if (options.listenToGlobalEvents) addEventListener("storage", this);
 	}
 
 	/**
@@ -114,7 +103,7 @@ export class Storage extends EventTarget {
 	 * Cancels the subscription to the global storage events.
 	 */
 	destroy() {
-		if (this.#listener) removeEventListener("storage", this.#listener);
+		removeEventListener("storage", this);
 	}
 
 	/**
@@ -135,6 +124,15 @@ export class Storage extends EventTarget {
 	getObject(key) {
 		try { return JSON.parse(this.get(key) ?? ""); }
 		catch { return null; }
+	}
+
+	/**
+	 * Handles the events.
+	 * @param {globalThis.StorageEvent} event The dispatched event.
+	 */
+	handleEvent(event) {
+		if (event.storageArea == this.#backend && (event.key == null || event.key.startsWith(this.#keyPrefix)))
+			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	}
 
 	/**
