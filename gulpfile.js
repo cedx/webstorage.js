@@ -1,4 +1,5 @@
 import {cp} from "node:fs/promises";
+import {env} from "node:process";
 import {deleteAsync} from "del";
 import {$} from "execa";
 import gulp from "gulp";
@@ -40,6 +41,7 @@ export async function serve() {
 
 // Runs the test suite.
 export function test() {
+	env.NODE_ENV = "test";
 	return $`web-test-runner --config=etc/test_runner.js`;
 }
 
