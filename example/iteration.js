@@ -1,4 +1,5 @@
 /* eslint-disable curly */
+import console from "node:console";
 import {Storage} from "@cedx/webstorage";
 
 // Loop over all entries of the local storage.
