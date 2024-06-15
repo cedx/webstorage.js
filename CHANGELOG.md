@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [5.0.1](https://github.com/cedx/webstorage.js/compare/v5.0.0...v5.0.1)
+- Migrated the documentation to the [GitHub wiki](https://github.com/cedx/webstorage.js/wiki).
+
 ## Version [5.0.0](https://github.com/cedx/webstorage.js/compare/v4.2.0...v5.0.0)
 - Breaking change: renamed the `Storage.remove()` method to `delete()`.
 - Breaking change: removed the `putIfAbsent()` and `putObjectIfAbsent()` methods from the `Storage` class.
