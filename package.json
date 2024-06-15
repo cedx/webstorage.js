@@ -6,7 +6,7 @@
 	"name": "@cedx/webstorage",
 	"repository": "cedx/webstorage.js",
 	"type": "module",
-	"version": "5.0.0",
+	"version": "5.0.1",
 	"author": {
 		"email": "cedric@belin.io",
 		"name": "Cédric Belin",
@@ -27,7 +27,6 @@
 		"execa": "^9.2.0",
 		"globals": "^15.4.0",
 		"gulp": "^5.0.0",
-		"typedoc": "^0.25.13",
 		"typescript": "^5.4.5"
 	},
 	"engines": {
