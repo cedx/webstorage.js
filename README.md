@@ -5,12 +5,11 @@ Service for interacting with the [Web Storage](https://developer.mozilla.org/doc
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://docs.belin.io/webstorage.js)
-- [API reference](https://docs.belin.io/webstorage.js/api)
+- [User guide](https://github.com/cedx/webstorage.js/wiki)
+- [Examples](https://github.com/cedx/webstorage.js/tree/main/example)
 
 ## Development
 - [Git repository](https://github.com/cedx/webstorage.js)
-- [npm package](https://www.npmjs.com/package/@cedx/webstorage)
 - [Submit an issue](https://github.com/cedx/webstorage.js/issues)
 
 ## License
