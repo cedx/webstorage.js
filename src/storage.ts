@@ -71,7 +71,7 @@ export class Storage extends EventTarget {
 	/**
 	 * Removes all entries from this storage.
 	 */
-	clear() {
+	clear(): void {
 		if (this.#keyPrefix)
 			for (const key of this.keys) this.delete(key);
 		else {
@@ -95,7 +95,7 @@ export class Storage extends EventTarget {
 	/**
 	 * Cancels the subscription to the global storage events.
 	 */
-	destroy() {
+	destroy(): void {
 		removeEventListener("storage", this);
 	}
 
@@ -113,8 +113,8 @@ export class Storage extends EventTarget {
 	 * @param key The storage key.
 	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null {
-		try { return JSON.parse(this.get(key) ?? ""); }
+	getObject<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+		try { return JSON.parse(this.get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -122,7 +122,7 @@ export class Storage extends EventTarget {
 	 * Handles the events.
 	 * @param event The dispatched event.
 	 */
-	handleEvent(event: globalThis.StorageEvent) {
+	handleEvent(event: globalThis.StorageEvent): void {
 		if (event.storageArea == this.#backend && (event.key == null || event.key.startsWith(this.#keyPrefix)))
 			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	}
@@ -165,7 +165,7 @@ export class Storage extends EventTarget {
 	 * @param value The storage value.
 	 * @returns This instance.
 	 */
-	setObject<T>(key: string, value: T): this {
+	setObject(key: string, value: unknown): this {
 		return this.set(key, JSON.stringify(value));
 	}
 
