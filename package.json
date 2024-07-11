@@ -34,7 +34,7 @@
 	},
 	"exports": {
 		"types": "./lib/index.d.ts",
-		"default": "./src/index.js"
+		"default": "./lib/index.js"
 	},
 	"files": [
 		"lib/",
@@ -51,6 +51,6 @@
 	],
 	"scripts": {
 		"prepack": "gulp",
-		"test": "web-test-runner --config=etc/test_runner.js"
+		"test": "gulp build && web-test-runner --config=etc/test_runner.js"
 	}
 }
