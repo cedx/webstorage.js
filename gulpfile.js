@@ -27,9 +27,10 @@ export async function publish() {
 }
 
 // Runs the test suite.
-export function test() {
+export async function test() {
 	env.NODE_ENV = "test";
-	return $`web-test-runner --config=etc/test_runner.js`;
+	await build();
+	return $({stdio: "inherit"})`web-test-runner --config=etc/test_runner.js`;
 }
 
 // The default task.
