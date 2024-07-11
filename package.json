@@ -13,9 +13,8 @@
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
-		"@babel/eslint-parser": "^7.24.7",
-		"@babel/plugin-syntax-import-attributes": "^7.24.7",
 		"@types/chai": "^4.3.14",
+		"@types/eslint__js": "^8.42.3",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.7",
 		"@types/node": "^20.14.10",
@@ -23,11 +22,10 @@
 		"@web/test-runner-playwright": "^0.11.0",
 		"chai": "^5.1.1",
 		"del": "^7.1.0",
-		"eslint": "^9.6.0",
 		"execa": "^9.3.0",
-		"globals": "^15.8.0",
 		"gulp": "^5.0.0",
-		"typescript": "^5.5.3"
+		"typescript": "^5.5.3",
+		"typescript-eslint": "^8.0.0-alpha.41"
 	},
 	"engines": {
 		"node": ">=22.0.0"
