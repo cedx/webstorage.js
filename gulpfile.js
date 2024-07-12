@@ -1,8 +1,11 @@
 import {env} from "node:process";
 import {deleteAsync} from "del";
-import {$} from "execa";
+import {execa} from "execa";
 import gulp from "gulp";
 import pkg from "./package.json" with {type: "json"};
+
+// Runs a command.
+const $ = execa({preferLocal: true, stdio: "inherit"});
 
 // Builds the project.
 export function build() {
@@ -31,7 +34,7 @@ export async function publish() {
 export async function test() {
 	env.NODE_ENV = "test";
 	await build();
-	return $({stdio: "inherit"})`web-test-runner --config=etc/test_runner.js`;
+	return $`web-test-runner --config=etc/test_runner.js`;
 }
 
 // The default task.
