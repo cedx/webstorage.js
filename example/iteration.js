@@ -1,6 +1,6 @@
 /* eslint-disable curly */
-import console from "node:console";
 import {Storage} from "@cedx/webstorage";
+import console from "node:console";
 
 // Loop over all entries of the local storage.
 const localStorage = Storage.local()

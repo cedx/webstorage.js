@@ -1,6 +1,6 @@
 /* eslint-disable max-lines-per-function */
-import {assert} from "chai";
 import {Storage, StorageEvent} from "@cedx/webstorage";
+import {assert} from "chai";
 
 /**
  * Tests the features of the {@link Storage} class.
