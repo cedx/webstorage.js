@@ -30,16 +30,16 @@ export class Storage extends EventTarget {
 	/**
 	 * The keys of this storage.
 	 */
-	get keys(): string[] {
+	get keys(): Set<string> {
 		const keys = Array.from(Array(this.#backend.length), (_, index) => this.#backend.key(index)!);
-		return keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length));
+		return new Set(keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)));
 	}
 
 	/**
 	 * The number of entries in this storage.
 	 */
 	get length(): number {
-		return this.#keyPrefix ? this.keys.length : this.#backend.length;
+		return this.#keyPrefix ? this.keys.size : this.#backend.length;
 	}
 
 	/**

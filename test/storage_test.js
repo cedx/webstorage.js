@@ -15,13 +15,13 @@ describe("Storage", () => {
 		it("should return the list of keys for a non-empty storage", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			assert.sameOrderedMembers(Storage.session().keys, ["foo", "prefix:baz"]);
+			assert.sameOrderedMembers(Array.from(Storage.session().keys), ["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
 			sessionStorage.setItem("foo", "bar");
 			sessionStorage.setItem("prefix:baz", "qux");
-			assert.sameMembers(Storage.session({keyPrefix: "prefix:"}).keys, ["baz"]);
+			assert.sameMembers(Array.from(Storage.session({keyPrefix: "prefix:"}).keys), ["baz"]);
 		});
 	});
 
