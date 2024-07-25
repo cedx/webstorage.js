@@ -32,7 +32,7 @@ export class Storage extends EventTarget {
 	 */
 	get keys(): Set<string> {
 		const keys = Array.from(Array(this.#backend.length), (_, index) => this.#backend.key(index)!);
-		return new Set(keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)));
+		return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
 	}
 
 	/**
