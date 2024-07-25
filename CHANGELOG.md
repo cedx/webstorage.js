@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [6.0.0](https://github.com/cedx/webstorage.js/compare/v5.0.1...v6.0.0)
+- Breaking change: the `Storage.keys` property is now implemented as `Set<string>`.
+
 ## Version [5.0.1](https://github.com/cedx/webstorage.js/compare/v5.0.0...v5.0.1)
 - Migrated the documentation to the [GitHub wiki](https://github.com/cedx/webstorage.js/wiki).
 
