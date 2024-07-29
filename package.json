@@ -26,7 +26,7 @@
 		"globals": "^15.8.0",
 		"gulp": "^5.0.0",
 		"typescript": "^5.5.4",
-		"typescript-eslint": "^8.0.0-alpha.54"
+		"typescript-eslint": "^8.0.0-alpha.56"
 	},
 	"engines": {
 		"node": ">=22.0.0"
@@ -37,7 +37,8 @@
 	},
 	"files": [
 		"lib/",
-		"src/"
+		"src/",
+		"tsconfig.json"
 	],
 	"keywords": [
 		"browser",
