@@ -1,11 +1,7 @@
-import {playwrightLauncher} from "@web/test-runner-playwright";
+import {puppeteerLauncher} from "@web/test-runner-puppeteer";
 
 export default {
+	browsers: [puppeteerLauncher()],
 	files: "test/**/*.js",
-	nodeResolve: true,
-	browsers: [
-		playwrightLauncher({product: "chromium"}),
-		playwrightLauncher({product: "firefox"}),
-		playwrightLauncher({product: "webkit"})
-	]
+	nodeResolve: true
 };
