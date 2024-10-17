@@ -34,7 +34,6 @@ export async function publish() {
 
 /** Runs the test suite. */
 export async function test() {
-	env.NODE_ENV = "test";
 	await build();
 	return $("web-test-runner", ["--config=etc/test_runner.js"]);
 }
