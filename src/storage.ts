@@ -195,10 +195,10 @@ export type StorageOptions = Partial<{
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole storage.
 	 */
-	keyPrefix: string;
+	keyPrefix: string,
 
 	/**
 	 * Value indicating whether to listen to the global storage events.
 	 */
-	listenToGlobalEvents: boolean;
+	listenToGlobalEvents: boolean
 }>;
