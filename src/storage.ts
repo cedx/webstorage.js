@@ -20,7 +20,7 @@ export class Storage extends EventTarget {
 	 * @param backend The underlying data store.
 	 * @param options An object providing values to initialize this instance.
 	 */
-	private constructor(backend: globalThis.Storage, options: Partial<StorageOptions> = {}) {
+	private constructor(backend: globalThis.Storage, options: StorageOptions = {}) {
 		super();
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
@@ -47,7 +47,7 @@ export class Storage extends EventTarget {
 	 * @param options An object providing values to initialize the service.
 	 * @returns The newly created service.
 	 */
-	static local(options: Partial<StorageOptions> = {}): Storage {
+	static local(options: StorageOptions = {}): Storage {
 		return new this(localStorage, options);
 	}
 
@@ -56,7 +56,7 @@ export class Storage extends EventTarget {
 	 * @param options An object providing values to initialize the service.
 	 * @returns The newly created service.
 	 */
-	static session(options: Partial<StorageOptions> = {}): Storage {
+	static session(options: StorageOptions = {}): Storage {
 		return new this(sessionStorage, options);
 	}
 
@@ -190,7 +190,7 @@ export class Storage extends EventTarget {
 /**
  * Defines the options of a {@link Storage} instance.
  */
-export interface StorageOptions {
+export type StorageOptions = Partial<{
 
 	/**
 	 * A string prefixed to every key so that it is unique globally in the whole storage.
@@ -201,4 +201,4 @@ export interface StorageOptions {
 	 * Value indicating whether to listen to the global storage events.
 	 */
 	listenToGlobalEvents: boolean;
-}
+}>;
