@@ -1,6 +1,6 @@
 import gulp from "gulp";
 import {spawn} from "node:child_process";
-import {cp, readdir, rm} from "node:fs/promises";
+import {readdir, rm} from "node:fs/promises";
 import {delimiter, join, resolve} from "node:path";
 import {env} from "node:process";
 import pkg from "./package.json" with {type: "json"};
@@ -35,7 +35,6 @@ export async function publish() {
 /** Runs the test suite. */
 export async function test() {
 	await build();
-	await cp("node_modules/mocha/mocha.js", "var/mocha.js");
 	await $("esbuild", ["--allow-overwrite", "--bundle", "--log-level=warning", "--outfile=var/tests.js", "test/index.js"]);
 	return $("node", ["etc/puppeteer.js"]);
 }

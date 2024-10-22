@@ -1,13 +1,15 @@
 import console from "node:console";
-import {writeFile} from "node:fs/promises";
+import {cp, writeFile} from "node:fs/promises";
 import {createServer} from "node:http";
+import {join} from "node:path";
 import process from "node:process";
 import puppeteer from "puppeteer";
 import handler from "serve-handler";
 
 // Start the browser.
 const browser = await puppeteer.launch();
-const server = createServer((req, res) => handler(req, res, {public: "var"}));
+const directory = join(import.meta.dirname, "../var");
+const server = createServer((req, res) => handler(req, res, {public: directory}));
 
 const page = await browser.newPage();
 page.on("pageerror", error => console.error(error));
@@ -25,7 +27,8 @@ await page.exposeFunction("exit", async code => {
 });
 
 // Run the test suite.
-await writeFile("var/tests.html", `
+await cp(join(import.meta.dirname, "../node_modules/mocha/mocha.js"), join(directory, "mocha.js"));
+await writeFile(join(directory, "tests.html"), `
 	<!DOCTYPE html>
 	<html dir="ltr" lang="en">
 		<head>
@@ -34,12 +37,12 @@ await writeFile("var/tests.html", `
 
 		<body>
 			<script src="mocha.js"></script>
-			<script class="mocha-init">
+			<script>
 				mocha.setup({reporter: "spec", ui: "bdd"});
 			</script>
 
 			<script src="tests.js"></script>
-			<script class="mocha-exec">
+			<script>
 				const runner = mocha.run();
 				runner.on("end", () => exit(runner.failures));
 			</script>
