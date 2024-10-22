@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import console from "node:console";
 import {writeFile} from "node:fs/promises";
 import {createServer} from "node:http";
@@ -19,7 +18,7 @@ page.on("console", async message => {
 });
 
 await page.evaluate(() => console.log(navigator.userAgent));
-await page.exposeFunction("exit", async (/** @type {number} */ code) => {
+await page.exposeFunction("exit", async code => {
 	await browser.close();
 	server.close();
 	process.exit(code);
@@ -49,6 +48,6 @@ await writeFile("var/tests.html", `
 `);
 
 server.listen(0, "127.0.0.1", () => {
-	const {address, port} = /** @type {import("node:net").AddressInfo} */ (server.address());
+	const {address, port} = server.address();
 	page.goto(`http://${address}:${port}/tests.html`);
 });

@@ -37,7 +37,7 @@ export async function test() {
 	await build();
 	await cp("node_modules/mocha/mocha.js", "var/mocha.js");
 	await $("esbuild", ["--allow-overwrite", "--bundle", "--log-level=warning", "--outfile=var/tests.js", "test/index.js"]);
-	return $("node", ["test/puppeteer.js"]);
+	return $("node", ["etc/puppeteer.js"]);
 }
 
 /** The default task. */
