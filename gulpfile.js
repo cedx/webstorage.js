@@ -35,7 +35,7 @@ export async function publish() {
 /** Runs the test suite. */
 export async function test() {
 	await build();
-	await $("esbuild", ["--allow-overwrite", "--bundle", "--log-level=warning", "--outfile=var/tests.js", "test/index.js"]);
+	await $("rollup", ["--config=etc/rollup.js"]);
 	return $("node", ["etc/puppeteer.js"]);
 }
 
