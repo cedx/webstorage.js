@@ -13,22 +13,20 @@
 		"url": "https://belin.io"
 	},
 	"devDependencies": {
+		"@coffeelint/cli": "^5.2.11",
 		"@rollup/plugin-node-resolve": "^15.3.0",
 		"@types/chai": "^5.0.1",
-		"@types/eslint__js": "^8.42.3",
-		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.9",
 		"@types/node": "^22.9.0",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.1.2",
+		"coffeescript": "^2.7.0",
 		"globals": "^15.12.0",
 		"gulp": "^5.0.0",
 		"mocha": "^10.8.2",
 		"puppeteer": "^23.7.0",
 		"rollup": "^4.24.4",
-		"serve-handler": "^6.1.6",
-		"typescript": "^5.6.3",
-		"typescript-eslint": "^8.13.0"
+		"serve-handler": "^6.1.6"
 	},
 	"engines": {
 		"node": ">=22.0.0"
@@ -39,8 +37,7 @@
 	},
 	"files": [
 		"lib/",
-		"src/",
-		"tsconfig.json"
+		"src/"
 	],
 	"keywords": [
 		"browser",
@@ -52,7 +49,6 @@
 		"storage"
 	],
 	"scripts": {
-		"prepack": "gulp",
-		"test": "gulp test"
+		"test": "cake test"
 	}
 }
