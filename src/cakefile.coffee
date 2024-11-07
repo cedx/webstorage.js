@@ -27,9 +27,9 @@ task "publish", "Publishes the package.", ->
 	run "git", action..., "v#{pkg.version}" for action in [["tag"], ["push", "origin"]]
 
 task "test", "Runs the test suite.", ->
-	env.NODE_ENV = "test"
 	run "coffee", "--compile", "--map", "--no-header", "--output", "lib", "src", "test"
-	run "node", "--enable-source-maps", "--test", "--test-reporter=spec", "lib/**/*_test.js"
+	npx "rollup", "--config=etc/rollup.js"
+	run "node", "etc/puppeteer.js"
 
 task "watch", "Watches for file changes.", (options) ->
 	sourcemaps = if options.map then ["--map"] else []
