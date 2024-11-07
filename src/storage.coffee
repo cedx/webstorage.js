@@ -69,7 +69,7 @@ export class Storage extends EventTarget
 
 	# Registers a function that will be invoked whenever the `change` event is triggered.
 	onChange: (listener) ->
-		@addEventListener StorageEvent.type, listener, passive: true
+		@addEventListener StorageEvent.type, listener, passive: yes
 		this # coffeelint: disable-line = no_this
 
 	# Associates a given value with the specified key.
