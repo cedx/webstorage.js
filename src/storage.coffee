@@ -6,8 +6,8 @@ export class Storage extends EventTarget
 	# The keys of this storage.
 	Object.defineProperty @prototype, "keys",
 		get: ->
-			keys = Array.from(Array(@_backend.length), (_, index) => @_backend.key(index))
-			new Set(if @_keyPrefix then keys.filter((key) => key.startsWith(@_keyPrefix)).map(key => key.slice(@_keyPrefix.length)) else keys)
+			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
+			new Set(if @_keyPrefix then keys.filter((key) => key.startsWith(@_keyPrefix)).map((key) => key.slice(@_keyPrefix.length)) else keys)
 
 	# The number of entries in this storage.
 	Object.defineProperty @prototype, "length",
@@ -31,13 +31,13 @@ export class Storage extends EventTarget
 	@session: (options = {}) -> new @ sessionStorage, options
 
 	# Returns a new iterator that allows iterating the entries of this storage.
-	[Symbol.iterator]: () ->
-		yield [key, @get(key)] for key in @keys
+	[Symbol.iterator]: ->
+		yield [key, @get(key)] for key from @keys
 		return
 
 	# Removes all entries from this storage.
 	clear: ->
-		if @_keyPrefix then @delete key for key in @keys
+		if @_keyPrefix then @delete key for key from @keys
 		else
 			@_backend.clear()
 			@dispatchEvent new StorageEvent null
@@ -50,7 +50,7 @@ export class Storage extends EventTarget
 		oldValue
 
 	# Cancels the subscription to the global storage events.
-	destroy: -> removeEventListener "storage", this
+	destroy: -> removeEventListener "storage", @
 
 	# Gets the value associated to the specified key.
 	get: (key) -> @_backend.getItem @_buildKey key
@@ -69,14 +69,14 @@ export class Storage extends EventTarget
 	# Registers a function that will be invoked whenever the `change` event is triggered.
 	onChange: (listener) ->
 		@addEventListener StorageEvent.type, listener, passive: true
-		this
+		this # coffeelint: disable-line = no_this
 
 	# Associates a given value with the specified key.
 	set: (key, value) ->
 		oldValue = @get key
 		@_backend.setItem @_buildKey(key), value
 		@dispatchEvent new StorageEvent key, oldValue, value
-		this
+		this # coffeelint: disable-line = no_this
 
 	# Serializes and associates a given value with the specified key.
 	setObject: (key, value) -> @set key, JSON.stringify(value)
@@ -85,4 +85,4 @@ export class Storage extends EventTarget
 	toJSON: -> Array.from @
 
 	# Builds a normalized storage key from the given key.
-	@_buildKey: (key) -> "#{@_keyPrefix}#{key}"
+	_buildKey: (key) -> "#{@_keyPrefix}#{key}"

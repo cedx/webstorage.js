@@ -29,7 +29,7 @@ task "publish", "Publishes the package.", ->
 task "test", "Runs the test suite.", ->
 	run "coffee", "--compile", "--map", "--no-header", "--output", "lib", "src", "test"
 	npx "rollup", "--config=etc/rollup.js"
-	run "node", "etc/puppeteer.js"
+	run "node", "lib/puppeteer.js"
 
 task "watch", "Watches for file changes.", (options) ->
 	sourcemaps = if options.map then ["--map"] else []
