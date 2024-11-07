@@ -33,7 +33,7 @@ export class Storage extends EventTarget
 
 	# Returns a new iterator that allows iterating the entries of this storage.
 	[Symbol.iterator]: ->
-		yield [key, @get(key)] for key from @keys
+		yield [key, @get key] for key from @keys
 		return
 
 	# Removes all entries from this storage.
