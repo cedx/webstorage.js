@@ -1,4 +1,3 @@
-/* eslint-disable curly */
 import {Storage} from "@cedx/webstorage";
 import console from "node:console";
 
