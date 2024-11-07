@@ -80,7 +80,7 @@ export class Storage extends EventTarget
 		this # coffeelint: disable-line = no_this
 
 	# Serializes and associates a given value with the specified key.
-	setObject: (key, value) -> @set key, JSON.stringify(value)
+	setObject: (key, value) -> @set key, JSON.stringify value
 
 	# Returns a JSON representation of this object.
 	toJSON: -> Array.from @
