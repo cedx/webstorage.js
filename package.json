@@ -22,7 +22,7 @@
 		"chai": "^5.1.2",
 		"coffeescript": "^2.7.0",
 		"mocha": "^10.8.2",
-		"puppeteer": "^23.7.0",
+		"puppeteer": "^23.7.1",
 		"rollup": "^4.24.4",
 		"serve-handler": "^6.1.6"
 	},
