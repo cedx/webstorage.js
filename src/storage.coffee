@@ -8,7 +8,7 @@ export class Storage extends EventTarget
 		get: ->
 			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
 			{length} = @_keyPrefix
-			new Set(if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key.slice length) else keys)
+			new Set(if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys)
 
 	# The number of entries in this storage.
 	Object.defineProperty @prototype, "length",
@@ -62,7 +62,7 @@ export class Storage extends EventTarget
 	# Handles the events.
 	handleEvent: (event) ->
 		if event.storageArea is @_backend and (not event.key? or event.key.startsWith @_keyPrefix)
-			@dispatchEvent new StorageEvent event.key?.slice(@_keyPrefix.length) ? null, event.oldValue, event.newValue
+			@dispatchEvent new StorageEvent event.key?[@_keyPrefix.length..] ? null, event.oldValue, event.newValue
 
 	# Gets a value indicating whether this storage contains the specified key.
 	has: (key) -> @get(key)?
