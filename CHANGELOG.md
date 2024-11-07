@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [7.0.0](https://github.com/cedx/webstorage.js/compare/v6.0.0...v7.0.0)
+- Ported the source code to [CoffeeScript](https://coffeescript.org).
+
 ## Version [6.0.0](https://github.com/cedx/webstorage.js/compare/v5.0.1...v6.0.0)
 - Breaking change: the `Storage.keys` property is now implemented as `Set<string>`.
 
