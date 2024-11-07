@@ -7,7 +7,7 @@ export class Storage extends EventTarget
 	Object.defineProperty @prototype, "keys",
 		get: ->
 			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
-			length = @_keyPrefix.length
+			{length} = @_keyPrefix
 			new Set(if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key.slice length) else keys)
 
 	# The number of entries in this storage.
