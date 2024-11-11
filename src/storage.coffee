@@ -3,17 +3,6 @@ import {StorageEvent} from "./storage_event.js"
 # Provides access to the [Web Storage](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).
 export class Storage extends EventTarget
 
-	# The keys of this storage.
-	Object.defineProperty @prototype, "keys",
-		get: ->
-			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
-			{length} = @_keyPrefix
-			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
-
-	# The number of entries in this storage.
-	Object.defineProperty @prototype, "length",
-		get: -> if @_keyPrefix then @keys.size else @_backend.length
-
 	# Creates a new storage service.
 	constructor: (backend, options = {}) ->
 		super()
@@ -24,6 +13,17 @@ export class Storage extends EventTarget
 
 		# A string prefixed to every key so that it is unique globally in the whole storage.
 		@_keyPrefix = options.keyPrefix ? ""
+
+	# The keys of this storage.
+	Object.defineProperty @prototype, "keys",
+		get: ->
+			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
+			{length} = @_keyPrefix
+			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
+
+	# The number of entries in this storage.
+	Object.defineProperty @prototype, "length",
+		get: -> if @_keyPrefix then @keys.size else @_backend.length
 
 	# Creates a new local storage service.
 	@local: (options = {}) -> new @ localStorage, options
