@@ -12,7 +12,7 @@ export class Storage extends EventTarget
 		@_backend = backend
 
 		# A string prefixed to every key so that it is unique globally in the whole storage.
-		@_keyPrefix = options.keyPrefix ? ""
+		@_keyPrefix = options.keyPrefix or ""
 
 	# The keys of this storage.
 	Object.defineProperty @prototype, "keys",
