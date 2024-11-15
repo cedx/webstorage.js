@@ -1,6 +1,8 @@
 import resolve from "@rollup/plugin-node-resolve";
 
-/** @type {import("rollup").RollupOptions} */
+/**
+ * @type {import("rollup").RollupOptions}
+ */
 export default {
 	context: "this",
 	input: "lib/rollup.js",
