@@ -106,6 +106,12 @@ export class Storage extends EventTarget {
 	 * @returns This instance.
 	 */
 	setObject(key: string, value: unknown): this;
+
+	/**
+	 * Returns a JSON representation of this object.
+	 * @returns The JSON representation of this object.
+	 */
+	toJSON(): Array<[string, string]>;
 }
 
 /**
