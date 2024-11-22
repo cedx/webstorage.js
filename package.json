@@ -24,7 +24,7 @@
 		"coffeescript": "^2.7.0",
 		"gulp": "^5.0.0",
 		"mocha": "^10.8.2",
-		"puppeteer": "^23.8.0",
+		"puppeteer": "^23.9.0",
 		"rollup": "^4.27.3",
 		"serve-handler": "^6.1.6"
 	},
