@@ -18,14 +18,14 @@
 		"@types/chai": "^5.0.1",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.9.1",
+		"@types/node": "^22.9.3",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.1.2",
 		"coffeescript": "^2.7.0",
 		"gulp": "^5.0.0",
 		"mocha": "^10.8.2",
 		"puppeteer": "^23.9.0",
-		"rollup": "^4.27.3",
+		"rollup": "^4.27.4",
 		"serve-handler": "^6.1.6"
 	},
 	"engines": {
