@@ -19,7 +19,7 @@ export class Storage extends EventTarget
 		get: ->
 			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
 			{length} = @_keyPrefix
-			new Set if length then keys.filter(($) => $.startsWith @_keyPrefix).map(($) -> $[length..]) else keys
+			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
 
 	# The number of entries in this storage.
 	Object.defineProperty @::, "length",

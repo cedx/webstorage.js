@@ -14,7 +14,7 @@ server = createServer (req, res) -> handler req, res, public: directory
 page = await browser.newPage()
 page.on "pageerror", (error) -> console.error error
 page.on "console", (message) ->
-	args = await Promise.all message.args().map ($) -> $.jsonValue()
+	args = await Promise.all message.args().map (arg) -> arg.jsonValue()
 	if args.length then console.log args.shift(), args...
 	else console.log message.text()
 
