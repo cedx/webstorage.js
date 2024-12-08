@@ -15,15 +15,13 @@ export class Storage extends EventTarget
 		@_keyPrefix = options.keyPrefix or ""
 
 	# The keys of this storage.
-	Object.defineProperty @::, "keys",
-		get: ->
-			keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
-			{length} = @_keyPrefix
-			new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
+	Object.defineProperty @::, "keys", get: ->
+		keys = Array.from Array(@_backend.length), (_, index) => @_backend.key(index)
+		{length} = @_keyPrefix
+		new Set if length then keys.filter((key) => key.startsWith @_keyPrefix).map((key) -> key[length..]) else keys
 
 	# The number of entries in this storage.
-	Object.defineProperty @::, "length",
-		get: -> if @_keyPrefix then @keys.size else @_backend.length
+	Object.defineProperty @::, "length", get: -> if @_keyPrefix then @keys.size else @_backend.length
 
 	# Creates a new local storage service.
 	@local: (options = {}) -> new @ localStorage, options
