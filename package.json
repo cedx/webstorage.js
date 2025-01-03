@@ -17,7 +17,7 @@
 		"@rollup/plugin-node-resolve": "^16.0.0",
 		"@types/chai": "^5.0.1",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.10.2",
+		"@types/node": "^22.10.5",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.1.2",
 		"coffeescript": "^2.7.0",
