@@ -23,7 +23,7 @@
 		"coffeescript": "^2.7.0",
 		"mocha": "^11.0.1",
 		"puppeteer": "^23.11.1",
-		"rollup": "^4.30.0",
+		"rollup": "^4.30.1",
 		"serve-handler": "^6.1.6"
 	},
 	"engines": {
