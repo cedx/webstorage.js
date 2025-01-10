@@ -68,14 +68,14 @@ export class Storage extends EventTarget
 	# Registers a function that will be invoked whenever the `change` event is triggered.
 	onChange: (listener) ->
 		@addEventListener StorageEvent.type, listener
-		this # coffeelint: disable-line = no_this
+		this # coffeelint: disable-line=no_this
 
 	# Associates a given value with the specified key.
 	set: (key, value) ->
 		oldValue = @get key
 		@_backend.setItem @_buildKey(key), value
 		@dispatchEvent new StorageEvent key, oldValue, value
-		this # coffeelint: disable-line = no_this
+		this # coffeelint: disable-line=no_this
 
 	# Serializes and associates a given value with the specified key.
 	setObject: (key, value) -> @set key, JSON.stringify value
