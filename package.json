@@ -47,6 +47,9 @@
 		"service",
 		"storage"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"test": "gulp test"
 	}
