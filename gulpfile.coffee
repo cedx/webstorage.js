@@ -26,7 +26,7 @@ export publish = ->
 # Runs the test suite.
 export test = ->
 	await npx "coffee", "--compile", "--map", "--no-header", "--output", "lib", "src", "test"
-	await npx "esbuild", "--bundle", "--log-level=warning", "--outfile=var/tests.js", "lib/esbuild.js"
+	await npx "esbuild", "--bundle", "--legal-comments=none", "--log-level=warning", "--outfile=var/tests.js", "lib/esbuild.js"
 	await run "node", "lib/puppeteer.js"
 
 # Watches for file changes.
