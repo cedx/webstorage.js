@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import globals from "globals";
 import {join} from "node:path";
 import ts from "typescript-eslint";
 
@@ -8,6 +9,10 @@ export default ts.config(
 	...ts.configs.stylisticTypeChecked,
 	{
 		languageOptions: {
+			globals: {
+				...globals.browser,
+				...globals.mocha
+			},
 			parserOptions: {
 				project: "tsconfig.json",
 				tsconfigRootDir: join(import.meta.dirname, "..")
