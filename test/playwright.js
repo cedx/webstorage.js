@@ -9,12 +9,12 @@ import handler from "serve-handler";
 // Start the browser.
 const browser = await chromium.launch();
 const directory = join(import.meta.dirname, "../var");
-const server = createServer((req, res) => handler(req, res, {public: directory}));
+const server = createServer((req, res) => handler(req, res, {public: directory})); // eslint-disable-line @typescript-eslint/no-misused-promises
 
 const page = await browser.newPage();
 page.on("pageerror", error => console.error(error));
 page.on("console", async message => {
-	const args = await Promise.all(message.args().map(arg => arg.jsonValue()));
+	const args = /** @type {unknown[]} */ (await Promise.all(message.args().map(arg => arg.jsonValue())));
 	if (args.length) console.log(args.shift(), ...args);
 	else console.log(message.text());
 });
@@ -50,6 +50,7 @@ await writeFile(join(directory, "tests.html"), `
 	</html>
 `);
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 server.listen({host: "127.0.0.1", port: 0}, async () => {
 	const {address, port} = /** @type {import("node:net").AddressInfo} */ (server.address());
 	await page.goto(`http://${address}:${port}/tests.html`);

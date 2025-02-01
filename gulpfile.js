@@ -37,7 +37,7 @@ export async function publish() {
 export async function test() {
 	await npx("tsc", "--build", "src/tsconfig.json", "--sourceMap");
 	await npx("esbuild", "--bundle", "--legal-comments=none", "--log-level=warning", "--outfile=var/tests.js", "test/index.js");
-	await run("node", "var/playwright.js");
+	await run("node", "test/playwright.js");
 }
 
 /** The default task. */
