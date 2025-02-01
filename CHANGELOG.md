@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [7.1.0](https://github.com/cedx/webstorage.js/compare/v7.0.0...v7.1.0)
+- Ported the source code to [TypeScript](https://www.typescriptlang.org).
+
 ## Version [7.0.0](https://github.com/cedx/webstorage.js/compare/v6.0.0...v7.0.0)
 - Ported the source code to [CoffeeScript](https://coffeescript.org).
 
