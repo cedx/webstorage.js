@@ -20,7 +20,7 @@ export class Storage extends EventTarget {
 	 * @param backend The underlying data store.
 	 * @param options An object providing values to initialize this instance.
 	 */
-	private constructor(backend: globalThis.Storage, options: Partial<StorageOptions> = {}) {
+	private constructor(backend: globalThis.Storage, options: StorageOptions = {}) {
 		super();
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
