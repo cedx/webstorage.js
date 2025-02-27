@@ -1,6 +1,0 @@
-<Solution>
-	<Project Path="webstorage.esproj">
-		<Build />
-		<Deploy />
-	</Project>
-</Solution>
