@@ -143,7 +143,7 @@ export default ts.config(
 			"prefer-template": "error",
 			"radix": ["error", "as-needed"],
 			"require-atomic-updates": ["error", {allowProperties: true}],
-			"require-await": "off",
+			"require-await": "error",
 			"require-unicode-regexp": "off",
 			"sort-imports": "off",
 			"sort-keys": "off",
