@@ -16,7 +16,7 @@
 		"@types/chai": "^5.2.0",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.5",
+		"@types/node": "^22.13.11",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.2.0",
 		"esbuild": "^0.25.1",
@@ -25,9 +25,9 @@
 		"mocha": "^11.1.0",
 		"playwright": "^1.51.1",
 		"serve-handler": "^6.1.6",
-		"typedoc": "^0.28.0",
+		"typedoc": "^0.28.1",
 		"typescript": "^5.8.2",
-		"typescript-eslint": "^8.26.1"
+		"typescript-eslint": "^8.27.0"
 	},
 	"engines": {
 		"node": ">=22.0.0"
