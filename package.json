@@ -16,7 +16,7 @@
 		"@types/chai": "^5.2.0",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^22.13.11",
+		"@types/node": "^22.13.13",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.2.0",
 		"esbuild": "^0.25.1",
