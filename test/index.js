@@ -1,1 +1,1 @@
-import "./storage_test.js";
+import "./StorageTest.js";

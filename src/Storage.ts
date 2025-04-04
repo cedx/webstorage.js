@@ -1,4 +1,4 @@
-import {StorageEvent} from "./storage_event.js";
+import {StorageEvent} from "./StorageEvent.js";
 
 /**
  * Provides access to the [Web Storage](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).

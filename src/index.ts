@@ -1,2 +1,2 @@
-export * from "./storage.js";
-export * from "./storage_event.js";
+export * from "./Storage.js";
+export * from "./StorageEvent.js";
