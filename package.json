@@ -23,7 +23,7 @@
 		"globals": "^16.0.0",
 		"gulp": "^5.0.0",
 		"mocha": "^11.1.0",
-		"playwright": "^1.51.1",
+		"playwright": "^1.52.0",
 		"serve-handler": "^6.1.6",
 		"typedoc": "^0.28.2",
 		"typescript": "^5.8.3",
