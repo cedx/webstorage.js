@@ -16,18 +16,18 @@
 		"@types/chai": "^5.2.2",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^24.0.7",
+		"@types/node": "^24.0.10",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^5.2.0",
 		"esbuild": "^0.25.5",
-		"globals": "^16.2.0",
+		"globals": "^16.3.0",
 		"gulp": "^5.0.1",
 		"mocha": "^11.7.1",
-		"playwright": "^1.53.1",
+		"playwright": "^1.53.2",
 		"serve-handler": "^6.1.6",
 		"typedoc": "^0.28.7",
 		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.35.0"
+		"typescript-eslint": "^8.35.1"
 	},
 	"engines": {
 		"node": ">=24.0.0"
