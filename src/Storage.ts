@@ -3,7 +3,7 @@ import {StorageEvent} from "./StorageEvent.js";
 /**
  * Provides access to the [Web Storage](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).
  */
-export class Storage extends EventTarget {
+export class Storage extends EventTarget implements Disposable, Iterable<[string, string], void, void> {
 
 	/**
 	 * The underlying data store.
@@ -61,10 +61,17 @@ export class Storage extends EventTarget {
 	}
 
 	/**
+	 * Releases any resources associated with this object.
+	 */
+	[Symbol.dispose](): void {
+		return this.destroy();
+	}
+
+	/**
 	 * Returns a new iterator that allows iterating the entries of this storage.
 	 * @returns An iterator for the entries of this storage.
 	 */
-	*[Symbol.iterator](): IterableIterator<[string, string]> {
+	*[Symbol.iterator](): Generator<[string, string], void, void> {
 		for (const key of this.keys) yield [key, this.get(key)!];
 	}
 
