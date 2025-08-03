@@ -27,7 +27,7 @@ await page.exposeFunction("exit", async (/** @type {number} */ code) => {
 });
 
 // Run the test suite.
-await cp(join(import.meta.dirname, "../node_modules/mocha/mocha.js"), join(directory, "mocha.js"));
+await cp(join(import.meta.dirname, "../node_modules/mocha/mocha.js"), join(directory, "Mocha.js"));
 await writeFile(join(directory, "tests.html"), `
 	<!DOCTYPE html>
 	<html dir="ltr" lang="en">
@@ -36,12 +36,12 @@ await writeFile(join(directory, "tests.html"), `
 		</head>
 
 		<body>
-			<script src="mocha.js"></script>
+			<script src="Mocha.js"></script>
 			<script>
 				mocha.setup({reporter: "spec", ui: "bdd"});
 			</script>
 
-			<script src="tests.js"></script>
+			<script src="Tests.js"></script>
 			<script>
 				const runner = mocha.run();
 				runner.on("end", () => exit(runner.failures));
