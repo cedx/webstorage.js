@@ -28,7 +28,7 @@ await page.exposeFunction("exit", async (/** @type {number} */ code) => {
 
 // Run the test suite.
 await cp(join(import.meta.dirname, "../node_modules/mocha/mocha.js"), join(directory, "Mocha.js"));
-await writeFile(join(directory, "tests.html"), `
+await writeFile(join(directory, "Tests.html"), `
 	<!DOCTYPE html>
 	<html dir="ltr" lang="en">
 		<head>
@@ -53,5 +53,5 @@ await writeFile(join(directory, "tests.html"), `
 // eslint-disable-next-line @typescript-eslint/no-misused-promises
 server.listen({host: "127.0.0.1", port: 0}, async () => {
 	const {address, port} = /** @type {import("node:net").AddressInfo} */ (server.address());
-	await page.goto(`http://${address}:${port}/tests.html`);
+	await page.goto(`http://${address}:${port}/Tests.html`);
 });
