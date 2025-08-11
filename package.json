@@ -22,7 +22,7 @@
 		"mocha": "^11.7.1",
 		"playwright": "^1.54.2",
 		"serve-handler": "^6.1.6",
-		"typedoc": "^0.28.9",
+		"typedoc": "^0.28.10",
 		"typescript": "^5.9.2",
 		"typescript-eslint": "^8.39.0"
 	},
