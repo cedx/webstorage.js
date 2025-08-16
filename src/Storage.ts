@@ -24,7 +24,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 		super();
 		this.#backend = backend;
 		this.#keyPrefix = options.keyPrefix ?? "";
-		if (options.listenToGlobalEvents) addEventListener("storage", this);
+		if (options.listenToGlobalEvents) addEventListener("storage", this.#dispatchGlobalEvent);
 	}
 
 	/**
@@ -103,7 +103,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Cancels the subscription to the global storage events.
 	 */
 	destroy(): void {
-		removeEventListener("storage", this);
+		removeEventListener("storage", this.#dispatchGlobalEvent);
 	}
 
 	/**
@@ -123,15 +123,6 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	getObject<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
 		try { return JSON.parse(this.get(key) ?? "") as T; }
 		catch { return null; }
-	}
-
-	/**
-	 * Handles the events.
-	 * @param event The dispatched event.
-	 */
-	handleEvent(event: globalThis.StorageEvent): void {
-		if (event.storageArea == this.#backend && (!event.key || event.key.startsWith(this.#keyPrefix)))
-			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	}
 
 	/**
@@ -192,6 +183,15 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	#buildKey(key: string): string {
 		return `${this.#keyPrefix}${key}`;
 	}
+
+	/**
+	 * Dispatches the specified global event.
+	 * @param event The dispatched event.
+	 */
+	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
+		if (event.storageArea == this.#backend && (!event.key || event.key.startsWith(this.#keyPrefix)))
+			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
+	};
 }
 
 /**
