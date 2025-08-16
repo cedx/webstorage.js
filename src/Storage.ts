@@ -189,7 +189,8 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @param event The dispatched event.
 	 */
 	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
-		if (event.storageArea == this.#backend && (!event.key || event.key.startsWith(this.#keyPrefix)))
+		const isHandledKey = !event.key || event.key.startsWith(this.#keyPrefix);
+		if (event.storageArea == this.#backend && isHandledKey)
 			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	};
 }
