@@ -6,6 +6,11 @@ import {StorageEvent} from "./StorageEvent.js";
 export class Storage extends EventTarget implements Disposable, Iterable<[string, string], void, void> {
 
 	/**
+	 * The `change` event type.
+	 */
+	static readonly changeEvent = "Storage.change";
+
+	/**
 	 * The underlying data store.
 	 */
 	readonly #backend: globalThis.Storage;
@@ -83,7 +88,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 			for (const key of this.keys) this.delete(key);
 		else {
 			this.#backend.clear();
-			this.dispatchEvent(new StorageEvent(null));
+			this.dispatchEvent(new StorageEvent(Storage.changeEvent, null));
 		}
 	}
 
@@ -140,7 +145,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @returns This instance.
 	 */
 	onChange(listener: (event: StorageEvent) => void): this {
-		this.addEventListener(StorageEvent.type, listener as EventListener);
+		this.addEventListener(Storage.changeEvent, listener as EventListener);
 		return this;
 	}
 
@@ -191,7 +196,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
 		const isHandledKey = !event.key || event.key.startsWith(this.#keyPrefix);
 		if (event.storageArea == this.#backend && isHandledKey)
-			this.dispatchEvent(new StorageEvent(event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
+			this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	};
 }
 
