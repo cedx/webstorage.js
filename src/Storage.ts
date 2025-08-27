@@ -100,7 +100,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	delete(key: string): string|null {
 		const oldValue = this.get(key);
 		this.#backend.removeItem(this.#buildKey(key));
-		this.dispatchEvent(new StorageEvent(key, oldValue));
+		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue));
 		return oldValue;
 	}
 
@@ -158,7 +158,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	set(key: string, value: string): this {
 		const oldValue = this.get(key);
 		this.#backend.setItem(this.#buildKey(key), value);
-		this.dispatchEvent(new StorageEvent(key, oldValue, value));
+		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue, value));
 		return this;
 	}
 
