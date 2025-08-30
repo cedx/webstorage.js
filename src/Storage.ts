@@ -8,7 +8,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	/**
 	 * The `change` event type.
 	 */
-	static readonly changeEvent = "Storage.change";
+	static readonly changeEvent = "webstorage:change";
 
 	/**
 	 * The underlying data store.
