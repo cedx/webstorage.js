@@ -19,7 +19,7 @@
 		"esbuild": "^0.25.9",
 		"globals": "^16.3.0",
 		"gulp": "^5.0.1",
-		"mocha": "^11.7.1",
+		"mocha": "^11.7.2",
 		"playwright": "^1.55.0",
 		"serve-handler": "^6.1.6",
 		"typedoc": "^0.28.12",
