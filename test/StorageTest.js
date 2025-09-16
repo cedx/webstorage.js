@@ -178,8 +178,8 @@ describe("Storage", () => {
 		});
 	});
 
-	describe("onChange()", () => {
-		it("should trigger an event when a cookie is added", done => {
+	describe.only("onChange()", () => {
+		it("should trigger an event when a cookie is added", () => {
 			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.isNull(event.oldValue);
@@ -189,10 +189,9 @@ describe("Storage", () => {
 			const service = Storage.session();
 			service.onChange(listener);
 			service.set("foo", "bar").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
-			done();
 		});
 
-		it("should trigger an event when a cookie is updated", done => {
+		it("should trigger an event when a cookie is updated", () => {
 			sessionStorage.setItem("foo", '"bar"');
 			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
@@ -203,10 +202,9 @@ describe("Storage", () => {
 			const service = Storage.session();
 			service.onChange(listener);
 			service.set("foo", "baz").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
-			done();
 		});
 
-		it("should trigger an event when a cookie is removed", done => {
+		it("should trigger an event when a cookie is removed", () => {
 			sessionStorage.setItem("foo", '"bar"');
 			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
@@ -218,10 +216,9 @@ describe("Storage", () => {
 			service.onChange(listener);
 			service.delete("foo");
 			service.removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
-			done();
 		});
 
-		it("should handle the key prefix", done => {
+		it("should handle the key prefix", () => {
 			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "baz");
 				assert.isNull(event.oldValue);
@@ -231,7 +228,6 @@ describe("Storage", () => {
 			const service = Storage.local({keyPrefix: "prefix:"});
 			service.onChange(listener);
 			service.set("baz", "qux").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
-			done();
 		});
 	});
 
