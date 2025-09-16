@@ -97,7 +97,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @param key The storage key.
 	 * @returns The value associated with the key before it was removed.
 	 */
-	delete<T>(key: string): T|null {
+	delete<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
 		const oldValue = this.get<T>(key);
 		this.#backend.removeItem(this.#buildKey(key));
 		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue));

@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import {Storage, StorageEvent} from "@cedx/webstorage";
+import {Storage} from "@cedx/webstorage";
 import {assert} from "chai";
 
 /**
@@ -13,14 +13,14 @@ describe("Storage", () => {
 			assert.isEmpty(Storage.session().keys));
 
 		it("should return the list of keys for a non-empty storage", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 			assert.sameOrderedMembers(Array.from(Storage.session().keys), ["foo", "prefix:baz"]);
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 			assert.sameMembers(Array.from(Storage.session({keyPrefix: "prefix:"}).keys), ["baz"]);
 		});
 	});
@@ -30,14 +30,14 @@ describe("Storage", () => {
 			assert.lengthOf(Storage.session(), 0));
 
 		it("should return the number of entries for a non-empty storage", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 			assert.lengthOf(Storage.session(), 2);
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 			assert.lengthOf(Storage.session({keyPrefix: "prefix:"}), 1);
 		});
 	});
@@ -76,16 +76,16 @@ describe("Storage", () => {
 
 	describe("clear()", () => {
 		it("should remove all storage entries", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			Storage.session().clear();
 			assert.lengthOf(sessionStorage, 0);
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			Storage.session({keyPrefix: "prefix:"}).clear();
 			assert.lengthOf(sessionStorage, 1);
@@ -94,8 +94,8 @@ describe("Storage", () => {
 
 	describe("delete()", () => {
 		it("should properly remove the storage entries", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			Storage.session().delete("foo");
 			assert.lengthOf(sessionStorage, 1);
@@ -103,8 +103,8 @@ describe("Storage", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			Storage.session({keyPrefix: "prefix:"}).delete("baz");
 			assert.lengthOf(sessionStorage, 1);
@@ -159,8 +159,8 @@ describe("Storage", () => {
 			assert.isFalse(Storage.session().has("foo")));
 
 		it("should return `true` if the specified key is contained", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			const service = Storage.session();
 			assert.isFalse(service.has("foo:bar"));
@@ -169,8 +169,8 @@ describe("Storage", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			const service = Storage.session({keyPrefix: "prefix:"});
 			assert.isFalse(service.has("foo"));
@@ -180,7 +180,7 @@ describe("Storage", () => {
 
 	describe("onChange()", () => {
 		it("should trigger an event when a cookie is added", done => {
-			const listener = (/** @type {StorageEvent} */ event) => {
+			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.isNull(event.oldValue);
 				assert.equal(event.newValue, "bar");
@@ -193,8 +193,8 @@ describe("Storage", () => {
 		});
 
 		it("should trigger an event when a cookie is updated", done => {
-			sessionStorage.setItem("foo", "bar");
-			const listener = (/** @type {StorageEvent} */ event) => {
+			sessionStorage.setItem("foo", '"bar"');
+			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.equal(event.oldValue, "bar");
 				assert.equal(event.newValue, "baz");
@@ -207,8 +207,8 @@ describe("Storage", () => {
 		});
 
 		it("should trigger an event when a cookie is removed", done => {
-			sessionStorage.setItem("foo", "bar");
-			const listener = (/** @type {StorageEvent} */ event) => {
+			sessionStorage.setItem("foo", '"bar"');
+			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
 				assert.equal(event.oldValue, "bar");
 				assert.isNull(event.newValue);
@@ -222,7 +222,7 @@ describe("Storage", () => {
 		});
 
 		it("should handle the key prefix", done => {
-			const listener = (/** @type {StorageEvent} */ event) => {
+			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "baz");
 				assert.isNull(event.oldValue);
 				assert.equal(event.newValue, "qux");
@@ -271,8 +271,8 @@ describe("Storage", () => {
 		});
 
 		it("should return a non-empty array for a non-empty storage", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			const json = JSON.stringify(Storage.session());
 			assert.include(json, '["foo","bar"]');
@@ -280,8 +280,8 @@ describe("Storage", () => {
 		});
 
 		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			const json = JSON.stringify(Storage.session({keyPrefix: "prefix:"}));
 			assert.notInclude(json, '["foo","bar"]');
