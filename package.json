@@ -7,24 +7,24 @@
 	"name": "@cedx/webstorage",
 	"repository": "cedx/webstorage.js",
 	"type": "module",
-	"version": "7.2.0",
+	"version": "8.0.0",
 	"devDependencies": {
 		"@playwright/browser-chromium": "^1.55.0",
 		"@types/chai": "^5.2.2",
 		"@types/gulp": "^4.0.17",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^24.3.1",
+		"@types/node": "^24.5.0",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^6.0.1",
 		"esbuild": "^0.25.9",
-		"globals": "^16.3.0",
+		"globals": "^16.4.0",
 		"gulp": "^5.0.1",
 		"mocha": "^11.7.2",
 		"playwright": "^1.55.0",
 		"serve-handler": "^6.1.6",
-		"typedoc": "^0.28.12",
+		"typedoc": "^0.28.13",
 		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.42.0"
+		"typescript-eslint": "^8.44.0"
 	},
 	"engines": {
 		"node": ">=24.0.0"
