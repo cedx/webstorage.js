@@ -177,11 +177,11 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
 		if (event.storageArea != this.#backend || (event.key && !event.key.startsWith(this.#keyPrefix))) return;
 
-		let oldValue = null;
-		try { oldValue = JSON.parse(event.oldValue ?? ""); } catch { /* Noop */ } // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		let oldValue = null; // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		try { oldValue = JSON.parse(event.oldValue ?? ""); } catch { /* Noop */ }
 
-		let newValue = null;
-		try { newValue = JSON.parse(event.newValue ?? ""); } catch { /* Noop */ } // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+		let newValue = null; // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+		try { newValue = JSON.parse(event.newValue ?? ""); } catch { /* Noop */ }
 
 		this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, oldValue, newValue));
 	};
