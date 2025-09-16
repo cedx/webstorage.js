@@ -3,7 +3,7 @@ import {StorageEvent} from "./StorageEvent.js";
 /**
  * Provides access to the [Web Storage](https://developer.mozilla.org/docs/Web/API/Web_Storage_API).
  */
-export class Storage extends EventTarget implements Disposable, Iterable<[string, string], void, void> {
+export class Storage extends EventTarget implements Disposable, Iterable<[string, any], void, void> {
 
 	/**
 	 * The `change` event type.
@@ -76,8 +76,8 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Returns a new iterator that allows iterating the entries of this storage.
 	 * @returns An iterator for the entries of this storage.
 	 */
-	*[Symbol.iterator](): Iterator<[string, string], void, void> {
-		for (const key of this.keys) yield [key, this.get(key)!];
+	*[Symbol.iterator](): Iterator<[string, any], void, void> {
+		for (const key of this.keys) yield [key, this.get(key)];
 	}
 
 	/**
@@ -175,9 +175,17 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @param event The dispatched event.
 	 */
 	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
-		const isHandledKey = !event.key || event.key.startsWith(this.#keyPrefix);
-		if (event.storageArea == this.#backend && isHandledKey)
-			this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
+		if (event.storageArea != this.#backend || (event.key && !event.key.startsWith(this.#keyPrefix))) return;
+
+		let oldValue;
+		try { oldValue = JSON.parse(event.oldValue ?? ""); }
+		catch { oldValue = null; }
+
+		let newValue;
+		try { newValue = JSON.parse(event.newValue ?? ""); }
+		catch { newValue = null; }
+
+		this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, oldValue, newValue));
 	};
 
 	/**
