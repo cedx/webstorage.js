@@ -69,7 +69,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Releases any resources associated with this object.
 	 */
 	[Symbol.dispose](): void {
-		return this.destroy();
+		return this.dispose();
 	}
 
 	/**
@@ -107,7 +107,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	/**
 	 * Cancels the subscription to the global storage events.
 	 */
-	destroy(): void {
+	dispose(): void {
 		removeEventListener("storage", this.#dispatchGlobalEvent);
 	}
 
