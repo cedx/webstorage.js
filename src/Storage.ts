@@ -157,7 +157,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Returns a JSON representation of this object.
 	 * @returns The JSON representation of this object.
 	 */
-	toJSON(): Array<[string, string]> {
+	toJSON(): Array<[string, any]> {
 		return Array.from(this);
 	}
 
@@ -177,13 +177,11 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	readonly #dispatchGlobalEvent: (event: globalThis.StorageEvent) => void = event => {
 		if (event.storageArea != this.#backend || (event.key && !event.key.startsWith(this.#keyPrefix))) return;
 
-		let oldValue;
-		try { oldValue = JSON.parse(event.oldValue ?? ""); }
-		catch { oldValue = null; }
+		let oldValue = null;
+		try { oldValue = JSON.parse(event.oldValue ?? ""); } catch { /* Noop */ } // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
-		let newValue;
-		try { newValue = JSON.parse(event.newValue ?? ""); }
-		catch { newValue = null; }
+		let newValue = null;
+		try { newValue = JSON.parse(event.newValue ?? ""); } catch { /* Noop */ } // eslint-disable-line @typescript-eslint/no-unsafe-assignment
 
 		this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, oldValue, newValue));
 	};
