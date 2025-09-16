@@ -117,7 +117,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
 	get<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-		try { return JSON.parse(this.#get(key) ?? "") as T; }
+		try { return JSON.parse(this.#backend.getItem(this.#buildKey(key)) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -127,7 +127,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @returns `true` if this storage contains the specified key, otherwise `false`.
 	 */
 	has(key: string): boolean {
-		return this.#get(key) != null;
+		return this.#backend.getItem(this.#buildKey(key)) != null;
 	}
 
 	/**
@@ -177,15 +177,6 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 
 		this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, oldValue, newValue));
 	};
-
-	/**
-	 * Gets the value associated to the specified key.
-	 * @param key The storage key.
-	 * @returns The storage value, or `null` if the key does not exist.
-	 */
-	#get(key: string): string|null {
-		return this.#backend.getItem(this.#buildKey(key));
-	}
 }
 
 /**
