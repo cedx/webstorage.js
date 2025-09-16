@@ -1,8 +1,9 @@
 # Changelog
 
 ## Version [8.0.0](https://github.com/cedx/webstorage.js/compare/v7.2.0...v8.0.0)
+- Breaking change: the `Storage` class now **always** serializes/deserializes values to/from JSON.
+- Breaking change: renamed the `Storage.destroy()` method to `dispose()`.
 - Breaking change: replaced the `StorageEvent.type` property by `Storage.changeEvent`.
-- Renamed the `Storage.destroy()` method to `dispose()`.
 
 ## Version [7.2.0](https://github.com/cedx/webstorage.js/compare/v7.1.0...v7.2.0)
 - Fixed the return type of the generator functions.

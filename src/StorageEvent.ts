@@ -11,12 +11,12 @@ export class StorageEvent extends Event {
 	/**
 	 * The new value.
 	 */
-	readonly newValue: string|null;
+	readonly newValue: any;
 
 	/**
 	 * The original value.
 	 */
-	readonly oldValue: string|null;
+	readonly oldValue: any;
 
 	/**
 	 * Creates a new cookie event.
@@ -25,7 +25,7 @@ export class StorageEvent extends Event {
 	 * @param oldValue The original value.
 	 * @param newValue The new value.
 	 */
-	constructor(type: string, key: string|null, oldValue: string|null = null, newValue: string|null = null) {
+	constructor(type: string, key: string|null, oldValue: unknown = null, newValue: unknown = null) {
 		super(type);
 		this.key = key;
 		this.newValue = newValue;

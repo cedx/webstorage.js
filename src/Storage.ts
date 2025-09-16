@@ -97,8 +97,8 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @param key The storage key.
 	 * @returns The value associated with the key before it was removed.
 	 */
-	delete(key: string): string|null {
-		const oldValue = this.get(key);
+	delete<T>(key: string): T|null {
+		const oldValue = this.get<T>(key);
 		this.#backend.removeItem(this.#buildKey(key));
 		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue));
 		return oldValue;
@@ -112,21 +112,12 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	}
 
 	/**
-	 * Gets the value associated to the specified key.
-	 * @param key The storage key.
-	 * @returns The storage value, or `null` if the key does not exist.
-	 */
-	get(key: string): string|null {
-		return this.#backend.getItem(this.#buildKey(key));
-	}
-
-	/**
 	 * Gets the deserialized value associated with the specified key.
 	 * @param key The storage key.
 	 * @returns The storage value, or `null` if the key does not exist or the value cannot be deserialized.
 	 */
-	getObject<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
-		try { return JSON.parse(this.get(key) ?? "") as T; }
+	get<T>(key: string): T|null { // eslint-disable-line @typescript-eslint/no-unnecessary-type-parameters
+		try { return JSON.parse(this.#get(key) ?? "") as T; }
 		catch { return null; }
 	}
 
@@ -136,7 +127,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * @returns `true` if this storage contains the specified key, otherwise `false`.
 	 */
 	has(key: string): boolean {
-		return this.get(key) != null;
+		return this.#get(key) != null;
 	}
 
 	/**
@@ -150,26 +141,16 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	}
 
 	/**
-	 * Associates a given value with the specified key.
-	 * @param key The storage key.
-	 * @param value The storage value.
-	 * @returns This instance.
-	 */
-	set(key: string, value: string): this {
-		const oldValue = this.get(key);
-		this.#backend.setItem(this.#buildKey(key), value);
-		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue, value));
-		return this;
-	}
-
-	/**
 	 * Serializes and associates a given `value` with the specified `key`.
 	 * @param key The storage key.
 	 * @param value The storage value.
 	 * @returns This instance.
 	 */
-	setObject(key: string, value: unknown): this {
-		return this.set(key, JSON.stringify(value));
+	set(key: string, value: unknown): this {
+		const oldValue = this.get(key);
+		this.#backend.setItem(this.#buildKey(key), JSON.stringify(value));
+		this.dispatchEvent(new StorageEvent(Storage.changeEvent, key, oldValue, value));
+		return this;
 	}
 
 	/**
@@ -198,6 +179,15 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 		if (event.storageArea == this.#backend && isHandledKey)
 			this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, event.oldValue, event.newValue));
 	};
+
+	/**
+	 * Gets the value associated to the specified key.
+	 * @param key The storage key.
+	 * @returns The storage value, or `null` if the key does not exist.
+	 */
+	#get(key: string): string|null {
+		return this.#backend.getItem(this.#buildKey(key));
+	}
 }
 
 /**

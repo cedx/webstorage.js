@@ -50,8 +50,8 @@ describe("Storage", () => {
 
 		it("should iterate over the values if the storage is not empty", () => {
 			const iterator = Storage.session()[Symbol.iterator]();
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			let next = iterator.next();
 			assert.isFalse(next.done);
@@ -64,8 +64,8 @@ describe("Storage", () => {
 
 		it("should handle the key prefix", () => {
 			const iterator = Storage.session({keyPrefix: "prefix:"})[Symbol.iterator]();
-			sessionStorage.setItem("foo", "bar");
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("foo", '"bar"');
+			sessionStorage.setItem("prefix:baz", '"qux"');
 
 			const next = iterator.next();
 			assert.isFalse(next.done);
@@ -113,15 +113,21 @@ describe("Storage", () => {
 	});
 
 	describe("get()", () => {
-		it("should properly get the storage entries", () => {
+		it("should properly get the deserialized storage entries", () => {
 			const service = Storage.session();
 			assert.isNull(service.get("foo"));
 
-			sessionStorage.setItem("foo", "bar");
+			sessionStorage.setItem("foo", '"bar"');
 			assert.equal(service.get("foo"), "bar");
 
 			sessionStorage.setItem("foo", "123");
-			assert.equal(service.get("foo"), "123");
+			assert.equal(service.get("foo"), 123);
+
+			sessionStorage.setItem("foo", '{"key": "value"}');
+			assert.deepEqual(service.get("foo"), {key: "value"});
+
+			sessionStorage.setItem("foo", "{bar[123]}");
+			assert.isNull(service.get("foo"));
 
 			sessionStorage.removeItem("foo");
 			assert.isNull(service.get("foo"));
@@ -131,56 +137,20 @@ describe("Storage", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
 			assert.isNull(service.get("baz"));
 
-			sessionStorage.setItem("prefix:baz", "qux");
+			sessionStorage.setItem("prefix:baz", '"qux"');
 			assert.equal(service.get("baz"), "qux");
 
 			sessionStorage.setItem("prefix:baz", "456");
-			assert.equal(service.get("baz"), "456");
+			assert.equal(service.get("baz"), 456);
+
+			sessionStorage.setItem("prefix:baz", '{"key": "value"}');
+			assert.deepEqual(service.get("baz"), {key: "value"});
+
+			sessionStorage.setItem("prefix:baz", "{qux[456]}");
+			assert.isNull(service.get("baz"));
 
 			sessionStorage.removeItem("prefix:baz");
 			assert.isNull(service.get("baz"));
-		});
-	});
-
-	describe("getObject()", () => {
-		it("should properly get the deserialized storage entries", () => {
-			const service = Storage.session();
-			assert.isNull(service.getObject("foo"));
-
-			sessionStorage.setItem("foo", '"bar"');
-			assert.equal(service.getObject("foo"), "bar");
-
-			sessionStorage.setItem("foo", "123");
-			assert.equal(service.getObject("foo"), 123);
-
-			sessionStorage.setItem("foo", '{"key": "value"}');
-			assert.deepEqual(service.getObject("foo"), {key: "value"});
-
-			sessionStorage.setItem("foo", "{bar[123]}");
-			assert.isNull(service.getObject("foo"));
-
-			sessionStorage.removeItem("foo");
-			assert.isNull(service.getObject("foo"));
-		});
-
-		it("should handle the key prefix", () => {
-			const service = Storage.session({keyPrefix: "prefix:"});
-			assert.isNull(service.getObject("baz"));
-
-			sessionStorage.setItem("prefix:baz", '"qux"');
-			assert.equal(service.getObject("baz"), "qux");
-
-			sessionStorage.setItem("prefix:baz", "456");
-			assert.equal(service.getObject("baz"), 456);
-
-			sessionStorage.setItem("prefix:baz", '{"key": "value"}');
-			assert.deepEqual(service.getObject("baz"), {key: "value"});
-
-			sessionStorage.setItem("prefix:baz", "{qux[456]}");
-			assert.isNull(service.getObject("baz"));
-
-			sessionStorage.removeItem("prefix:baz");
-			assert.isNull(service.getObject("baz"));
 		});
 	});
 
@@ -218,7 +188,7 @@ describe("Storage", () => {
 
 			const service = Storage.session();
 			service.onChange(listener);
-			service.set("foo", "bar").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			service.set("foo", "bar").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -232,7 +202,7 @@ describe("Storage", () => {
 
 			const service = Storage.session();
 			service.onChange(listener);
-			service.set("foo", "baz").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			service.set("foo", "baz").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -247,7 +217,7 @@ describe("Storage", () => {
 			const service = Storage.session();
 			service.onChange(listener);
 			service.delete("foo");
-			service.removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			service.removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 
@@ -260,47 +230,23 @@ describe("Storage", () => {
 
 			const service = Storage.local({keyPrefix: "prefix:"});
 			service.onChange(listener);
-			service.set("baz", "qux").removeEventListener(StorageEvent.type, /** @type {EventListener} */ (listener));
+			service.set("baz", "qux").removeEventListener(Storage.changeEvent, /** @type {EventListener} */ (listener));
 			done();
 		});
 	});
 
 	describe("set()", () => {
-		it("should properly set the storage entries", () => {
-			const service = Storage.session();
-			assert.isNull(sessionStorage.getItem("foo"));
-
-			service.set("foo", "bar");
-			assert.equal(sessionStorage.getItem("foo"), "bar");
-
-			service.set("foo", "123");
-			assert.equal(sessionStorage.getItem("foo"), "123");
-		});
-
-		it("should handle the key prefix", () => {
-			const service = Storage.session({keyPrefix: "prefix:"});
-			assert.isNull(sessionStorage.getItem("prefix:baz"));
-
-			service.set("baz", "qux");
-			assert.equal(sessionStorage.getItem("prefix:baz"), "qux");
-
-			service.set("baz", "456");
-			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
-		});
-	});
-
-	describe("setObject()", () => {
 		it("should properly serialize and set the storage entries", () => {
 			const service = Storage.session();
 			assert.isNull(sessionStorage.getItem("foo"));
 
-			service.setObject("foo", "bar");
+			service.set("foo", "bar");
 			assert.equal(sessionStorage.getItem("foo"), '"bar"');
 
-			service.setObject("foo", 123);
+			service.set("foo", 123);
 			assert.equal(sessionStorage.getItem("foo"), "123");
 
-			service.setObject("foo", {key: "value"});
+			service.set("foo", {key: "value"});
 			assert.equal(sessionStorage.getItem("foo"), '{"key":"value"}');
 		});
 
@@ -308,13 +254,13 @@ describe("Storage", () => {
 			const service = Storage.session({keyPrefix: "prefix:"});
 			assert.isNull(sessionStorage.getItem("prefix:baz"));
 
-			service.setObject("baz", "qux");
+			service.set("baz", "qux");
 			assert.equal(sessionStorage.getItem("prefix:baz"), '"qux"');
 
-			service.setObject("baz", 456);
+			service.set("baz", 456);
 			assert.equal(sessionStorage.getItem("prefix:baz"), "456");
 
-			service.setObject("baz", {key: "value"});
+			service.set("baz", {key: "value"});
 			assert.equal(sessionStorage.getItem("prefix:baz"), '{"key":"value"}');
 		});
 	});
