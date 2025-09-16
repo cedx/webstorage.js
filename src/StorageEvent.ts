@@ -6,7 +6,7 @@ export class StorageEvent extends Event {
 	/**
 	 * The changed key.
 	 */
-	readonly key: string|null;
+	readonly key: string;
 
 	/**
 	 * The new value.
@@ -25,7 +25,7 @@ export class StorageEvent extends Event {
 	 * @param oldValue The original value.
 	 * @param newValue The new value.
 	 */
-	constructor(type: string, key: string|null, oldValue: unknown = null, newValue: unknown = null) {
+	constructor(type: string, key: string, oldValue: unknown = null, newValue: unknown = null) {
 		super(type);
 		this.key = key;
 		this.newValue = newValue;

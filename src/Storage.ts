@@ -44,7 +44,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * The number of entries in this storage.
 	 */
 	get length(): number {
-		return this.#keyPrefix ? this.keys.size : this.#backend.length;
+		return this.keys.size;
 	}
 
 	/**
@@ -84,12 +84,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Removes all entries from this storage.
 	 */
 	clear(): void {
-		if (this.#keyPrefix)
-			for (const key of this.keys) this.delete(key);
-		else {
-			this.#backend.clear();
-			this.dispatchEvent(new StorageEvent(Storage.changeEvent, null));
-		}
+		for (const key of this.keys) this.delete(key);
 	}
 
 	/**
@@ -175,7 +170,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 		let newValue = null; // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		try { newValue = JSON.parse(event.newValue ?? ""); } catch { /* Noop */ }
 
-		this.dispatchEvent(new StorageEvent(Storage.changeEvent, event.key?.slice(this.#keyPrefix.length) ?? null, oldValue, newValue));
+		this.dispatchEvent(new StorageEvent(Storage.changeEvent, (event.key ?? "").slice(this.#keyPrefix.length), oldValue, newValue));
 	};
 }
 
