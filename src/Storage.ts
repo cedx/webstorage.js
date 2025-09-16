@@ -154,14 +154,6 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	}
 
 	/**
-	 * Returns a JSON representation of this object.
-	 * @returns The JSON representation of this object.
-	 */
-	toJSON(): Array<[string, any]> {
-		return Array.from(this);
-	}
-
-	/**
 	 * Builds a normalized storage key from the given key.
 	 * @param key The original key.
 	 * @returns The normalized storage key.

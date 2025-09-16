@@ -264,28 +264,4 @@ describe("Storage", () => {
 			assert.equal(sessionStorage.getItem("prefix:baz"), '{"key":"value"}');
 		});
 	});
-
-	describe("toJSON()", () => {
-		it("should return an empty array for an empty storage", () => {
-			assert.equal(JSON.stringify(Storage.session()), "[]");
-		});
-
-		it("should return a non-empty array for a non-empty storage", () => {
-			sessionStorage.setItem("foo", '"bar"');
-			sessionStorage.setItem("prefix:baz", '"qux"');
-
-			const json = JSON.stringify(Storage.session());
-			assert.include(json, '["foo","bar"]');
-			assert.include(json, '["prefix:baz","qux"]');
-		});
-
-		it("should handle the key prefix", () => {
-			sessionStorage.setItem("foo", '"bar"');
-			sessionStorage.setItem("prefix:baz", '"qux"');
-
-			const json = JSON.stringify(Storage.session({keyPrefix: "prefix:"}));
-			assert.notInclude(json, '["foo","bar"]');
-			assert.include(json, '["baz","qux"]');
-		});
-	});
 });
