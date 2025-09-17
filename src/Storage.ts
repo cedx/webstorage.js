@@ -36,7 +36,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * The keys of this storage.
 	 */
 	get keys(): Set<string> {
-		const keys = Array.from(new Array(this.#backend.length), (_, index) => this.#backend.key(index)!);
+		const keys = new Array(this.#backend.length).fill(null).map((_, index) => this.#backend.key(index)!);
 		return new Set(this.#keyPrefix ? keys.filter(key => key.startsWith(this.#keyPrefix)).map(key => key.slice(this.#keyPrefix.length)) : keys);
 	}
 

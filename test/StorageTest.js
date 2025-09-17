@@ -178,7 +178,7 @@ describe("Storage", () => {
 		});
 	});
 
-	describe.only("onChange()", () => {
+	describe("onChange()", () => {
 		it("should trigger an event when a cookie is added", () => {
 			const listener = (/** @type {import("@cedx/webstorage").StorageEvent} */ event) => {
 				assert.equal(event.key, "foo");
