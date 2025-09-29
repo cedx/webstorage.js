@@ -15,7 +15,7 @@
 		"@types/mocha": "^10.0.10",
 		"@types/node": "^24.5.2",
 		"@types/serve-handler": "^6.1.4",
-		"chai": "^6.0.1",
+		"chai": "^6.2.0",
 		"esbuild": "^0.25.10",
 		"globals": "^16.4.0",
 		"gulp": "^5.0.1",
