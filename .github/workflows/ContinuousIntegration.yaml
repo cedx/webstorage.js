@@ -1,6 +1,10 @@
 name: continuous-integration
 on: push
 
+defaults:
+  run:
+    shell: pwsh
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,4 +19,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        run: aa-exec --profile=chrome -- npx gulp test
+        run: aa-exec --profile=chrome -- ./run.ps1 Test
