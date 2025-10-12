@@ -19,4 +19,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run tests
-        run: aa-exec --profile=chrome -- ./run.ps1 Test
+        run: aa-exec --profile=chrome -- ./invoke.ps1 Test
