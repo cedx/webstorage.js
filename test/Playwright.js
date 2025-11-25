@@ -3,11 +3,11 @@ import {cp, writeFile} from "node:fs/promises";
 import {createServer} from "node:http";
 import {join} from "node:path";
 import process from "node:process";
-import {firefox} from "playwright";
+import {chromium} from "playwright";
 import handler from "serve-handler";
 
 // Start the browser.
-const browser = await firefox.launch();
+const browser = await chromium.launch();
 const directory = join(import.meta.dirname, "../var");
 const server = createServer((req, res) => handler(req, res, {public: directory})); // eslint-disable-line @typescript-eslint/no-misused-promises
 
