@@ -11,7 +11,7 @@
 	"devDependencies": {
 		"@types/chai": "^5.2.3",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^24.10.2",
+		"@types/node": "^25.0.2",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^6.2.1",
 		"esbuild": "^0.27.1",
@@ -22,7 +22,7 @@
 		"serve-handler": "^6.1.6",
 		"typedoc": "^0.28.15",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.49.0"
+		"typescript-eslint": "^8.50.0"
 	},
 	"engines": {
 		"node": ">=24.0.0"
