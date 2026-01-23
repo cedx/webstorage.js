@@ -11,11 +11,11 @@
 	"devDependencies": {
 		"@types/chai": "^5.2.3",
 		"@types/mocha": "^10.0.10",
-		"@types/node": "^25.0.9",
+		"@types/node": "^25.0.10",
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^6.2.2",
 		"esbuild": "^0.27.2",
-		"globals": "^17.0.0",
+		"globals": "^17.1.0",
 		"mocha": "^11.7.5",
 		"playwright": "^1.57.0",
 		"playwright-chromium": "^1.57.0",
