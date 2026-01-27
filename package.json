@@ -15,14 +15,14 @@
 		"@types/serve-handler": "^6.1.4",
 		"chai": "^6.2.2",
 		"esbuild": "^0.27.2",
-		"globals": "^17.1.0",
+		"globals": "^17.2.0",
 		"mocha": "^11.7.5",
 		"playwright": "^1.58.0",
 		"playwright-chromium": "^1.58.0",
 		"serve-handler": "^6.1.6",
 		"typedoc": "^0.28.16",
 		"typescript": "^5.9.3",
-		"typescript-eslint": "^8.53.1"
+		"typescript-eslint": "^8.54.0"
 	},
 	"engines": {
 		"node": ">=24.0.0"
@@ -46,5 +46,10 @@
 	],
 	"publishConfig": {
 		"access": "public"
+	},
+	"scripts": {
+		"build": "pwsh Invoke.ps1 Build",
+		"clean": "pwsh Invoke.ps1 Clean",
+		"test": "pwsh Invoke.ps1 Test"
 	}
 }
