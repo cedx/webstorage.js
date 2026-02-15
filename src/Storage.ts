@@ -69,7 +69,7 @@ export class Storage extends EventTarget implements Disposable, Iterable<[string
 	 * Releases any resources associated with this object.
 	 */
 	[Symbol.dispose](): void {
-		return this.dispose();
+		this.dispose();
 	}
 
 	/**
