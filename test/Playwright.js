@@ -29,7 +29,7 @@ await page.exposeFunction("exit", async (/** @type {number} */ code) => {
 // Run the test suite.
 await cp(join(import.meta.dirname, "../node_modules/mocha/mocha.js"), join(directory, "Mocha.js"));
 await writeFile(join(directory, "Tests.html"), `
-	<!DOCTYPE html>
+	<!doctype html>
 	<html dir="ltr" lang="en">
 		<head>
 			<meta charset="utf-8" />
