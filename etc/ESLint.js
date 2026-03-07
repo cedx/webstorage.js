@@ -137,7 +137,7 @@ export default defineConfig(
 			"prefer-template": "error",
 			"radix": ["error", "as-needed"],
 			"require-atomic-updates": ["error", {allowProperties: true}],
-			"require-await": "error",
+			"require-await": "off",
 			"require-unicode-regexp": "off",
 			"sort-imports": "off",
 			"sort-keys": "off",
