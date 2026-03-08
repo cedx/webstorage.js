@@ -21,7 +21,6 @@
 		"playwright": "^1.58.2",
 		"playwright-chromium": "^1.58.2",
 		"serve-handler": "^6.1.7",
-		"typedoc": "^0.28.17",
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.56.1"
 	},
