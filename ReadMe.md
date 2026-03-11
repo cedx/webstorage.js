@@ -3,8 +3,7 @@ Service for interacting with the [Web Storage](https://developer.mozilla.org/doc
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://github.com/cedx/webstorage.js/wiki)
-- [API reference](https://cedx.github.io/webstorage.js)
+- [User guide](https://github.com/cedx/webstorage.js/tree/main/docs)
 - [Examples](https://github.com/cedx/webstorage.js/tree/main/example)
 
 ## Development
