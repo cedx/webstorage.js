@@ -26,7 +26,7 @@ export class StorageEvent extends Event {
 	 * @param newValue The new value.
 	 */
 	constructor(type: string, key: string, oldValue: unknown = null, newValue: unknown = null) {
-		super(type);
+		super(type, {bubbles: true});
 		this.key = key;
 		this.newValue = newValue;
 		this.oldValue = oldValue;
