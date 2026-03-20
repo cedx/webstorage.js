@@ -32,7 +32,7 @@ await writeFile(join(directory, "Tests.html"), `
 	<!doctype html>
 	<html dir="ltr" lang="en">
 		<head>
-			<meta charset="utf-8" />
+			<meta charset="utf-8">
 		</head>
 
 		<body>
