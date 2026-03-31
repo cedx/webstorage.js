@@ -10,9 +10,7 @@
 		"noImplicitOverride": true,
 		"outDir": "../lib",
 		"resolveJsonModule": true,
-		"rootDir": ".",
 		"skipLibCheck": true,
-		"strict": true,
 		"target": "ESNext",
 		"tsBuildInfoFile": "../var/tsbuildinfo.json",
 		"verbatimModuleSyntax": true
