@@ -38,7 +38,7 @@ function Invoke-ESLint {
 .SYNOPSIS
 	Invokes the Node.js test runner.
 #>
-function Invoke-NodeTesting {
+function Invoke-NodeTest {
 	npx esbuild --bundle --legal-comments=none --log-level=warning --outfile=var/Tests.js --sourcemap test/Main.js
 	node test/Playwright.js
 }
