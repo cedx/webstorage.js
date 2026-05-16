@@ -3,12 +3,12 @@ Service for interacting with the [Web Storage](https://developer.mozilla.org/doc
 in [JavaScript](https://developer.mozilla.org/docs/Web/JavaScript).
 
 ## Documentation
-- [User guide](https://github.com/cedx/webstorage.js/tree/main/docs)
-- [Examples](https://github.com/cedx/webstorage.js/tree/main/example)
+- [User guide](https://github.com/CedX/WebStorage.js/tree/main/docs)
+- [Examples](https://github.com/CedX/WebStorage.js/tree/main/example)
 
 ## Development
-- [Git repository](https://github.com/cedx/webstorage.js)
-- [Submit an issue](https://github.com/cedx/webstorage.js/issues)
+- [Git repository](https://github.com/CedX/WebStorage.js)
+- [Submit an issue](https://github.com/CedX/WebStorage.js/issues)
 
 ## License
-[Web Storage for JS](https://github.com/cedx/webstorage.js) is distributed under the MIT License.
+[Web Storage for JS](https://github.com/CedX/WebStorage.js) is distributed under the MIT License.

@@ -1,11 +1,11 @@
 {
 	"author": "Cédric Belin <cedx@outlook.com>",
-	"bugs": "https://github.com/cedx/webstorage.js/issues",
+	"bugs": "https://github.com/CedX/WebStorage.js/issues",
 	"description": "Service for interacting with the Web Storage.",
-	"homepage": "https://github.com/cedx/webstorage.js",
+	"homepage": "https://github.com/CedX/WebStorage.js",
 	"license": "MIT",
 	"name": "@cedx/webstorage",
-	"repository": "cedx/webstorage.js",
+	"repository": "CedX/WebStorage.js",
 	"type": "module",
 	"version": "8.0.0",
 	"devDependencies": {
